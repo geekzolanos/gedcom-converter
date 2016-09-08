@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GedcomViewer - Minified version</title>
+<!-- Libraries -->
+<script type="text/javascript" src="js/lib/prototype.js"></script>
+<!-- Gedcom -->
+<script type="text/javascript" src="js/gedcom/const.js"></script>
+<script type="text/javascript" src="js/gedcom/toolbox.js"></script>
+<script type="text/javascript" src="js/gedcom/lang.js"></script>
+<script type="text/javascript" src="js/gedcom/parser.js"></script>
+<script type="text/javascript" src="js/gedcom/plugins.js"></script>
+<script type="text/javascript" src="js/gedcom/entities.js"></script>
+</head>
+<body>
+		<header>
+			<h1>Version minificada de Gedcom Viewer</h1>
+		</header>
+		<article>
+			<p>Esta es una prueba en donde se ha llevado a cabo el proceso de minificacion de la libreria GedcomViewer.</p>
+			<p>Se ha conservado unicamente lo relacionado con el proceso de 'Parsing' de los datos. Estos seran interpretados mas adelante por el GcWrapper</p>
+			<br>
+			<h3>Creditos</h3>
+			<p>Gedcom-js-viewer: https://github.com/jswale/gedcom-js-viewer</p>
+		</article>
+		<script>
+			var parser = new GedcomParser();
+
+			GedcomPlugins.checkRequired();
+			GedcomPlugins.sort();
+
+			// Nuestro documento de ejemplo.
+			parser.load("allged.ged");
+		</script>
+		<noscript>Javascript required</noscript>
+</body>
+</html>
+
