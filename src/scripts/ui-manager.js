@@ -6,7 +6,6 @@
 window.UIManager = function() {
     // Propiedades
     let nodes = {};
-    
     let pages = [
         'selector'
     ];
@@ -23,6 +22,7 @@ window.UIManager = function() {
     }
 
     let getNodes = () => {        
+        nodes.pagesContainer = document.querySelector('section[role="pages"]');
         nodes.ddContainer = document.querySelector('.dd-container');
         nodes.bgTone = document.querySelector('.bg-tone');
     }
@@ -38,10 +38,23 @@ window.UIManager = function() {
         loadAllPages();
         getNodes();
         setUIEvs();
+        this.showPage(APP_START_PAGE);
     };
 
     this.setGCFile = (path) => {
         console.log(path);
+    }
+
+    this.showPage = (id) => {
+        let activePages = nodes.pagesContainer.querySelectorAll('.page.active');
+        let target = nodes.pagesContainer('.page[role="' + id + '"]');
+        if(activePages)
+            activePages.forEach((elem) => {elem.classList.remove('active');});
+        if(target)
+            target.classList.add('active');
+        else
+            throw new ReferenceError('La pagina no existe.');
+
     }
 
     this.setBackgroundTone = (color) => {        

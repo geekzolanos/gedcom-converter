@@ -30,6 +30,11 @@
         
         .page {
             @include full-absolute;
+            display: none;
+
+            &.active {
+                display: block;
+            }
         }
     }
 
