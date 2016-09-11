@@ -1,0 +1,30 @@
+[role="selector"] {
+    .dd-container, 
+    .dd-placeholder {
+        @include center-absolute;
+    }
+
+    .dd-container {        
+        width: 80%;
+        height: 80%;
+        border: 0.5rem dashed #777;
+        border-radius: 2rem;
+        transition: transform .5s ease-out, border-color .5s ease;
+
+        &.dropping {
+            transform: translate(-50%, -50%) scale(1.05);
+            border-color: #b7b7b7;
+        }
+    }
+
+    .dd-placeholder {
+        width: 75%;
+        text-align: center;
+        z-index: -1;  
+
+        h2 {
+            margin: 1.2rem 0;
+            font-size: 2.8rem;
+        }              
+    } 
+}

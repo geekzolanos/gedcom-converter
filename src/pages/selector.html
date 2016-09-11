@@ -1,0 +1,17 @@
+<template>
+    <article class="page" role="selector">
+        <section class="dd-container" 
+                 ondrop="app.ui.utils.selectorDDHandler(event);" 
+                 ondragover="app.ui.utils.selectorDDOver(event);"
+                 ondragleave="app.ui.utils.selectorDDHandler(event);"
+                 onclick="app.ui.utils.openSelectorDialog">
+            
+        </section>
+
+        <div class="dd-placeholder">
+            <i class="fa fa-files-o fa-5x"></i>
+            <h2>No se ha especificado archivo</h2>
+            <p>Arrastre aqui el archivo que desea convertir o simplemente haga clic para indicar uno. </p>
+        </div>
+    </article>
+</template>
