@@ -7,10 +7,26 @@
     <script src="scripts/libs/prototype.js"></script>
     <script src="scripts/libs/gviewer.min.js"></script>
 
+    <link rel="stylesheet" href="style/app.css">
     <link rel="stylesheet" href="style/font-awesome.min.css">
 </head>
-<body>
-    <h1>Bienvenido</h1>
+<body role="application">
+    <header>
+        <menu>
+            <button type="button" class="btn-about"><i class="fa fa-info fa-lg"></i></button>
+        </menu>
+    </header>
+
+    <section role="pages"></section>
+
+    <footer>        
+        <div class="logo-container">
+            <img src="res/logo/uw-logo.png" alt="Upwork">
+            <img src="res/logo/gk-logo.png" alt="Geekzolanos">
+        </div>
+    </footer>
+    
+    <div class="bg-tone"></div>
 
     <script src="scripts/app-base.js"></script>
     <script src="scripts/util.js"></script>

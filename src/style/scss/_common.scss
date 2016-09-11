@@ -1,0 +1,53 @@
+// Normalizacion de estilos base
+html, body {
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+// Fuentes
+@font-face {
+    font-family:'Lato';
+    src:url('../res/fonts/Lato-Light.ttf');
+    font-weight:lighter;
+    font-style:normal
+}
+
+@font-face {
+    font-family:'Open Sans';
+    src:url('../res/fonts/OpenSans-Regular.ttf');
+    font-weight:normal;
+    font-style:normal
+}
+
+h1, h2, h3, h4 {
+    font-family: Lato;
+    font-weight: lighter;
+}
+
+p {
+    font-family: "Open Sans"
+}
+
+// Variables
+$shell-padding-common: 2rem;
+
+// Mix-Ins
+@mixin full-absolute {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+@mixin center-absolute {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
