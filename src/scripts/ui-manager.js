@@ -48,7 +48,7 @@ window.UIManager = function() {
 
     this.showPage = (id) => {
         let activePages = nodes.pagesContainer.querySelectorAll('.page.active');
-        let target = nodes.pagesContainer('.page[role="' + id + '"]');
+        let target = nodes.pagesContainer.querySelector('.page[role="' + id + '"]');
         if(activePages)
             activePages.forEach((elem) => {elem.classList.remove('active');});
         if(target)
