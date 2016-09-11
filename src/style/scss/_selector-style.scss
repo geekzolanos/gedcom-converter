@@ -1,4 +1,6 @@
-[role="selector"] {
+[role="selector"] {    
+    @include full-absolute;
+    
     .dd-container, 
     .dd-placeholder {
         @include center-absolute;

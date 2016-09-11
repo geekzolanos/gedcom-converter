@@ -29,7 +29,6 @@
         height: calc(100% - 12rem);
         
         .page {
-            @include full-absolute;
             display: none;
 
             &.active {
