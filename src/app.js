@@ -6,11 +6,12 @@ let mainWindow = null;
 
 function load() {
     mainWindow = new BrowserWindow({
-        width: 640,
-        height: 480,
+        width: 750,
+        height: 450,
         show: false
     });
     
+    mainWindow.setMenu(null);
     mainWindow.loadURL('file://' + __dirname + '/main.html');
     mainWindow.on('ready-to-show', () => {
         mainWindow.show();
