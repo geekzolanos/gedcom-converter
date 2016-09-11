@@ -173,11 +173,6 @@ GedcomParser.prototype = {
 						log.error("Parser::inject -> each", e);
 					}
 				}, this);
-
-		GedcomIHM.fillQuickValues(options);
-
-		GedcomToolbox.show();
-
 	}
 };
 
