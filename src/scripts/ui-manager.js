@@ -24,12 +24,12 @@ window.UIManager = function() {
 
     let getNodes = () => {        
         nodes.ddContainer = document.querySelector('.dd-container');
+        nodes.bgTone = document.querySelector('.bg-tone');
     }
 
     let setUIEvs = () => {
         // Aqui van los EventListeners de la app
         window.addEventListener('drop', (e) => { e.preventDefault(); }, false);
-
         window.addEventListener('dragover', (e) => { e.preventDefault(); }, false);
     }
 
@@ -42,6 +42,11 @@ window.UIManager = function() {
 
     this.setGCFile = (path) => {
         console.log(path);
+    }
+
+    this.setBackgroundTone = (color) => {        
+        color = color || 0;
+        nodes.bgTone.setAttribute('data-color', color);        
     }
 
     this.utils = {
