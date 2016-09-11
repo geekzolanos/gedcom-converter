@@ -8,7 +8,8 @@ window.UIManager = function() {
     let nodes = {};
     let pages = [
         'selector',
-        'destination'
+        'destination',
+        'preferences'
     ];
 
     // Metodos Privados
