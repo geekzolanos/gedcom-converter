@@ -1,77 +1,82 @@
 .page[role="destination"] {
-    @include center-absolute;
-    background: #f7f7f7;
-    width: 80%;
-    height: 80%;
-    box-shadow: 0 0 1rem #777;
+    // Colocamos la pagina raiz como full-absolute para no tener problemas con las animaciones
+    @include full-absolute;
 
-    header {
-        width: 100%;
-        margin: 2rem;
+    .dest-wrapper {
+        @include center-absolute;        
+        background: #f7f7f7;
+        width: 80%;
+        height: 80%;
+        box-shadow: 0 0 1rem #777;
 
-        h1, p { margin: unset; }
-        h1 { font-size: 2.4rem; }
-    }
+        header {
+            width: 100%;
+            margin: 2rem;
 
-    section.dest-container {
-        @include center-absolute;
-        width: 95%;
-        cursor: pointer;
+            h1, p { margin: unset; }
+            h1 { font-size: 2.4rem; }
+        }
 
-        .details {
-            z-index: -1;
-            padding: 2rem;
-            text-align: center;
+        section.dest-container {
+            @include center-absolute;
+            width: 95%;
+            cursor: pointer;
 
-            h2, p { margin: unset; }
-            h2 {
-                font-size: 1.8rem;
-                font-weight: bolder;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
+            .details {
+                z-index: -1;
+                padding: 2rem;
+                text-align: center;
+
+                h2, p { margin: unset; }
+                h2 {
+                    font-size: 1.8rem;
+                    font-weight: bolder;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
             }
         }
-    }
 
-    footer {
-        position: absolute;
-        bottom: 2rem;
-        left: 0;
-        right: 0;
-        text-align: center;
+        footer {
+            position: absolute;
+            bottom: 2rem;
+            left: 0;
+            right: 0;
+            text-align: center;
 
-        button {
-            display: inline-block;
-            border: none;
-            background: transparent;
-            transition: background-color .25s ease;
-            border-radius: 0.2rem;
-            color: #fff;
-            margin: 0 1rem;
-            padding: 1rem;
+            button {
+                display: inline-block;
+                border: none;
+                background: transparent;
+                transition: background-color .25s ease;
+                border-radius: 0.2rem;
+                color: #fff;
+                margin: 0 1rem;
+                padding: 1rem;
 
-            &.accept {
-                background-color: #33c;
-                &:active {
-                    background-color: #337;
+                &.accept {
+                    background-color: #33c;
+                    &:active {
+                        background-color: #337;
+                    }
+
+                    &:hover {
+                        background-color: #33f;
+                    }
                 }
 
-                &:hover {
-                    background-color: #33f;
-                }
-            }
+                &.cancel {
+                    background-color: #c33;
+                    &:active {
+                        background-color: #733;
+                    }
 
-            &.cancel {
-                background-color: #c33;
-                &:active {
-                    background-color: #733;
-                }
-
-                &:hover {
-                    background-color: #f33;
-                }
-            }            
+                    &:hover {
+                        background-color: #f33;
+                    }
+                }   
+            }    
         }
     }
 }
