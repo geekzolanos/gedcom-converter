@@ -27,6 +27,7 @@ window.UIManager = function() {
 
     let getNodes = () => {
         // Shell
+        nodes.btnAbout = document.querySelector('header .btn-about');
         nodes.pagesContainer = document.querySelector('section[role="pages"]');
         nodes.bgTone = document.querySelector('.bg-tone');
 
@@ -49,6 +50,7 @@ window.UIManager = function() {
         // Shell
         window.addEventListener('drop', (e) => { e.preventDefault(); }, false);
         window.addEventListener('dragover', (e) => { e.preventDefault(); }, false);
+        nodes.btnAbout.addEventListener('click', evt_shellBtnAboutClick);
 
         // Selector
         nodes.ddContainer.addEventListener('click', evt_ddContainerClick);
@@ -68,6 +70,9 @@ window.UIManager = function() {
     }
 
     // Event Handlers
+    // Shell
+    let evt_shellBtnAboutClick = (e) => { _self.utils.showAboutMsg(); }
+
     // Selector
     let evt_ddContainerDrop = (e) => { _self.utils.selectorDDHandler.call(_self, e); }
     let evt_ddContainerDOver = (e) => { _self.utils.selectorDDOver.call(_self, e); }
@@ -154,6 +159,17 @@ window.UIManager = function() {
 
     // Utilerias
     this.utils = {
+        // Shell
+        showAboutMsg: () => {
+            electron.dialog.showMessageBox({
+                type: "info",
+                buttons: [],
+                title: "Acerca de...",
+                message: "Gedcom Converter",
+                detail: "Version 1.0\nDesarrollado por Geekzolanos para Upwork.\nPara mas informacion contactenos enviando un correo a\n\ngeekzolanos@gmail.com"
+            });
+        },
+
         // Selector
         openSelectorDialog: (e) => {
             // No debemos permitir la apertura de mas de un cuadro de dialogo.
