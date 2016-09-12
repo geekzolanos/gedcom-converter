@@ -11,5 +11,6 @@ let ErrCode = {
 
 let Tones = {
     BLUE: 0,
-    ALPHA_DARK: 1
+    ALPHA_DARK: 1,
+    ALPHA_LIGHT: 2
 }
