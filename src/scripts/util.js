@@ -10,9 +10,9 @@ let ErrCode = {
 } 
 
 let Tones = {
-    BLUE: 0,
-    ALPHA_DARK: 1,
-    ALPHA_LIGHT: 2
+    BLUE: 1,
+    ALPHA_DARK: 2,
+    ALPHA_LIGHT: 3
 }
 
 let ssURI = {
