@@ -28,25 +28,5 @@
         left: 0;
         right: 0;
         text-align: center;
-
-        button {
-            border: none;
-            background: transparent;
-            transition: background-color .25s ease;
-            border-radius: 0.2rem;
-            color: #fff;
-            padding: 1rem;
-
-            &.cancel {
-                background-color: #c33;
-                &:active {
-                    background-color: #733;
-                }
-
-                &:hover {
-                    background-color: #f33;
-                }
-            }            
-        }
     }
 }

@@ -13,40 +13,5 @@
         bottom: 0;
         left: 0;
         right: 0;
-
-        button {
-            display: inline-block;
-            border: none;
-            background: transparent;
-            transition: background-color .25s ease;
-            border-radius: 0.2rem;
-            color: #fff;
-            margin: 0 1rem;
-            padding: 1rem;
-
-            &.accept {
-                background-color: #33c;
-                margin-left: 0;
-
-                &:active {
-                    background-color: #337;
-                }
-
-                &:hover {
-                    background-color: #33f;
-                }
-            }
-
-            &.cancel {
-                background-color: #c33;
-                &:active {
-                    background-color: #733;
-                }
-
-                &:hover {
-                    background-color: #f33;
-                }
-            }            
-        }
     }
 }
