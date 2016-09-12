@@ -34,6 +34,15 @@
             &.active {
                 display: block;
             }
+
+            &.hidden {                
+                animation: anim-page-hidden .25s ease-out forwards;
+                z-index: -1;
+            }
+
+            &.visible {
+                animation: anim-page-visible .25s ease-out forwards;
+            }
         }
     }
 
@@ -65,5 +74,32 @@
         transition: background-color 1.5s ease;
 
         @import 'shell-bg-tones';            
+    }
+}
+
+// Animaciones
+@keyframes anim-page-hidden {
+    from {
+        display: block;
+        opacity: 1;
+        transform: unset;
+    }
+    to {
+        display: none;
+        opacity: 0;
+        transform: translateY(-3rem);
+    }
+}
+
+@keyframes anim-page-visible {
+    from {
+        display: none;
+        opacity: 0;
+        transform: translateY(-3rem);        
+    }
+    to {
+        display: block;
+        opacity: 1;
+        transform: unset;        
     }
 }

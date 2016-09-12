@@ -131,10 +131,18 @@ window.UIManager = function() {
     this.showPage = (id) => {
         let activePages = nodes.pagesContainer.querySelectorAll('.page.active');
         let target = nodes.pagesContainer.querySelector('.page[role="' + id + '"]');
-        if(activePages)
-            activePages.forEach((elem) => {elem.classList.remove('active');});
-        if(target)
+        if(activePages) {
+            activePages.forEach((elem) => {
+                elem.classList.remove('visible');
+                elem.classList.add('hidden');
+            });
+        }
+            
+        if(target) {
+            target.classList.remove('hidden');
             target.classList.add('active');
+            target.classList.add('visible');
+        }
         else
             throw new ReferenceError('La pagina no existe.');
     }
