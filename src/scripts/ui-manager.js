@@ -289,6 +289,7 @@ window.UIManager = function() {
             // TODO: Reemplazar esto por gotoConverting/StartConvertion.
             this.setBackgroundTone(Tones.BLUE);
             this.showPage('converting');
+            app.generator.start();
         },
 
         prefsGoBack: () => {
