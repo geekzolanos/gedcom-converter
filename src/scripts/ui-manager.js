@@ -38,6 +38,11 @@ window.UIManager = function() {
         nodes.destPathSubtitle = nodes.destContainer.querySelector('h2');
         nodes.destBtnAccept = document.querySelector('.page[role="destination"] button.accept');
         nodes.destBtnCancel = document.querySelector('.page[role="destination"] button.cancel');
+
+        // Preferences
+        nodes.prefsBtnAccept = document.querySelector('.page[role="preferences"] button.accept');
+        nodes.prefsBtnCancel = document.querySelector('.page[role="preferences"] button.cancel');
+        nodes.prefsAdSnippet = document.querySelector('.page[role="preferences"] #ad-snippet');
     }
 
     let setUIEvs = () => {
@@ -56,6 +61,10 @@ window.UIManager = function() {
         nodes.destContainer.addEventListener('click', evt_destContainerClick);
         nodes.destBtnAccept.addEventListener('click', evt_destAcceptClick);
         nodes.destBtnCancel.addEventListener('click', evt_destCancelClick);
+
+        // Preferences
+        nodes.prefsBtnAccept.addEventListener('click', evt_prefsAcceptClick);
+        nodes.prefsBtnCancel.addEventListener('click', evt_prefsCancelClick);
     }
 
     // Event Handlers
@@ -74,6 +83,10 @@ window.UIManager = function() {
         if (nodes.destContainer.hasAttribute('open-dialog-visible') === false)
             _self.utils.destOpenDialog.call(_self, e); 
     }
+
+    // Preferences
+    let evt_prefsAcceptClick = (e) => { _self.utils.prefsGoFwd.call(_self, e); }
+    let evt_prefsCancelClick = (e) => { _self.utils.prefsGoBack.call(_self, e); }
 
     // Metodos publicos
     this.initialize = () => {
@@ -177,6 +190,7 @@ window.UIManager = function() {
             if(this.setGCFile(filepath) === false)
                 electron.dialog.showErrorBox('Invalid File', 'The selected file is not a valid GEDCOM File. Please, try again.');
             else {
+                // TODO: Reemplazar esto por gotoDestination.
                 this.setBackgroundTone(Tones.ALPHA_DARK);
                 this.showPage('destination');
             }
@@ -212,14 +226,33 @@ window.UIManager = function() {
             if(this.setDestination(dirpath) === false)
                 electron.dialog.showErrorBox('Invalid File', 'The selected destination is invalid. Please, try again.');
             else {
+                // TODO: Reemplazar esto por gotoPreferences.
                 this.setBackgroundTone(Tones.ALPHA_LIGHT);
                 this.showPage('preferences');
             }
         },
 
         destGoBack: () => {
+            // TODO: Reemplazar esto por gotoSelector.
             this.setBackgroundTone(null);
             this.showPage('selector');
+        },
+
+        // Preferences
+        prefsGoFwd: () => {
+            let adSnippet = nodes.prefsAdSnippet.innerHTML;
+            if(adSnippet)
+                window.sessionStorage.setItem(ssURI.adSnippet, adSnippet);
+
+            // TODO: Reemplazar esto por gotoConverting/StartConvertion.
+            this.setBackgroundTone(Tones.BLUE);
+            this.showPage('converting');
+        },
+
+        prefsGoBack: () => {
+            // TODO: Reemplazar esto por gotoDestination.
+            this.setBackgroundTone(Tones.ALPHA_DARK);
+            this.showPage('destination');
         }
     };
 

@@ -8,6 +8,19 @@
         h1 { font-size: 2.4rem; }
     }
 
+    .prefs-container {
+        margin: 2rem 0;
+        
+        label {
+            font-size: 1.2rem;
+        }
+
+        #ad-snippet {
+            width: 100%;
+            height: 6rem;
+        }
+    }
+
     footer {
         position: absolute;
         bottom: 0;
