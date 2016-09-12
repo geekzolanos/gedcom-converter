@@ -16,5 +16,6 @@ let Tones = {
 }
 
 let ssURI = {
-    filePath: 'app://gviewer.gk.com/session/current/filepath'
+    filePath: 'app://gviewer.gk.com/session/current/filepath',
+    dirPath: 'app://gviewer.gk.com/session/current/dirpath'
 }

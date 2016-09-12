@@ -25,36 +25,54 @@ window.UIManager = function() {
         });
     }
 
-    let getNodes = () => {        
+    let getNodes = () => {
+        // Shell
         nodes.pagesContainer = document.querySelector('section[role="pages"]');
-        nodes.ddContainer = document.querySelector('.dd-container');
         nodes.bgTone = document.querySelector('.bg-tone');
+
+        // Selector
+        nodes.ddContainer = document.querySelector('.dd-container');
+
+        // Destination
+        nodes.destContainer = document.querySelector('.dest-container');
+        nodes.destPathSubtitle = nodes.destContainer.querySelector('h2');
+        nodes.destBtnAccept = document.querySelector('.page[role="destination"] button.accept');
+        nodes.destBtnCancel = document.querySelector('.page[role="destination"] button.cancel');
     }
 
     let setUIEvs = () => {
-        // Aqui van los EventListeners de la app
+        // Shell
         window.addEventListener('drop', (e) => { e.preventDefault(); }, false);
         window.addEventListener('dragover', (e) => { e.preventDefault(); }, false);
 
+        // Selector
         nodes.ddContainer.addEventListener('click', evt_ddContainerClick);
         // Utilizamos la misma mezcla de Handler/Event para Drop y DragLeave (Solo por ahorrar espacio)
         nodes.ddContainer.addEventListener('drop', evt_ddContainerDrop);
         nodes.ddContainer.addEventListener('dragleave', evt_ddContainerDrop);
         nodes.ddContainer.addEventListener('dragover', evt_ddContainerDOver);
+
+        // Destination
+        nodes.destContainer.addEventListener('click', evt_destContainerClick);
+        nodes.destBtnAccept.addEventListener('click', evt_destAcceptClick);
+        nodes.destBtnCancel.addEventListener('click', evt_destCancelClick);
     }
 
     // Event Handlers
+    // Selector
+    let evt_ddContainerDrop = (e) => { _self.utils.selectorDDHandler.call(_self, e); }
+    let evt_ddContainerDOver = (e) => { _self.utils.selectorDDOver.call(_self, e); }
     let evt_ddContainerClick = (e) => {
-        if(nodes.ddContainer.hasAttribute('open-dialog-visible') === false)
+        if (nodes.ddContainer.hasAttribute('open-dialog-visible') === false)
             _self.utils.openSelectorDialog.call(_self, e);
     }
 
-    let evt_ddContainerDrop = (e) => {
-        _self.utils.selectorDDHandler.call(_self, e);
-    }
-
-    let evt_ddContainerDOver = (e) => {
-        _self.utils.selectorDDOver.call(_self, e);
+    // Destination
+    let evt_destAcceptClick = (e) => { _self.utils.destGoFwd.call(_self, e); }
+    let evt_destCancelClick = (e) => { _self.utils.destGoBack.call(_self, e); }
+    let evt_destContainerClick = (e) => { 
+        if (nodes.destContainer.hasAttribute('open-dialog-visible') === false)
+            _self.utils.destOpenDialog.call(_self, e); 
     }
 
     // Metodos publicos
@@ -83,6 +101,20 @@ window.UIManager = function() {
         return true;
     }
 
+    this.setDestination = (dirpath) => {
+        // Por precaucion
+        if(!dirpath)
+            return false;
+
+        // filepath debe ser un String
+        if (dirpath.constructor != String)
+            return false;
+        
+        // Si todo esta en orden, procedemos a almacenar la referencia
+        window.sessionStorage.setItem(ssURI.dirPath, dirpath);
+        return true;
+    }
+
     this.showPage = (id) => {
         let activePages = nodes.pagesContainer.querySelectorAll('.page.active');
         let target = nodes.pagesContainer.querySelector('.page[role="' + id + '"]');
@@ -92,7 +124,6 @@ window.UIManager = function() {
             target.classList.add('active');
         else
             throw new ReferenceError('La pagina no existe.');
-
     }
 
     this.setBackgroundTone = (color) => {        
@@ -102,6 +133,7 @@ window.UIManager = function() {
 
     // Utilerias
     this.utils = {
+        // Selector
         openSelectorDialog: (e) => {
             // No debemos permitir la apertura de mas de un cuadro de dialogo.
             nodes.ddContainer.setAttribute('open-dialog-visible', true);
@@ -129,6 +161,7 @@ window.UIManager = function() {
             }
         },
 
+        // Sgf: SetGCFile
         selectorSgfHandler: (filepath) => {
             // No debemos permitir la apertura de mas de un cuadro de dialogo.
             nodes.ddContainer.removeAttribute('open-dialog-visible');
@@ -147,7 +180,47 @@ window.UIManager = function() {
                 this.setBackgroundTone(Tones.ALPHA_DARK);
                 this.showPage('destination');
             }
-        }            
+        },
+
+        // Destination   
+        destOpenDialog: () => {
+            // No debemos permitir la apertura de mas de un cuadro de dialogo.
+            nodes.destContainer.setAttribute('open-dialog-visible', true);
+
+            electron.dialog.showOpenDialog({
+                properties: ['openDirectory'], 
+                title: 'Select destination'
+            }, this.utils.destSetDestinationHandler);
+        },
+
+        destSetDestinationHandler: (dirpath) => {            
+            // No debemos permitir la apertura de mas de un cuadro de dialogo.
+            nodes.destContainer.removeAttribute('open-dialog-visible');
+
+            if(!dirpath)
+                return false;
+            else if (Array.isArray(dirpath) === true)
+                dirpath = dirpath[0];
+
+            nodes.destContainer.dirpath = dirpath;
+            nodes.destPathSubtitle.innerHTML = dirpath;
+            nodes.destBtnAccept.disabled = false;
+        },
+
+        destGoFwd: () => {
+            let dirpath = nodes.destContainer.dirpath;
+            if(this.setDestination(dirpath) === false)
+                electron.dialog.showErrorBox('Invalid File', 'The selected destination is invalid. Please, try again.');
+            else {
+                this.setBackgroundTone(Tones.ALPHA_LIGHT);
+                this.showPage('preferences');
+            }
+        },
+
+        destGoBack: () => {
+            this.setBackgroundTone(null);
+            this.showPage('selector');
+        }
     };
 
     // Inicializamos el modulo
