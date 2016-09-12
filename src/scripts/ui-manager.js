@@ -5,6 +5,7 @@
 
 window.UIManager = function() {
     // Propiedades
+    let _self = this;
     let nodes = {};
     let pages = [
         'selector',
@@ -34,6 +35,26 @@ window.UIManager = function() {
         // Aqui van los EventListeners de la app
         window.addEventListener('drop', (e) => { e.preventDefault(); }, false);
         window.addEventListener('dragover', (e) => { e.preventDefault(); }, false);
+
+        nodes.ddContainer.addEventListener('click', evt_ddContainerClick);
+        // Utilizamos la misma mezcla de Handler/Event para Drop y DragLeave (Solo por ahorrar espacio)
+        nodes.ddContainer.addEventListener('drop', evt_ddContainerDrop);
+        nodes.ddContainer.addEventListener('dragleave', evt_ddContainerDrop);
+        nodes.ddContainer.addEventListener('dragover', evt_ddContainerDOver);
+    }
+
+    // Event Handlers
+    let evt_ddContainerClick = (e) => {
+        if(nodes.ddContainer.hasAttribute('open-dialog-visible') === false)
+            _self.utils.openSelectorDialog.call(_self, e);
+    }
+
+    let evt_ddContainerDrop = (e) => {
+        _self.utils.selectorDDHandler.call(_self, e);
+    }
+
+    let evt_ddContainerDOver = (e) => {
+        _self.utils.selectorDDOver.call(_self, e);
     }
 
     // Metodos publicos
@@ -65,9 +86,17 @@ window.UIManager = function() {
         nodes.bgTone.setAttribute('data-color', color);        
     }
 
+    // Utilerias
     this.utils = {
         openSelectorDialog: (e) => {
-        
+            // No debemos permitir la apertura de mas de un cuadro de dialogo.
+            nodes.ddContainer.setAttribute('open-dialog-visible', true);
+
+            electron.dialog.showOpenDialog({
+                properties: ['openFile'], 
+                title: 'Select a GEDCOM File', 
+                filters: [{name: 'GEDCOM Files', extensions: ['ged']}]
+            }, this.utils.selectorSgfHandler);
         },
 
         selectorDDOver: (e) => {
@@ -81,10 +110,30 @@ window.UIManager = function() {
             e.preventDefault();
             nodes.ddContainer.classList.remove('dropping');
             if((e.type == "drop") && (e.dataTransfer.files.length > 0)) {
-                let path = e.dataTransfer.files[0].path;
-                this.setGCFile(path);
+                let filepath = e.dataTransfer.files[0].path;
+                this.utils.selectorSgfHandler(filepath);
             }
-        }
+        },
+
+        selectorSgfHandler: (filepath) => {
+            // No debemos permitir la apertura de mas de un cuadro de dialogo.
+            nodes.ddContainer.removeAttribute('open-dialog-visible');
+
+            // filepath puede no estar definido
+            if(!filepath)
+                return false;
+
+            // filepath puede ser un array si proviene de un cuadro de dialogo
+            else if (Array.isArray(filepath) === true)
+                filepath = filepath[0];
+        
+            if(this.setGCFile(filepath) === false)
+                electron.dialog.showErrorBox('Invalid File', 'The selected file is not a valid GEDCOM File. Please, try again.');
+            else {
+                this.setBackgroundTone(Tones.ALPHA_DARK);
+                this.showPage('destination');
+            }
+        }            
     };
 
     // Inicializamos el modulo

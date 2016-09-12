@@ -4,6 +4,7 @@
 //
 const fs = require('fs');
 const path = require('path');
+const electron = require('electron').remote;
 const APP_START_PAGE = "selector";
 
 //
