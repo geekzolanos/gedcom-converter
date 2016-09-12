@@ -154,20 +154,23 @@ window.UIManager = function() {
     this.showPage = (id) => {
         let activePages = nodes.pagesContainer.querySelectorAll('.page.active');
         let target = nodes.pagesContainer.querySelector('.page[role="' + id + '"]');
+
         if(activePages) {
             activePages.forEach((elem) => {
                 elem.classList.remove('visible');
                 elem.classList.add('hidden');
             });
         }
-            
-        if(target) {
-            target.classList.remove('hidden');
-            target.classList.add('active');
-            target.classList.add('visible');
-        }
-        else
+        
+        if (!target)
             throw new ReferenceError('La pagina no existe.');
+        
+        target.classList.remove('hidden');
+        target.classList.add('active');
+        target.classList.add('visible');
+
+        // Modificamos el tono de fondo
+        this.setBackgroundTone(target.getAttribute('data-bg-tone'));
     }
 
     this.setBackgroundTone = (color) => {        
@@ -231,11 +234,8 @@ window.UIManager = function() {
         
             if(this.setGCFile(filepath) === false)
                 electron.dialog.showErrorBox('Invalid File', 'The selected file is not a valid GEDCOM File. Please, try again.');
-            else {
-                // TODO: Reemplazar esto por gotoDestination.
-                this.setBackgroundTone(Tones.ALPHA_DARK);
+            else 
                 this.showPage('destination');
-            }
         },
 
         // Destination   
@@ -267,16 +267,11 @@ window.UIManager = function() {
             let dirpath = nodes.destContainer.dirpath;
             if(this.setDestination(dirpath) === false)
                 electron.dialog.showErrorBox('Invalid File', 'The selected destination is invalid. Please, try again.');
-            else {
-                // TODO: Reemplazar esto por gotoPreferences.
-                this.setBackgroundTone(Tones.ALPHA_LIGHT);
+            else 
                 this.showPage('preferences');
-            }
         },
 
         destGoBack: () => {
-            // TODO: Reemplazar esto por gotoSelector.
-            this.setBackgroundTone(null);
             this.showPage('selector');
         },
 
@@ -286,15 +281,13 @@ window.UIManager = function() {
             if(adSnippet)
                 window.sessionStorage.setItem(ssURI.adSnippet, adSnippet);
 
-            // TODO: Reemplazar esto por gotoConverting/StartConvertion.
-            this.setBackgroundTone(Tones.BLUE);
             this.showPage('converting');
-            app.generator.start();
+            // Damos tiempo a la aplicacion para finalizar la transicion entre paginas
+            // TODO: Migrar el generador a un Worker para otorgar multiprocesamiento.
+            setTimeout(app.generator.start, 1000);
         },
 
         prefsGoBack: () => {
-            // TODO: Reemplazar esto por gotoDestination.
-            this.setBackgroundTone(Tones.ALPHA_DARK);
             this.showPage('destination');
         },
 
