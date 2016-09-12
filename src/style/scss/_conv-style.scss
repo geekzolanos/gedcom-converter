@@ -1,0 +1,52 @@
+.page[role="converting"] {
+    @include full-absolute;
+
+    section.progress {
+        @include center-absolute;
+        width: 60%;
+        text-align: center;
+
+        img {
+            width: 6.4rem;
+            height: 6.4rem;
+        }
+
+        h1, h2, p { margin: unset; }
+        h1 { font-size: 2.4rem; }
+        h2 { font-size: 1.4rem; }
+
+        progress {
+            margin-top: 1.8rem;
+            width: 100%;
+            height: 1rem;
+        }        
+    }
+
+    footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+
+        button {
+            border: none;
+            background: transparent;
+            transition: background-color .25s ease;
+            border-radius: 0.2rem;
+            color: #fff;
+            padding: 1rem;
+
+            &.cancel {
+                background-color: #c33;
+                &:active {
+                    background-color: #733;
+                }
+
+                &:hover {
+                    background-color: #f33;
+                }
+            }            
+        }
+    }
+}

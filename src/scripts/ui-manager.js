@@ -9,7 +9,8 @@ window.UIManager = function() {
     let pages = [
         'selector',
         'destination',
-        'preferences'
+        'preferences',
+        'converting'
     ];
 
     // Metodos Privados
