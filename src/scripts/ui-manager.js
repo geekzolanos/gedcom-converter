@@ -44,6 +44,12 @@ window.UIManager = function() {
         nodes.prefsBtnAccept = document.querySelector('.page[role="preferences"] button.accept');
         nodes.prefsBtnCancel = document.querySelector('.page[role="preferences"] button.cancel');
         nodes.prefsAdSnippet = document.querySelector('.page[role="preferences"] #ad-snippet');
+
+        // Converting
+        nodes.convBtnCancel = document.querySelector('.page[role="converting"] button.cancel');
+        nodes.convProgressBar = document.querySelector('.page[role="converting"] progress');
+        nodes.convCurrentNode = document.querySelector('.page[role="converting"] span.current');
+        nodes.convTotalNodes = document.querySelector('.page[role="converting"] span.total');
     }
 
     let setUIEvs = () => {
@@ -67,6 +73,9 @@ window.UIManager = function() {
         // Preferences
         nodes.prefsBtnAccept.addEventListener('click', evt_prefsAcceptClick);
         nodes.prefsBtnCancel.addEventListener('click', evt_prefsCancelClick);
+
+        // Converting
+        nodes.convBtnCancel.addEventListener('click', evt_convCancelClick);
     }
 
     // Event Handlers
@@ -92,6 +101,9 @@ window.UIManager = function() {
     // Preferences
     let evt_prefsAcceptClick = (e) => { _self.utils.prefsGoFwd.call(_self, e); }
     let evt_prefsCancelClick = (e) => { _self.utils.prefsGoBack.call(_self, e); }
+
+    // Converting
+    let evt_convCancelClick = (e) => { _self.utils.convCancel.call(_self, e); }
 
     // Metodos publicos
     this.initialize = () => {
@@ -277,6 +289,46 @@ window.UIManager = function() {
             // TODO: Reemplazar esto por gotoDestination.
             this.setBackgroundTone(Tones.ALPHA_DARK);
             this.showPage('destination');
+        },
+
+        // Converting
+        convCancel: () => {
+            electron.dialog.showMessageBox({
+                type: "question",
+                buttons: ['Yes', 'No'],
+                title: 'Gedcom Converter',
+                message: 'Confirme, ¿Desea cancelar el proceso de conversion?'
+            }, (e) => { if(e == 0) document.location.reload(); });
+        },
+
+        convUpdateProgress: () => {
+            let current = parseInt(window.sessionStorage.getItem(ssURI.currentNode));
+            let total = parseInt(window.sessionStorage.getItem(ssURI.totalNodes));
+            let progressVal = (current * 100) / total;
+
+            nodes.convCurrentNode.innerHTML = current;
+            nodes.convTotalNodes.innerHTML = total;
+            nodes.convProgressBar.value = progressVal;
+
+            if (current > total) {
+                electron.dialog.showMessageBox({
+                    type: 'info',
+                    buttons: [],
+                    title: 'Gedcom Converter',
+                    message: 'Proceso Finalizado',
+                    detail: 'El proceso de conversion ha finalizado satisfactoriamente.\nRuta de salida: ' + window.sessionStorage.getItem(ssURI.dirPath)                    
+                }, () => { document.location.reload(); });
+            }
+        },
+
+        convThrowFatalError: () => {
+            electron.dialog.showMessageBox({
+                type: 'error',
+                buttons: [],
+                title: 'Gedcom Converter',
+                message: 'Error Fatal',
+                detail: 'Ha ocurrido un error irrecuperable mientras durante la conversion del archivo, el proceso no puede continuar.'
+            }, () => { document.location.reload(); });
         }
     };
 
