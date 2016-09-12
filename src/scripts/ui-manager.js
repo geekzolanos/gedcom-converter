@@ -309,8 +309,8 @@ window.UIManager = function() {
         },
 
         convUpdateProgress: () => {
-            let current = parseInt(window.sessionStorage.getItem(ssURI.currentNode));
-            let total = parseInt(window.sessionStorage.getItem(ssURI.totalNodes));
+            let current = parseInt(window.sessionStorage.getItem(ssURI.currentNode)) + 1;
+            let total = parseInt(window.sessionStorage.getItem(ssURI.totalNodes)) + 1;
             let progressVal = (current * 100) / total;
 
             nodes.convCurrentNode.innerHTML = current;
