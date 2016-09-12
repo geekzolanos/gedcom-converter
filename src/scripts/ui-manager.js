@@ -65,8 +65,22 @@ window.UIManager = function() {
         this.showPage(APP_START_PAGE);
     };
 
-    this.setGCFile = (path) => {
-        console.log(path);
+    this.setGCFile = (filepath) => {
+        // Por precaucion
+        if(!filepath)
+            return false;
+
+        // filepath debe ser un String
+        if (filepath.constructor != String)
+            return false;
+
+        // filepath debe indicar la ruta a un archivo de extension GED
+        else if (path.extname(filepath) != '.ged')
+            return false;
+        
+        // Si todo esta en orden, procedemos a almacenar la referencia
+        window.sessionStorage.setItem(ssURI.filePath, filepath);
+        return true;
     }
 
     this.showPage = (id) => {

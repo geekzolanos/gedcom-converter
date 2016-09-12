@@ -14,3 +14,7 @@ let Tones = {
     ALPHA_DARK: 1,
     ALPHA_LIGHT: 2
 }
+
+let ssURI = {
+    filePath: 'app://gviewer.gk.com/session/current/filepath'
+}
