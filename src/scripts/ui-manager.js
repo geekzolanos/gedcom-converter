@@ -107,9 +107,15 @@ window.UIManager = function() {
 
     // Metodos publicos
     this.initialize = () => {
+        // Limpiamos la sessionStorage (Por precaucion)
+        window.sessionStorage.clear();
+        // Cargamos las paginas
         loadAllPages();
+        // Establecemos los nodos
         getNodes();
+        // Configuramos la UI
         setUIEvs();
+        // Mostramos la pagina principal
         this.showPage(APP_START_PAGE);
     };
 
