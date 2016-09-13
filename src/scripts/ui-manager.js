@@ -277,7 +277,7 @@ window.UIManager = function() {
 
         // Preferences
         prefsGoFwd: () => {
-            let adSnippet = nodes.prefsAdSnippet.innerHTML;
+            let adSnippet = nodes.prefsAdSnippet.value;
             if(adSnippet)
                 window.sessionStorage.setItem(ssURI.adSnippet, adSnippet);
 
