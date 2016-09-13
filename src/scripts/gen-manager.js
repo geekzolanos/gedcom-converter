@@ -9,20 +9,7 @@ window.GenManager = function() {
     let parsedData = {};
     let parsedKeys = [];
 
-    // Propiedades Privadas    
-    let HTMLHeadEnd = '</head>';
-    let HTMLBodyStart = '<body>';
-    let HTMLHeadStart = [
-        '<html>',
-        '<head>'
-    ].join('');
-    let HTMLBodyEnd = [
-        '</body>',
-        '</html>'
-    ].join('');
-
     // Metodos privados
-
     let generateNext = () => {
         let idxNode = parseInt(window.sessionStorage.getItem(ssURI.currentNode));       
         let dirpath = window.sessionStorage.getItem(ssURI.dirPath);
