@@ -323,8 +323,6 @@ window.UIManager = function() {
                 message: 'Proceso Finalizado',
                 detail: 'El proceso de conversion ha finalizado satisfactoriamente.\nRuta de salida: ' + window.sessionStorage.getItem(ssURI.dirPath)                    
             }, () => { document.location.reload(); });
-            
-            return true;
         },
 
         convThrowFatalError: () => {
