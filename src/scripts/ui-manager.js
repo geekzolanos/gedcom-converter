@@ -282,9 +282,7 @@ window.UIManager = function() {
                 window.sessionStorage.setItem(ssURI.adSnippet, adSnippet);
 
             this.showPage('converting');
-            // Damos tiempo a la aplicacion para finalizar la transicion entre paginas
-            // TODO: Migrar el generador a un Worker para otorgar multiprocesamiento.
-            setTimeout(app.generator.start, 1000);
+            this.utils.convStartProcess();
         },
 
         prefsGoBack: () => {
@@ -292,6 +290,13 @@ window.UIManager = function() {
         },
 
         // Converting
+        convStartProcess: () => {
+            // Damos tiempo a la aplicacion para finalizar la transicion entre paginas
+            // TODO: Migrar el generador a un Worker para otorgar multiprocesamiento.
+            window.addEventListener('error', this.utils.convThrowFatalError);
+            setTimeout(app.generator.start, 1000);
+        },
+
         convCancel: () => {
             electron.dialog.showMessageBox({
                 type: "question",
