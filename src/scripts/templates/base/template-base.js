@@ -284,7 +284,5 @@
         return HTMLTree.join('');
     }
 
-   let generateHTMLAsSource = (node) => {}
-
-    Templates.register(new Template('Base', generateHTMLAsHome, generateHTMLAsPerson, generateHTMLAsFamily, generateHTMLAsSource));
+    Templates.register(new Template('Base', generateHTMLAsHome, generateHTMLAsPerson, generateHTMLAsFamily));
 })();
