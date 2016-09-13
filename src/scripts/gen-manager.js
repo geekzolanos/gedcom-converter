@@ -35,6 +35,10 @@ window.GenManager = function() {
         console.log('Procesando Nodo');
         console.log(node);
 
+        // Es posible que algunos nodos sean indefinidos (Por error del formato) Asi que los ignoramos.
+        if(!node)
+            return false;
+
         switch(node.type) {
             case GedcomConst.indicator.personne:
                 console.log('Es una Persona!');
