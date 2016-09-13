@@ -293,6 +293,7 @@ window.UIManager = function() {
         convStartProcess: () => {
             // Damos tiempo a la aplicacion para finalizar la transicion entre paginas
             // TODO: Migrar el generador a un Worker para otorgar multiprocesamiento.
+            window.addEventListener('unhandledrejection', this.utils.convThrowFatalError);
             window.addEventListener('error', this.utils.convThrowFatalError);
             setTimeout(app.generator.start, 1000);
         },
