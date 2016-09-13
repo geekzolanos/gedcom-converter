@@ -6,19 +6,28 @@
 window.GenManager = function() {
     // Propiedades privadas
     let currentTemplate = Templates.get('Base');
+    let idxCurrentNode = -1;
     let parsedData = {};
     let parsedKeys = [];
 
     // Metodos privados
     let generateNext = () => {
-        let idxNode = parseInt(window.sessionStorage.getItem(ssURI.currentNode));       
+        // Desplazamos el indice
+        idxCurrentNode++;
+
         let dirpath = window.sessionStorage.getItem(ssURI.dirPath);
-        console.log('Nodo Actual: ' + idxNode);
-        let content = this.generateContent(parsedData[parsedKeys[idxNode]]);
-        // Escribimos los datos
-        fs.writeFile(dirpath + '/' + parsedKeys[idxNode] + '.html', content, generateNext);
-        window.sessionStorage.setItem(ssURI.currentNode, idxNode + 1);
+        let currentKey = parsedKeys[idxCurrentNode];
+        let currentNode = parsedData[currentKey];
+        console.log('Nodo Actual: ' + idxCurrentNode);
+
+        // Actualizamos el progreso
         app.ui.utils.convUpdateProgress();
+
+        // Generamos el contenido
+        let content = this.generateContent(currentNode);
+
+        // Escribimos los datos
+        fs.writeFile(dirpath + '/' + currentKey + '.html', content, generateNext);
     }
 
     // Metodos Publicos
@@ -51,10 +60,7 @@ window.GenManager = function() {
         console.log(parsedKeys);
         
         window.sessionStorage.setItem(ssURI.totalNodes, parsedKeys.length + 1);
-        window.sessionStorage.setItem(ssURI.currentNode, 0);
-        app.ui.utils.convUpdateProgress();
-
-        generateNext();        
+        generateNext();
     }
 
     this.start = () => {
