@@ -317,6 +317,12 @@ window.UIManager = function() {
         },
 
         convShowSuccessMsg: () => {
+            let dirpath = window.sessionStorage.getItem(ssURI.dirPath);
+            
+            // Mostramos la carpeta de salida
+            process.exec('explorer.exe ' + dirpath);
+
+            // Mostramos el mensaje de exito
             electron.dialog.showMessageBox({
                 type: 'info',
                 buttons: [],
