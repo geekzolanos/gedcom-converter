@@ -319,6 +319,9 @@ window.UIManager = function() {
         convShowSuccessMsg: () => {
             let dirpath = window.sessionStorage.getItem(ssURI.dirPath);
             
+            // Bloqueamos el boton Cancelar de la pagina
+            nodes.convBtnCancel.disabled = true;
+
             // Mostramos la carpeta de salida
             process.exec('explorer.exe ' + dirpath);
 
@@ -333,6 +336,9 @@ window.UIManager = function() {
         },
 
         convThrowFatalError: () => {
+            // Bloqueamos el boton Cancelar de la pagina
+            nodes.convBtnCancel.disabled = true;
+            
             electron.dialog.showMessageBox({
                 type: 'error',
                 buttons: [],
