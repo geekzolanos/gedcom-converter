@@ -3,10 +3,11 @@
 //  Un (Extremadamente) Simple administrador de plantillas
 //
 
-window.Template = function(name, gPerson, gFamily) {
+window.Template = function(name, gPerson, gFamily, gSource) {
     this.name = name;
     this.generatePerson = gPerson;
     this.generateFamily = gFamily;
+    this.generateSource = gSource;
 }
 
 // TODO: Llevar esto al esquema de Getter y Setters

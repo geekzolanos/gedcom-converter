@@ -147,5 +147,5 @@
         
     }
 
-    Templates.register(new Template('Base', generateHTMLAsPerson, generateHTMLAsFamily));
+    Templates.register(new Template('Base', generateHTMLAsPerson, generateHTMLAsFamily, generateHTMLAsSource));
 })();
