@@ -3,8 +3,9 @@
 //  Un (Extremadamente) Simple administrador de plantillas
 //
 
-window.Template = function(name, gPerson, gFamily, gSource) {
+window.Template = function(name, gHome, gPerson, gFamily, gSource) {
     this.name = name;
+    this.generateHome = gHome;
     this.generatePerson = gPerson;
     this.generateFamily = gFamily;
     this.generateSource = gSource;

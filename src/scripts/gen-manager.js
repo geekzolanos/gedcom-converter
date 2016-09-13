@@ -9,17 +9,22 @@ window.GenManager = function() {
     let idxCurrentNode = -1;
     let parsedData = {};
     let parsedKeys = [];
+    let directoryData = {persons: [], families: []};
 
     // Metodos privados
     let generateNext = () => {
+        let dirpath = window.sessionStorage.getItem(ssURI.dirPath);
+
         // Desplazamos el indice
         idxCurrentNode++;
 
-        // Si el indice alcanzo el limite, mostramos mensaje de exito.
-        if(idxCurrentNode > parsedKeys.length - 1)
-            return app.ui.utils.convShowSuccessMsg();
-
-        let dirpath = window.sessionStorage.getItem(ssURI.dirPath);
+        // Si el indice alcanzo el limite, generamos a Home y mostramos mensaje de exito.
+        if(idxCurrentNode > parsedKeys.length - 1) {
+            let content = currentTemplate.generateHome(directoryData);            
+            fs.writeFile(dirpath + '/home.html', content, app.ui.utils.convShowSuccessMsg);
+            return false;
+        }
+        
         let currentKey = parsedKeys[idxCurrentNode];
         let currentNode = parsedData[currentKey];
         console.log('Nodo Actual: ' + idxCurrentNode);
@@ -46,10 +51,12 @@ window.GenManager = function() {
         switch(node.type) {
             case GedcomConst.indicator.personne:
                 console.log('Es una Persona!');
+                directoryData.persons.push({id: node.id, value: node.plugin.name.join('')});
                 return currentTemplate.generatePerson(node);
 
             case GedcomConst.indicator.famille:
                 console.log('Es una Familia!');
+                directoryData.families.push({id: node.id, value: (node.husb) ? node.husb.plugin.name[node.husb.plugin.name.length - 1] : "Unknown Family name"});
                 return currentTemplate.generateFamily(node);
 
             case GedcomConst.indicator.source:
