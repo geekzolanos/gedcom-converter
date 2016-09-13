@@ -27,7 +27,9 @@ window.GenManager = function() {
         
         let currentKey = parsedKeys[idxCurrentNode];
         let currentNode = parsedData[currentKey];
-        console.log('Nodo Actual: ' + idxCurrentNode);
+        if(DEBUG) {
+            console.log('Nodo Actual: ' + idxCurrentNode);
+        }
 
         // Actualizamos el progreso
         app.ui.utils.convUpdateProgress(idxCurrentNode);
@@ -41,8 +43,10 @@ window.GenManager = function() {
 
     // Metodos Publicos
     this.generateContent = (node) => {
-        console.log('Procesando Nodo');
-        console.log(node);
+        if(DEBUG) {
+            console.log('Procesando Nodo');
+            console.log(node);
+        }
 
         // Es posible que algunos nodos sean indefinidos (Por error del formato) Asi que los ignoramos.
         if(!node)
@@ -50,17 +54,20 @@ window.GenManager = function() {
 
         switch(node.type) {
             case GedcomConst.indicator.personne:
-                console.log('Es una Persona!');
+                if(DEBUG)
+                    console.log('Es una Persona!');
                 directoryData.persons.push({id: node.id, value: node.plugin.name.join('')});
                 return currentTemplate.generatePerson(node);
 
             case GedcomConst.indicator.famille:
-                console.log('Es una Familia!');
+                if(DEBUG)
+                    console.log('Es una Familia!');
                 directoryData.families.push({id: node.id, value: (node.husb) ? node.husb.plugin.name[node.husb.plugin.name.length - 1] : "Unknown Family name"});
                 return currentTemplate.generateFamily(node);
 
             /*case GedcomConst.indicator.source:
-                console.log('Es una Fuente!');
+                if(DEBUG)
+                    console.log('Es una Fuente!');
                 return currentTemplate.generateSource(node);*/
         }
     }
@@ -68,11 +75,13 @@ window.GenManager = function() {
     this.setup = (data) => {
         parsedData = data._object;
         parsedKeys = Object.keys(parsedData);        
-
-        console.log('Raiz del objeto parseado')
-        console.log(parsedData);
-        console.log('Claves del objeto parseado');
-        console.log(parsedKeys);
+        
+        if(DEBUG) {
+            console.log('Raiz del objeto parseado')
+            console.log(parsedData);
+            console.log('Claves del objeto parseado');
+            console.log(parsedKeys);
+        }
         
         window.sessionStorage.setItem(ssURI.totalNodes, parsedKeys.length);
         generateNext();
