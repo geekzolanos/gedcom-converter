@@ -163,7 +163,7 @@ window.UIManager = function() {
         }
         
         if (!target)
-            throw new ReferenceError('La pagina no existe.');
+            throw new ReferenceError('The page doesnt exists.');
         
         target.classList.remove('hidden');
         target.classList.add('active');
@@ -185,9 +185,9 @@ window.UIManager = function() {
             electron.dialog.showMessageBox({
                 type: "info",
                 buttons: [],
-                title: "Acerca de...",
+                title: "About...",
                 message: "Gedcom Converter",
-                detail: "Version 1.0\nDesarrollado por Geekzolanos para Upwork.\nPara mas informacion contactenos enviando un correo a\n\ngeekzolanos@gmail.com"
+                detail: "Version 1.0\nDeveloper by Geekzolanos for Upwork.\nFor more information, please contact us sending a e-mail to\n\ngeekzolanos@gmail.com"
             });
         },
 
@@ -303,7 +303,7 @@ window.UIManager = function() {
                 type: "question",
                 buttons: ['Yes', 'No'],
                 title: 'Gedcom Converter',
-                message: 'Confirme, ¿Desea cancelar el proceso de conversion?'
+                message: 'Confirm. Do you want to cancel the current process?'
             }, (e) => { if(e == 0) document.location.reload(); });
         },
 
@@ -316,13 +316,13 @@ window.UIManager = function() {
             nodes.convProgressBar.value = progressVal;
         },
 
-        convShowSuccessMsg: () => {            
+        convShowSuccessMsg: () => {
             electron.dialog.showMessageBox({
                 type: 'info',
                 buttons: [],
                 title: 'Gedcom Converter',
-                message: 'Proceso Finalizado',
-                detail: 'El proceso de conversion ha finalizado satisfactoriamente.\nRuta de salida: ' + window.sessionStorage.getItem(ssURI.dirPath)                    
+                message: 'Process Done',
+                detail: 'The convertion process has been done successfully. Out path:\n' + dirpath                    
             }, () => { document.location.reload(); });
         },
 
@@ -331,8 +331,8 @@ window.UIManager = function() {
                 type: 'error',
                 buttons: [],
                 title: 'Gedcom Converter',
-                message: 'Error Fatal',
-                detail: 'Ha ocurrido un error irrecuperable mientras durante la conversion del archivo, el proceso no puede continuar.'
+                message: 'Fatal Error',
+                detail: 'An unrecoverable while during file conversion error occurred, the process can not continue.'
             }, () => { document.location.reload(); });
         }
     };
