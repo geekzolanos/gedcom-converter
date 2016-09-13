@@ -8,6 +8,7 @@ function load() {
     mainWindow = new BrowserWindow({
         width: 750,
         height: 450,
+        resizable: false,
         show: false
     });
     
