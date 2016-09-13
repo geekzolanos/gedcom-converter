@@ -27,7 +27,7 @@ window.GenManager = function() {
         let idxNode = parseInt(window.sessionStorage.getItem(ssURI.currentNode));       
         let dirpath = window.sessionStorage.getItem(ssURI.dirPath);
         console.log('Nodo Actual: ' + idxNode);
-        let content = this.generateHTML(parsedData[parsedKeys[idxNode]]);
+        let content = this.generateContent(parsedData[parsedKeys[idxNode]]);
         // Escribimos los datos
         fs.writeFile(dirpath + '/' + parsedKeys[idxNode] + '.html', content, generateNext);
         window.sessionStorage.setItem(ssURI.currentNode, idxNode + 1);
@@ -35,7 +35,7 @@ window.GenManager = function() {
     }
 
     // Metodos Publicos
-    this.generateHTML = (node) => {
+    this.generateContent = (node) => {
         console.log('Procesando Nodo');
         console.log(node);
 
