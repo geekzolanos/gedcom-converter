@@ -59,9 +59,9 @@ window.GenManager = function() {
                 directoryData.families.push({id: node.id, value: (node.husb) ? node.husb.plugin.name[node.husb.plugin.name.length - 1] : "Unknown Family name"});
                 return currentTemplate.generateFamily(node);
 
-            case GedcomConst.indicator.source:
+            /*case GedcomConst.indicator.source:
                 console.log('Es una Fuente!');
-                return currentTemplate.generateSource(node);
+                return currentTemplate.generateSource(node);*/
         }
     }
 
