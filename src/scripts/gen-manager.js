@@ -21,7 +21,7 @@ window.GenManager = function() {
         // Si el indice alcanzo el limite, generamos a Home y mostramos mensaje de exito.
         if(idxCurrentNode > parsedKeys.length - 1) {
             let content = currentTemplate.generateHome(directoryData);            
-            fs.writeFile(dirpath + '/home.html', content, app.ui.utils.convShowSuccessMsg);
+            fs.writeFile(dirpath + '/index.html', content, app.ui.utils.convShowSuccessMsg);
             return false;
         }
         
