@@ -11,7 +11,6 @@ window.Template = function(name, gHome, gPerson, gFamily, gSource) {
     this.generateSource = gSource;
 }
 
-// TODO: Llevar esto al esquema de Getter y Setters
 window.Templates = {
     catalog: {},
 
