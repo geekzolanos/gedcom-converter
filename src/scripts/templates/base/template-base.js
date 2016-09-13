@@ -197,10 +197,12 @@
 
                 // Hijos
                 if (famille.childs) {
+                    if (famille.childs.length > 0) {
                         HTMLTree.push("<h4>Childrens</h4>");
                         famille.childs.forEach((child) => {
                             HTMLTree.push('<a href="' + child.id + '.html"><p>' + child.plugin.name.join('') + '</p></a>');
                         });
+                    }
                 }
 
                 HTMLTree.push('<br>');            
