@@ -4,6 +4,10 @@
 //
 
 window.GenManager = function() {
+    // Propiedades privadas
+    let parsedData = {};
+    let parsedKeys = [];
+
     // Propiedades Privadas    
     let HTMLHeadEnd = '</head>';
     let HTMLBodyStart = '<body>';
@@ -21,7 +25,7 @@ window.GenManager = function() {
     let generateNext = () => {
         let idxNode = parseInt(window.sessionStorage.getItem(ssURI.currentNode));
         console.log('Nodo Actual: ' + idxNode);
-        this.generateHTML(this.parsedData[this.parsedKeys[idxNode]]);
+        this.generateHTML(parsedData[parsedKeys[idxNode]]);
         window.sessionStorage.setItem(ssURI.currentNode, idxNode + 1);
         app.ui.utils.convUpdateProgress();
     }
@@ -168,10 +172,6 @@ window.GenManager = function() {
         
     }
 
-    // Propiedades Publicas
-    this.parsedData = {};
-    this.parsedKeys = [];
-
     // Metodos Publicos
     this.generateHTML = (node) => {
         console.log('Procesando Nodo');
@@ -196,15 +196,15 @@ window.GenManager = function() {
     }
 
     this.setup = (data) => {
-        this.parsedData = data._object;
-        this.parsedKeys = Object.keys(this.parsedData);
+        parsedData = data._object;
+        parsedKeys = Object.keys(parsedData);        
 
         console.log('Raiz del objeto parseado')
-        console.log(this.parsedData);
+        console.log(parsedData);
         console.log('Claves del objeto parseado');
-        console.log(this.parsedKeys);
+        console.log(parsedKeys);
         
-        window.sessionStorage.setItem(ssURI.totalNodes, this.parsedKeys.length + 1);
+        window.sessionStorage.setItem(ssURI.totalNodes, parsedKeys.length + 1);
         window.sessionStorage.setItem(ssURI.currentNode, 0);
         app.ui.utils.convUpdateProgress();
 
