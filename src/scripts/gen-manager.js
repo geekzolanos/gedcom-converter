@@ -15,6 +15,10 @@ window.GenManager = function() {
         // Desplazamos el indice
         idxCurrentNode++;
 
+        // Si el indice alcanzo el limite, mostramos mensaje de exito.
+        if(idxCurrentNode > parsedKeys.length - 1)
+            return app.ui.utils.convShowSuccessMsg();
+
         let dirpath = window.sessionStorage.getItem(ssURI.dirPath);
         let currentKey = parsedKeys[idxCurrentNode];
         let currentNode = parsedData[currentKey];

@@ -309,16 +309,18 @@ window.UIManager = function() {
             nodes.convCurrentNode.innerHTML = current;
             nodes.convTotalNodes.innerHTML = total;
             nodes.convProgressBar.value = progressVal;
+        },
 
-            if (current > total) {
-                electron.dialog.showMessageBox({
-                    type: 'info',
-                    buttons: [],
-                    title: 'Gedcom Converter',
-                    message: 'Proceso Finalizado',
-                    detail: 'El proceso de conversion ha finalizado satisfactoriamente.\nRuta de salida: ' + window.sessionStorage.getItem(ssURI.dirPath)                    
-                }, () => { document.location.reload(); });
-            }
+        convShowSuccessMsg: () => {            
+            electron.dialog.showMessageBox({
+                type: 'info',
+                buttons: [],
+                title: 'Gedcom Converter',
+                message: 'Proceso Finalizado',
+                detail: 'El proceso de conversion ha finalizado satisfactoriamente.\nRuta de salida: ' + window.sessionStorage.getItem(ssURI.dirPath)                    
+            }, () => { document.location.reload(); });
+            
+            return true;
         },
 
         convThrowFatalError: () => {
