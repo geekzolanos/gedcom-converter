@@ -17,6 +17,9 @@ function load() {
     mainWindow.on('ready-to-show', () => {
         mainWindow.show();
     });
+    mainWindow.on('closed', () => {
+        app.quit();
+    });
 }
 
 app.on('ready', load);
