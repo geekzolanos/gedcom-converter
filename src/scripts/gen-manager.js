@@ -25,7 +25,7 @@ window.GenManager = function() {
         console.log('Nodo Actual: ' + idxCurrentNode);
 
         // Actualizamos el progreso
-        app.ui.utils.convUpdateProgress();
+        app.ui.utils.convUpdateProgress(idxCurrentNode);
 
         // Generamos el contenido
         let content = this.generateContent(currentNode);
@@ -67,7 +67,7 @@ window.GenManager = function() {
         console.log('Claves del objeto parseado');
         console.log(parsedKeys);
         
-        window.sessionStorage.setItem(ssURI.totalNodes, parsedKeys.length + 1);
+        window.sessionStorage.setItem(ssURI.totalNodes, parsedKeys.length);
         generateNext();
     }
 

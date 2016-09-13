@@ -301,12 +301,11 @@ window.UIManager = function() {
             }, (e) => { if(e == 0) document.location.reload(); });
         },
 
-        convUpdateProgress: () => {
-            let current = parseInt(window.sessionStorage.getItem(ssURI.currentNode)) + 1;
-            let total = parseInt(window.sessionStorage.getItem(ssURI.totalNodes)) + 1;
-            let progressVal = (current * 100) / total;
+        convUpdateProgress: (current) => {
+            let total = parseInt(window.sessionStorage.getItem(ssURI.totalNodes));
+            let progressVal = (current * 100) / (total - 1);
 
-            nodes.convCurrentNode.innerHTML = current;
+            nodes.convCurrentNode.innerHTML = current + 1;
             nodes.convTotalNodes.innerHTML = total;
             nodes.convProgressBar.value = progressVal;
         },
