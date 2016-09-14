@@ -181,7 +181,7 @@
 
         // Families
         if(node.plugin.familles) {
-            HTMLTree.push("<h2>Familia</h2>")
+            HTMLTree.push("<h2>Family</h2>")
             node.plugin.familles.forEach((famille) => {
                 let conyuge = (sex == "M") ? famille.wife : famille.husb;
                 if(conyuge) {
