@@ -45,9 +45,9 @@
 
         HTMLTree.push([
             '<title>Main Page</title>',
-            '<meta name="Title" content="Main Page"></meta>',
-            '<meta name="CurrentDate" content="' + currentTime + '"></meta>',
-            '<meta name="Description" content="Main Page"></meta>',
+            '<meta name="title" content="Main Page"></meta>',
+            '<meta name="currentdate" content="' + currentTime + '"></meta>',
+            '<meta name="description" content="Main Page"></meta>',
         ].join(''));
 
         HTMLTree.push(HTMLHeadEnd);
@@ -97,10 +97,10 @@
 
         HTMLTree.push([
             '<title>' + name + '</title>',
-            '<meta name="Title" content="' + name + '"></meta>',
-            '<meta name="BirthYear" content="' + birthYear + '"></meta>',
-            '<meta name="CurrentDate" content="' + currentTime + '"></meta>',
-            '<meta name="Description" content="' + name + " - " + birthPlace + '"></meta>',
+            '<meta name="title" content="' + name + '"></meta>',
+            '<meta name="birthyear" content="' + birthYear + '"></meta>',
+            '<meta name="currentdate" content="' + currentTime + '"></meta>',
+            '<meta name="description" content="' + name + " - " + birthPlace + '"></meta>',
         ].join(''));
 
         HTMLTree.push(HTMLHeadEnd);
@@ -232,9 +232,9 @@
 
         HTMLTree.push([
             '<title>' + familyName + ' Pedigree</title>',
-            '<meta name="Title" content="' + familyName + '"></meta>',
-            '<meta name="CurrentDate" content="' + currentTime + '"></meta>',
-            '<meta name="Description" content="' + familyName + '"></meta>',
+            '<meta name="title" content="' + familyName + '"></meta>',
+            '<meta name="currentdate" content="' + currentTime + '"></meta>',
+            '<meta name="description" content="' + familyName + '"></meta>',
         ].join(''));
 
         HTMLTree.push(HTMLHeadEnd);
