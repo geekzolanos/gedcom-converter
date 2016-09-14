@@ -24,7 +24,6 @@
     let HTMLHeadEnd = '</head>';
 
     let HTMLBodyEnd = [
-        '<br><br>',
         GoogleSearchWidget,        
         '<a href="index.html">Home</a>',
         '</body>',
@@ -128,7 +127,8 @@
             default:
                 HTMLTree.push('<p>Unknown</p>');
             break;
-        }
+        }        
+        HTMLTree.push('<br>');
 
         // Birth data
         HTMLTree.push([
@@ -150,17 +150,19 @@
             if(fatherNode)
                 HTMLTree.push([
                     '<h4>Father</h4>',
-                    '<a href="' + fatherNode.id + '.html">' + fatherNode.plugin.name.join('') + '</a>'
+                    '<a href="' + fatherNode.id + '.html"><p>' + fatherNode.plugin.name.join('') + '</p></a>'
                 ].join(''));
 
             if(motherNode)
                 HTMLTree.push([                    
                     '<h4>Mother</h4>',
-                    '<a href="' + motherNode.id + '.html">' + motherNode.plugin.name.join('') + '</a>'
+                    '<a href="' + motherNode.id + '.html"><p>' + motherNode.plugin.name.join('') + '</p></a>'
                 ].join(''));
 
-            HTMLTree.push('<br><hr><br>');
-        }          
+            HTMLTree.push('<br>');
+        }
+
+        HTMLTree.push('<hr><br>');
 
         // Death data
         if(node.plugin.deat) {
@@ -213,7 +215,7 @@
         if(node.plugin.familleParent) {
             let father = node.plugin.familleParent.husb;
             let familleParentName = (father) ? father.plugin.name[father.plugin.name.length - 1] : "";
-            HTMLTree.push('<a href="' + node.plugin.familleParent.id + '.html">Go to ' + familleParentName + ' Pedigree</a>');
+            HTMLTree.push('<a href="' + node.plugin.familleParent.id + '.html"><p>Go to ' + familleParentName + ' Pedigree</p></a>');
         }
 
         HTMLTree.push(HTMLBodyEnd);
