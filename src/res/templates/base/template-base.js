@@ -164,14 +164,14 @@
 
         // Death data
         if(node.plugin.deat) {
-            let deatYear = node.plugin.deat.date;
+            let deatDate = node.plugin.deat.date;
             let deatPlace = node.plugin.deat.place;
 
-            if(deatYear || deatPlace) {
+            if(deatDate || deatPlace) {
                 HTMLTree.push([
                     '<h2>Death data</h2>',
                     '<h4>Year</h4>',
-                    '<p>' + (deatYear || "Unknown") + '</p>',
+                    '<p>' + (deatDate || "Unknown") + '</p>',
                     '<h4>Location</h4>',
                     '<p>' + (deatPlace || "Unknown location") + '</p>'
                 ].join(''));
