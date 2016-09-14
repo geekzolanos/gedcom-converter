@@ -42,6 +42,57 @@ window.GenManager = function() {
     }
 
     // Metodos Publicos
+    this.cleanPersonNode = (node) => {
+        // El nombre no debe tener una barra invertida
+        let name = node.plugin.name;
+        if(Array.isArray(name) === true) {
+            name.forEach((p, i) => {
+                name[i] = p.replace(/[\/]/g, "");
+            });
+        }
+
+        // La fecha y lugar de nacimiento no puede ser "undefined"
+        if(node.plugin.birt) {
+            let birthDate = node.plugin.birt.date;
+            let birthLoc = node.plugin.birt.place;
+            node.plugin.birt.date = (birthDate == "undefined") ? undefined : birthDate;
+            node.plugin.birt.place = (birthLoc == "undefined") ? undefined : birthLoc;
+        }
+
+        // La fecha y lugar de mortalidad no puede ser "undefined"
+        if(node.plugin.deat) {
+            let deatDate = node.plugin.deat.date;
+            let deatLoc = node.plugin.deat.place;
+            node.plugin.deat.date = (deatDate == "undefined") ? undefined : deatDate;
+            node.plugin.deat.place = (deatLoc == "undefined") ? undefined : deatLoc;
+        }
+
+        // La familia debe ser un array
+        let familles = node.plugin.familles;
+        if(Array.isArray(familles) === false)
+            node.plugin.familles = undefined;
+
+        // La familia no puede ser un array vacio
+        else if(familles.length == 0)
+            node.plugin.familles = undefined;
+        
+        else {
+            familles.forEach((family, i) => {
+                // Childrens debe ser un array y no puede ser vacio
+                let childs = family.childs;
+                if (Array.isArray(childs) === false)
+                    familles[i].childs = undefined;
+                else if (childs.length == 0)
+                    familles[i].childs = undefined
+            });
+        }  
+
+        if(DEBUG) {
+            console.log('Estructura despues de la limpieza del nodo:');
+            console.log(node);
+        }      
+    }
+
     this.generateContent = (node) => {
         if(DEBUG) {
             console.log('Procesando Nodo');
@@ -56,13 +107,22 @@ window.GenManager = function() {
             case GedcomConst.indicator.personne:
                 if(DEBUG)
                     console.log('Es una Persona!');
+
+                // Limpiando datos de entrada del nodo
+                this.cleanPersonNode(node);
+
+                // Colocamos una referencia en el directorio para el indice
                 directoryData.persons.push({id: node.id, value: node.plugin.name.join('')});
+
                 return currentTemplate.generatePerson(node);
 
             case GedcomConst.indicator.famille:
                 if(DEBUG)
                     console.log('Es una Familia!');
+                
+                // Colocamos una referencia en el directorio para el indice
                 directoryData.families.push({id: node.id, value: (node.husb) ? node.husb.plugin.name[node.husb.plugin.name.length - 1] : "Unknown Family name"});
+
                 return currentTemplate.generateFamily(node);
 
             /*case GedcomConst.indicator.source:

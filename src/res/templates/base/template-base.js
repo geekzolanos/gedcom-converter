@@ -180,7 +180,7 @@
         }
 
         // Families
-        if(node.plugin.familles.length > 0) {
+        if(node.plugin.familles) {
             HTMLTree.push("<h2>Familia</h2>")
             node.plugin.familles.forEach((famille) => {
                 let conyuge = (sex == "M") ? famille.wife : famille.husb;
@@ -196,12 +196,10 @@
 
                 // Hijos
                 if (famille.childs) {
-                    if (famille.childs.length > 0) {
-                        HTMLTree.push("<h4>Childrens</h4>");
-                        famille.childs.forEach((child) => {
-                            HTMLTree.push('<a href="' + child.id + '.html"><p>' + child.plugin.name.join('') + '</p></a>');
-                        });
-                    }
+                    HTMLTree.push("<h4>Childrens</h4>");
+                    famille.childs.forEach((child) => {
+                        HTMLTree.push('<a href="' + child.id + '.html"><p>' + child.plugin.name.join('') + '</p></a>');
+                    });
                 }
 
                 HTMLTree.push('<br>');            
