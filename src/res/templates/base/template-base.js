@@ -89,8 +89,8 @@
         let adsenseSnippet = window.sessionStorage.getItem(ssURI.adSnippet);
         let currentTime = new Date().getTime();
         let name = node.plugin.name.join("");
-        let birthYear = (node.plugin.birt) ? node.plugin.birt.date : "Unknown";
-        let birthPlace = (node.plugin.birt) ? node.plugin.birt.place : "Unknown location";
+        let birthYear = (node.plugin.birt) ? node.plugin.birt.year : null;
+        let birthPlace = (node.plugin.birt) ? node.plugin.birt.place : null;
         let sex = node.plugin.sexe;
 
         HTMLTree.push(HTMLHeadStart);
@@ -107,7 +107,7 @@
         HTMLTree.push(HTMLBodyStart);
 
         // Title
-        HTMLTree.push('<h1 style="color: #00f;">' + name + ' (' + birthYear + ')' + '</h1>');
+        HTMLTree.push('<h1 style="color: #00f;">' + name + ' (' + (birthYear || "Unknown") + ')' + '</h1>');
 
         // Adsense Snippet 
         if(adsenseSnippet) {
@@ -134,9 +134,9 @@
         HTMLTree.push([
             '<h2>Birth data</h2>',
             '<h4>Year</h4>',
-            '<p>' + birthYear + '</p>',
+            '<p>' + (birthYear || "Unknown") + '</p>',
             '<h4>Location</h4>',
-            '<p>' + birthPlace + '</p>'
+            '<p>' + (birthPlace || "Unknown Location") + '</p>'
         ].join(''));
         HTMLTree.push('<br>');
 

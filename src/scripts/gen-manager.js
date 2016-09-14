@@ -57,6 +57,15 @@ window.GenManager = function() {
             let birthLoc = node.plugin.birt.place;
             node.plugin.birt.date = (birthDate == "undefined") ? undefined : birthDate;
             node.plugin.birt.place = (birthLoc == "undefined") ? undefined : birthLoc;
+
+            // Agregamos la propiedad year
+            if(birthDate) {
+                let by_start = birthDate.length;
+                let by_end = birthDate.length - 4;
+                let birthYear = parseInt(birthDate.substring(by_start, by_end));
+                if(isNaN(birthYear) === false)
+                    node.plugin.birt.year = birthYear.toString();
+            }
         }
 
         // La fecha y lugar de mortalidad no puede ser "undefined"
