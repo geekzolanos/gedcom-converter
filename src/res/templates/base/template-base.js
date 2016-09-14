@@ -185,7 +185,8 @@
             node.plugin.familles.forEach((famille) => {
                 let conyuge = (sex == "M") ? famille.wife : famille.husb;
                 if(conyuge) {
-                    HTMLTree.push('<a href="' + conyuge.id + '.html"><h3>' + conyuge.plugin.name.join('') + '</h3></a>');
+                    HTMLTree.push("<h4>Spouse</h4>");
+                    HTMLTree.push('<a href="' + conyuge.id + '.html"><p>' + conyuge.plugin.name.join('') + '</p></a>');
                     if(famille.marr) {
                         if(famille.marr.date)
                             HTMLTree.push('<p>Married on: ' + famille.marr.date + '</p>');
@@ -202,7 +203,7 @@
                     });
                 }
 
-                HTMLTree.push('<br>');            
+                HTMLTree.push('<br><br>');
             });
 
             HTMLTree.push('<hr><br>');
