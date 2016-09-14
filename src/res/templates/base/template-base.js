@@ -47,7 +47,7 @@
             '<title>Main Page</title>',
             '<meta name="title" content="Main Page">',
             '<meta name="currentdate" content="' + currentTime + '">',
-            '<meta name="description" content="Main Page">',
+            '<meta name="description" content="Main Page">'
         ].join(''));
 
         HTMLTree.push(HTMLHeadEnd);
@@ -88,7 +88,7 @@
         let HTMLTree = [];
         let adsenseSnippet = window.sessionStorage.getItem(ssURI.adSnippet);
         let currentTime = new Date().getTime();
-        let name = node.plugin.name.join("");
+        let name = node.plugin.name.join("\xa0");
         let birthYear = (node.plugin.birt) ? node.plugin.birt.year : null;
         let birthPlace = (node.plugin.birt) ? node.plugin.birt.place : null;
         let sex = node.plugin.sexe;
@@ -100,7 +100,7 @@
             '<meta name="title" content="' + name + '">',
             '<meta name="birthyear" content="' + birthYear + '">',
             '<meta name="currentdate" content="' + currentTime + '">',
-            '<meta name="description" content="' + name + " - " + birthPlace + '">',
+            '<meta name="description" content="' + name + " - " + birthPlace + '">'
         ].join(''));
 
         HTMLTree.push(HTMLHeadEnd);
@@ -151,13 +151,13 @@
             if(fatherNode)
                 HTMLTree.push([
                     '<h4>Father</h4>',
-                    '<a href="' + fatherNode.id + '.html"><p>' + fatherNode.plugin.name.join('') + '</p></a>'
+                    '<a href="' + fatherNode.id + '.html"><p>' + fatherNode.plugin.name.join('\xa0') + '</p></a>'
                 ].join(''));
 
             if(motherNode)
                 HTMLTree.push([                    
                     '<h4>Mother</h4>',
-                    '<a href="' + motherNode.id + '.html"><p>' + motherNode.plugin.name.join('') + '</p></a>'
+                    '<a href="' + motherNode.id + '.html"><p>' + motherNode.plugin.name.join('\xa0') + '</p></a>'
                 ].join(''));
 
             HTMLTree.push('<br>');
@@ -189,7 +189,7 @@
                 let conyuge = (sex == "M") ? famille.wife : famille.husb;
                 if(conyuge) {
                     HTMLTree.push("<h4>Spouse</h4>");
-                    HTMLTree.push('<a href="' + conyuge.id + '.html"><p>' + conyuge.plugin.name.join('') + '</p></a>');
+                    HTMLTree.push('<a href="' + conyuge.id + '.html"><p>' + conyuge.plugin.name.join('\xa0') + '</p></a>');
                     if(famille.marr) {
                         if(famille.marr.date)
                             HTMLTree.push('<p>Married on: ' + famille.marr.date + '</p>');
@@ -202,7 +202,7 @@
                 if (famille.childs) {
                     HTMLTree.push("<h4>Childrens</h4>");
                     famille.childs.forEach((child) => {
-                        HTMLTree.push('<a href="' + child.id + '.html"><p>' + child.plugin.name.join('') + '</p></a>');
+                        HTMLTree.push('<a href="' + child.id + '.html"><p>' + child.plugin.name.join('\xa0') + '</p></a>');
                     });
                 }
 
@@ -236,7 +236,7 @@
             '<title>' + familyName + ' Pedigree</title>',
             '<meta name="title" content="' + familyName + '">',
             '<meta name="currentdate" content="' + currentTime + '">',
-            '<meta name="description" content="' + familyName + '">',
+            '<meta name="description" content="' + familyName + '">'
         ].join(''));
 
         HTMLTree.push(HTMLHeadEnd);
@@ -255,14 +255,14 @@
         // Husband
         if(node.husb) {
             HTMLTree.push('<h2>Husband</h2>');
-            HTMLTree.push('<a href="' + node.husb.id + '.html">' + node.husb.plugin.name.join('') + '</a>');
+            HTMLTree.push('<a href="' + node.husb.id + '.html">' + node.husb.plugin.name.join('\xa0') + '</a>');
             HTMLTree.push('<br><br>');
         }
 
         // Wife
         if(node.wife) {
             HTMLTree.push('<h2>Wife</h2>');
-            HTMLTree.push('<a href="' + node.wife.id + '.html">' + node.wife.plugin.name.join('') + '</a>');
+            HTMLTree.push('<a href="' + node.wife.id + '.html">' + node.wife.plugin.name.join('\xa0') + '</a>');
             HTMLTree.push('<br><hr><br>');
         }
 
@@ -279,7 +279,7 @@
         // Childrens
         HTMLTree.push("<h2>Childrens</h2>");
         node.childs.forEach((child) => {
-            HTMLTree.push('<a href="' + child.id + '.html"><p>' + child.plugin.name.join('') + '</p></a>');
+            HTMLTree.push('<a href="' + child.id + '.html"><p>' + child.plugin.name.join('\xa0') + '</p></a>');
         });
 
         HTMLTree.push(HTMLBodyEnd);
