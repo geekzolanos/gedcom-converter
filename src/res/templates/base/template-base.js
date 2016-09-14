@@ -18,7 +18,8 @@
     */
     let HTMLHeadStart = [
         '<html>',
-        '<head>'
+        '<head>',
+        '<meta charset="UTF-8">'
     ].join('');
 
     let HTMLHeadEnd = '</head>';
