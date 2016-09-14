@@ -43,14 +43,6 @@ window.GenManager = function() {
 
     // Metodos Publicos
     this.cleanPersonNode = (node) => {
-        // El nombre no debe tener una barra invertida
-        let name = node.plugin.name;
-        if(Array.isArray(name) === true) {
-            name.forEach((p, i) => {
-                name[i] = p.replace(/[\/]/g, "");
-            });
-        }
-
         // La fecha y lugar de nacimiento no puede ser "undefined"
         if(node.plugin.birt) {
             let birthDate = node.plugin.birt.date;

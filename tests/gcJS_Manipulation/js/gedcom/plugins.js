@@ -266,7 +266,12 @@ new Plugin({
 			order : 1050,
 			key : "name",
 			doParser : function(me, data) {
-				this.plugin[me.key] = GedcomParser.getChilds(data, "NAME", true);
+				/* David - 140916 | Reforzando la eliminacion de barras diagonales en nombre */
+				let prop = GedcomParser.getChilds(data, "NAME", true);
+				prop.forEach((elem, i) => {
+					prop[i] = elem.replace(/[\/\\]/g, "");
+				});
+				this.plugin[me.key] = prop;
 			}
 		});
 
