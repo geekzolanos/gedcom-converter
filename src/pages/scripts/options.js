@@ -7,7 +7,7 @@
             optsGoFwd: () => {
                 let adSnippet = nodes.optsAdSnippet.value;
                 if(adSnippet)
-                    window.sessionStorage.setItem(ssURI.adSnippet, adSnippet);
+                    Preferences.session.options.adSnippet =  adSnippet;
 
                 app.ui.showPage('converting');
                 app.ui.convert.start();

@@ -14,10 +14,3 @@ let Tones = {
     ALPHA_DARK: 2,
     ALPHA_LIGHT: 3
 }
-
-let ssURI = {
-    filePath: 'app://gviewer.gk.com/session/current/filepath',
-    dirPath: 'app://gviewer.gk.com/session/current/dirpath',
-    adSnippet: 'app://gviewer.gk.com/session/current/prefs/adSnippet',
-    totalNodes: 'app://gviewer.gk.com/session/progress/totalNodes'
-}

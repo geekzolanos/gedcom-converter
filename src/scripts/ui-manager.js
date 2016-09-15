@@ -84,7 +84,7 @@
                 return false;
             
             // Si todo esta en orden, procedemos a almacenar la referencia
-            Preferences.filePath = filepath;
+            Preferences.session.filePath = filepath;
             return true;
         },
 
@@ -98,7 +98,7 @@
                 return false;
             
             // Si todo esta en orden, procedemos a almacenar la referencia
-            Preferences.dirPath = dirpath;
+            Preferences.session.dirPath = dirpath;
             return true;
         },
 
