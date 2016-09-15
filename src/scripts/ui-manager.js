@@ -121,8 +121,9 @@
         },
 
         setBackgroundTone: (color) => {        
+            let bgTone = document.querySelector('.bg-tone');
             color = color || 0;
-            nodes.bgTone.setAttribute('data-color', color);        
+            bgTone.setAttribute('data-color', color);        
         },
         
         convert: {
