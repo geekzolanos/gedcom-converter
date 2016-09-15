@@ -232,6 +232,7 @@ var Note = Class.create();
 Note.prototype = {
 	type : GedcomConst.indicator.note,
 	id : null,
+	fixedID : null,
 	text : null,
 
 	initialize : function(data) {
@@ -239,6 +240,7 @@ Note.prototype = {
 			// Extraction des données
 			{
 				this.id = data.type;
+				this.fixedID = this.id.replace(/[\@]/g, ""); /* David - 140916 | Agregada propiedad replace */
 
 				// Text
 				this.text = data.text;
