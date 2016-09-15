@@ -5,7 +5,7 @@
 (function() {
     let _pages = {}
 
-    window.app.ui = {
+    let UIManager = {
         pages: [],
 
         loadAllPages: () => {
@@ -132,4 +132,6 @@
             },
         }
     }
+    
+    app.ui = UIManager;
 })();
