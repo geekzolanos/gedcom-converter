@@ -13,7 +13,7 @@ window.GenManager = function() {
 
     // Metodos privados
     let generateNext = () => {
-        let dirpath = window.sessionStorage.getItem(ssURI.dirPath);
+        let dirpath = Preferences.dirPath;
 
         // Desplazamos el indice
         idxCurrentNode++;
@@ -144,13 +144,13 @@ window.GenManager = function() {
             console.log(parsedKeys);
         }
         
-        window.sessionStorage.setItem(ssURI.totalNodes, parsedKeys.length);
+        Preferences.totalNodes = parsedKeys.length;
         generateNext();
     }
 
     this.start = () => {
         // Convierto el Gedcom
-        let filepath = window.sessionStorage.getItem(ssURI.filePath);
+        let filepath = Preferences.filePath;
         let parseNode = app.vWrapper.readFile(filepath);
         parseNode.then(this.setup);
     }

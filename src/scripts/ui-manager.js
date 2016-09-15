@@ -84,7 +84,7 @@
                 return false;
             
             // Si todo esta en orden, procedemos a almacenar la referencia
-            window.sessionStorage.setItem(ssURI.filePath, filepath);
+            Preferences.filePath = filepath;
             return true;
         },
 
@@ -98,7 +98,7 @@
                 return false;
             
             // Si todo esta en orden, procedemos a almacenar la referencia
-            window.sessionStorage.setItem(ssURI.dirPath, dirpath);
+            Preferences.dirPath = dirpath;
             return true;
         },
 
