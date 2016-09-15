@@ -82,4 +82,6 @@
             },
         }        
     }
+    
+    app.ui.registerPage(new Handler(), document.currentScript.ownerDocument);
 })();

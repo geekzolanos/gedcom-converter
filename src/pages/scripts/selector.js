@@ -76,4 +76,6 @@
             nodes.ddContainer.addEventListener('dragover', evtHandlers._ddContainerDOver);
         }
     }
+    
+    app.ui.registerPage(new Handler(), document.currentScript.ownerDocument);
 })();

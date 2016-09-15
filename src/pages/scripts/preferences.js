@@ -36,4 +36,6 @@
             nodes.prefsBtnCancel.addEventListener('click', evtHandlers._prefsCancelClick);
         }
     }
+    
+    app.ui.registerPage(new Handler(), document.currentScript.ownerDocument);
 })();

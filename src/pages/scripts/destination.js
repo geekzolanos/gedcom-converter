@@ -65,4 +65,6 @@
             nodes.destBtnCancel.addEventListener('click', evtHandlers._destCancelClick);
         }
     }
+    
+    app.ui.registerPage(new Handler(), document.currentScript.ownerDocument);
 })();
