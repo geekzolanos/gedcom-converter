@@ -1,26 +1,40 @@
-// Preferences
-nodes.prefsBtnAccept = document.querySelector('.page[role="preferences"] button.accept');
-nodes.prefsBtnCancel = document.querySelector('.page[role="preferences"] button.cancel');
-nodes.prefsAdSnippet = document.querySelector('.page[role="preferences"] #ad-snippet');
+(function() {
+    function Handler() {
+        let _self = this;
+        let nodes = {}
 
-// Preferences
-nodes.prefsBtnAccept.addEventListener('click', evt_prefsAcceptClick);
-nodes.prefsBtnCancel.addEventListener('click', evt_prefsCancelClick);
+        let methods = {
+            prefsGoFwd: () => {
+                let adSnippet = nodes.prefsAdSnippet.value;
+                if(adSnippet)
+                    window.sessionStorage.setItem(ssURI.adSnippet, adSnippet);
 
-// Preferences
-let evt_prefsAcceptClick = (e) => { _self.utils.prefsGoFwd.call(_self, e); }
-let evt_prefsCancelClick = (e) => { _self.utils.prefsGoBack.call(_self, e); }
+                app.ui.showPage('converting');
+                // TODO: Debemos exponer el metodo convStartProcess
+                //app.ui.convert.start();
+            },
 
-// Preferences
-prefsGoFwd: () => {
-    let adSnippet = nodes.prefsAdSnippet.value;
-    if(adSnippet)
-        window.sessionStorage.setItem(ssURI.adSnippet, adSnippet);
+            prefsGoBack: () => {
+                app.ui.showPage('destination');
+            }
+        }
 
-    app.ui.showPage('converting');
-    app.ui.utils.convStartProcess();
-},
+        let evtHandlers = {
+            _prefsAcceptClick: (e) => { methods.prefsGoFwd.call(_self, e); },
+            _prefsCancelClick: (e) => { methods.prefsGoBack.call(_self, e); }
+        }
 
-prefsGoBack: () => {
-    app.ui.showPage('destination');
-},
+        this.id = "preferences";
+
+        this.getNodes = () => {
+            nodes.prefsBtnAccept = document.querySelector('.page[role="preferences"] button.accept');
+            nodes.prefsBtnCancel = document.querySelector('.page[role="preferences"] button.cancel');
+            nodes.prefsAdSnippet = document.querySelector('.page[role="preferences"] #ad-snippet');
+        }
+
+        this.setEventListeners = () => {
+            nodes.prefsBtnAccept.addEventListener('click', evtHandlers._prefsAcceptClick);
+            nodes.prefsBtnCancel.addEventListener('click', evtHandlers._prefsCancelClick);
+        }
+    }
+})();
