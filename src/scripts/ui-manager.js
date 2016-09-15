@@ -3,52 +3,40 @@
 //  Administrador de la Interfaz de usuario
 //
 (function() {
-     // Propiedades
-    let _self = app.ui;
-    let nodes = {};
-    let pages = [
-        'selector',
-        'destination',
-        'preferences',
-        'converting'
-    ];
-
-    // Metodos Privados
-    let loadAllPages = () => {        
-        let container = document.querySelector('section[role="pages"]');
-
-        pages.forEach((elem) => {
-            let importNode = document.head.querySelector('link[rel="import"]#' + elem).import;
-            let content = importNode.querySelector('template').content;
-            container.appendChild(content.cloneNode(true));
-        });
-    }
-
-    let getNodes = () => {
-        // Shell
-        nodes.btnAbout = document.querySelector('header .btn-about');
-        nodes.pagesContainer = document.querySelector('section[role="pages"]');
-        nodes.bgTone = document.querySelector('.bg-tone');
-    }
-
-    let setUIEvs = () => {
-        // Shell
-        window.addEventListener('drop', (e) => { e.preventDefault(); }, false);
-        window.addEventListener('dragover', (e) => { e.preventDefault(); }, false);
-        nodes.btnAbout.addEventListener('click', evt_shellBtnAboutClick);
-
-        // Utilizamos la misma mezcla de Handler/Event para Drop y DragLeave (Solo por ahorrar espacio)
-        nodes.ddContainer.addEventListener('drop', evt_ddContainerDrop);
-        nodes.ddContainer.addEventListener('dragleave', evt_ddContainerDrop);
-        nodes.ddContainer.addEventListener('dragover', evt_ddContainerDOver);
-    }
-
-    // Event Handlers
-    // Shell
-    let evt_shellBtnAboutClick = (e) => { _self.utils.showAboutMsg(); }
-
+    let _pages = {}
 
     window.app.ui = {
+        pages: [],
+
+        loadAllPages: () => {
+            for (e in _pages) {
+                _pages[e].getNodes();
+                _pages[e].setEventListeners();
+            }
+        },
+
+        registerPage: (obj, doc) => {
+            if(!obj)
+                throw new TypeError('El parametro no es un objeto.');
+            let id = obj.id;
+            let container = document.querySelector('section[role="pages"]');
+
+            if(app.ui.pages.includes(id))
+                throw new Error('La pagina ya esta registrada');
+
+            // Registramos el ID de la pagina
+            app.ui.pages.push(id);
+
+            // Registramos el objeto
+            _pages[id] = obj;
+            
+            // Registramos el documento
+            let content = doc.querySelector('template').content;
+            container.appendChild(content.cloneNode(true));
+        },
+
+
+    
        // Metodos publicos
         initialize: () => {
             // Limpiamos la sessionStorage (Por precaucion)
