@@ -33,7 +33,7 @@
                 if(app.ui.setDestination(dirpath) === false)
                     electron.dialog.showErrorBox('Invalid File', 'The selected destination is invalid. Please, try again.');
                 else 
-                    app.ui.showPage('preferences');
+                    app.ui.showPage('options');
             },
 
             destGoBack: () => {
@@ -65,6 +65,6 @@
             nodes.destBtnCancel.addEventListener('click', evtHandlers._destCancelClick);
         }
     }
-    
+
     app.ui.registerPage(new Handler(), document.currentScript.ownerDocument);
 })();

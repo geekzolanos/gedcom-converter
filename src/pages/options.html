@@ -1,0 +1,29 @@
+<template>
+    <article class="page" role="options" data-bg-tone="3">
+        <header>
+            <h1>A few more things</h1>
+            <p>We are almost ready. Before begin, please answer the following questions. Then click on Start.</p>
+        </header>
+        <form class="prefs-container">
+            <fieldset>
+                <label for="template"></label>
+                <select id="template"></select>
+            </fieldset>
+            <fieldset>
+                <label for="ad-snippet">Google Adsense Snippet</label>
+                <textarea id="ad-snippet"></textarea>
+            </fieldset>
+            <fieldset>
+                <input type="checkbox" id="home">
+                <input type="checkbox" id="prologe">
+                <input type="checkbox" id="credits">
+            </fieldset>
+        </form>
+        <footer>
+            <button class="accept" type="button" default>Start</button>
+            <button class="cancel" type="button">Back</button>
+        </footer>
+    </article>
+</template>
+
+<script src="scripts/options.js"></script>
