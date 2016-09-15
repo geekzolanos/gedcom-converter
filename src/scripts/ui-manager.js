@@ -109,6 +109,9 @@ window.UIManager = function() {
     this.initialize = () => {
         // Limpiamos la sessionStorage (Por precaucion)
         window.sessionStorage.clear();
+        // ContextMenu
+        ctxMenu.use(inputCtxMenu);
+        ctxMenu.activate();
         // Cargamos las paginas
         loadAllPages();
         // Establecemos los nodos

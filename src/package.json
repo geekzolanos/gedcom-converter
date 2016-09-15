@@ -1,5 +1,5 @@
 {
-  "name": "GedcomConverter",
+  "name": "gedcomconverter",
   "version": "1.0.0",
   "description": "A Gedcom to HTML File Converter.",
   "main": "app.js",
@@ -16,6 +16,8 @@
   "author": "Geekzolanos",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^1.3.5"
+    "electron": "^1.3.5",
+    "electron-contextmenu-middleware": "^1.0.2",
+    "electron-input-menu": "^2.0.3"
   }
 }
