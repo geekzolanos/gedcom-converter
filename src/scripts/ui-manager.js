@@ -124,19 +124,22 @@
             color = color || 0;
             nodes.bgTone.setAttribute('data-color', color);        
         },
+        
+        convert: {
+            updateProgress: (current) => {
+                if(_pages.converting)
+                    _pages.converting.methods.convUpdateProgress(current);
+            },
 
-        // Utilerias
-        utils: {
-            // Shell
-            showAboutMsg: () => {
-                electron.dialog.showMessageBox({
-                    type: "info",
-                    buttons: [],
-                    title: "About...",
-                    message: "Gedcom Converter",
-                    detail: "Version 1.0\nDeveloper by Geekzolanos for Upwork.\nFor more information, please contact us sending a e-mail to\n\ngeekzolanos@gmail.com"
-                });
-            }
+            showSuccess: () => {
+                if(_pages.converting)
+                    _pages.converting.methods.convShowSuccessMsg();
+            },
+
+            start: () => {
+                if(_pages.converting)
+                    _pages.converting.methods.convStartProcess();
+            },
         }
     }
 })();

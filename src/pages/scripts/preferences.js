@@ -10,8 +10,7 @@
                     window.sessionStorage.setItem(ssURI.adSnippet, adSnippet);
 
                 app.ui.showPage('converting');
-                // TODO: Debemos exponer el metodo convStartProcess
-                //app.ui.convert.start();
+                app.ui.convert.start();
             },
 
             prefsGoBack: () => {
