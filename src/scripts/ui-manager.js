@@ -99,8 +99,9 @@
         },
 
         showPage: (id) => {
-            let activePages = nodes.pagesContainer.querySelectorAll('.page.active');
-            let target = nodes.pagesContainer.querySelector('.page[role="' + id + '"]');
+            let pagesContainer = document.querySelector('section[role="pages"]');
+            let activePages = pagesContainer.querySelectorAll('.page.active');
+            let target = pagesContainer.querySelector('.page[role="' + id + '"]');
 
             if(activePages) {
                 activePages.forEach((elem) => {
