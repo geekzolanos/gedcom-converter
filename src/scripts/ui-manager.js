@@ -2,10 +2,9 @@
 //  UI Manager
 //  Administrador de la Interfaz de usuario
 //
-
-window.UIManager = function() {
-    // Propiedades
-    let _self = this;
+(function() {
+     // Propiedades
+    let _self = app.ui;
     let nodes = {};
     let pages = [
         'selector',
@@ -105,253 +104,252 @@ window.UIManager = function() {
     // Converting
     let evt_convCancelClick = (e) => { _self.utils.convCancel.call(_self, e); }
 
-    // Metodos publicos
-    this.initialize = () => {
-        // Limpiamos la sessionStorage (Por precaucion)
-        window.sessionStorage.clear();
-        // ContextMenu
-        ctxMenu.use(inputCtxMenu);
-        ctxMenu.activate();
-        // Cargamos las paginas
-        loadAllPages();
-        // Establecemos los nodos
-        getNodes();
-        // Configuramos la UI
-        setUIEvs();
-        // Mostramos la pagina principal
-        this.showPage(APP_START_PAGE);
-    };
-
-    this.setGCFile = (filepath) => {
-        // Por precaucion
-        if(!filepath)
-            return false;
-
-        // filepath debe ser un String
-        if (filepath.constructor != String)
-            return false;
-
-        // filepath debe indicar la ruta a un archivo de extension GED
-        else if (path.extname(filepath) != '.ged')
-            return false;
-        
-        // Si todo esta en orden, procedemos a almacenar la referencia
-        window.sessionStorage.setItem(ssURI.filePath, filepath);
-        return true;
-    }
-
-    this.setDestination = (dirpath) => {
-        // Por precaucion
-        if(!dirpath)
-            return false;
-
-        // filepath debe ser un String
-        if (dirpath.constructor != String)
-            return false;
-        
-        // Si todo esta en orden, procedemos a almacenar la referencia
-        window.sessionStorage.setItem(ssURI.dirPath, dirpath);
-        return true;
-    }
-
-    this.showPage = (id) => {
-        let activePages = nodes.pagesContainer.querySelectorAll('.page.active');
-        let target = nodes.pagesContainer.querySelector('.page[role="' + id + '"]');
-
-        if(activePages) {
-            activePages.forEach((elem) => {
-                elem.classList.remove('visible');
-                elem.classList.add('hidden');
-            });
-        }
-        
-        if (!target)
-            throw new ReferenceError('The page doesnt exists.');
-        
-        target.classList.remove('hidden');
-        target.classList.add('active');
-        target.classList.add('visible');
-
-        // Modificamos el tono de fondo
-        this.setBackgroundTone(target.getAttribute('data-bg-tone'));
-    }
-
-    this.setBackgroundTone = (color) => {        
-        color = color || 0;
-        nodes.bgTone.setAttribute('data-color', color);        
-    }
-
-    // Utilerias
-    this.utils = {
-        // Shell
-        showAboutMsg: () => {
-            electron.dialog.showMessageBox({
-                type: "info",
-                buttons: [],
-                title: "About...",
-                message: "Gedcom Converter",
-                detail: "Version 1.0\nDeveloper by Geekzolanos for Upwork.\nFor more information, please contact us sending a e-mail to\n\ngeekzolanos@gmail.com"
-            });
+    window.app.ui = {
+       // Metodos publicos
+        initialize: () => {
+            // Limpiamos la sessionStorage (Por precaucion)
+            window.sessionStorage.clear();
+            // ContextMenu
+            ctxMenu.use(inputCtxMenu);
+            ctxMenu.activate();
+            // Cargamos las paginas
+            loadAllPages();
+            // Establecemos los nodos
+            getNodes();
+            // Configuramos la UI
+            setUIEvs();
+            // Mostramos la pagina principal
+            app.ui.showPage(APP_START_PAGE);
         },
 
-        // Selector
-        openSelectorDialog: (e) => {
-            // No debemos permitir la apertura de mas de un cuadro de dialogo.
-            nodes.ddContainer.setAttribute('open-dialog-visible', true);
-
-            electron.dialog.showOpenDialog({
-                properties: ['openFile'], 
-                title: 'Select a GEDCOM File', 
-                filters: [{name: 'GEDCOM Files', extensions: ['ged']}]
-            }, this.utils.selectorSgfHandler);
-        },
-
-        selectorDDOver: (e) => {
-            e.preventDefault();      
-            e.dataTransfer.dropEffect = "move";
-            if(nodes.ddContainer.classList.contains('dropping') === false)
-                nodes.ddContainer.classList.add('dropping');
-        },
-
-        selectorDDHandler: (e) => {
-            e.preventDefault();
-            nodes.ddContainer.classList.remove('dropping');
-            if((e.type == "drop") && (e.dataTransfer.files.length > 0)) {
-                let filepath = e.dataTransfer.files[0].path;
-                this.utils.selectorSgfHandler(filepath);
-            }
-        },
-
-        // Sgf: SetGCFile
-        selectorSgfHandler: (filepath) => {
-            // No debemos permitir la apertura de mas de un cuadro de dialogo.
-            nodes.ddContainer.removeAttribute('open-dialog-visible');
-
-            // filepath puede no estar definido
+        setGCFile: (filepath) => {
+            // Por precaucion
             if(!filepath)
                 return false;
 
-            // filepath puede ser un array si proviene de un cuadro de dialogo
-            else if (Array.isArray(filepath) === true)
-                filepath = filepath[0];
-        
-            if(this.setGCFile(filepath) === false)
-                electron.dialog.showErrorBox('Invalid File', 'The selected file is not a valid GEDCOM File. Please, try again.');
-            else 
-                this.showPage('destination');
+            // filepath debe ser un String
+            if (filepath.constructor != String)
+                return false;
+
+            // filepath debe indicar la ruta a un archivo de extension GED
+            else if (path.extname(filepath) != '.ged')
+                return false;
+            
+            // Si todo esta en orden, procedemos a almacenar la referencia
+            window.sessionStorage.setItem(ssURI.filePath, filepath);
+            return true;
         },
 
-        // Destination   
-        destOpenDialog: () => {
-            // No debemos permitir la apertura de mas de un cuadro de dialogo.
-            nodes.destContainer.setAttribute('open-dialog-visible', true);
-
-            electron.dialog.showOpenDialog({
-                properties: ['openDirectory'], 
-                title: 'Select destination'
-            }, this.utils.destSetDestinationHandler);
-        },
-
-        destSetDestinationHandler: (dirpath) => {            
-            // No debemos permitir la apertura de mas de un cuadro de dialogo.
-            nodes.destContainer.removeAttribute('open-dialog-visible');
-
+        setDestination: (dirpath) => {
+            // Por precaucion
             if(!dirpath)
                 return false;
-            else if (Array.isArray(dirpath) === true)
-                dirpath = dirpath[0];
 
-            nodes.destContainer.dirpath = dirpath;
-            nodes.destPathSubtitle.innerHTML = dirpath;
-            nodes.destBtnAccept.disabled = false;
-        },
-
-        destGoFwd: () => {
-            let dirpath = nodes.destContainer.dirpath;
-            if(this.setDestination(dirpath) === false)
-                electron.dialog.showErrorBox('Invalid File', 'The selected destination is invalid. Please, try again.');
-            else 
-                this.showPage('preferences');
-        },
-
-        destGoBack: () => {
-            this.showPage('selector');
-        },
-
-        // Preferences
-        prefsGoFwd: () => {
-            let adSnippet = nodes.prefsAdSnippet.value;
-            if(adSnippet)
-                window.sessionStorage.setItem(ssURI.adSnippet, adSnippet);
-
-            this.showPage('converting');
-            this.utils.convStartProcess();
-        },
-
-        prefsGoBack: () => {
-            this.showPage('destination');
-        },
-
-        // Converting
-        convStartProcess: () => {
-            // Damos tiempo a la aplicacion para finalizar la transicion entre paginas
-            // TODO: Migrar el generador a un Worker para otorgar multiprocesamiento.
-            window.addEventListener('unhandledrejection', this.utils.convThrowFatalError);
-            window.addEventListener('error', this.utils.convThrowFatalError);
-            setTimeout(app.generator.start, 1000);
-        },
-
-        convCancel: () => {
-            electron.dialog.showMessageBox({
-                type: "question",
-                buttons: ['Yes', 'No'],
-                title: 'Gedcom Converter',
-                message: 'Confirm. Do you want to cancel the current process?'
-            }, (e) => { if(e == 0) document.location.reload(); });
-        },
-
-        convUpdateProgress: (current) => {
-            let total = parseInt(window.sessionStorage.getItem(ssURI.totalNodes));
-            let progressVal = (current * 100) / (total - 1);
-
-            nodes.convCurrentNode.innerHTML = current + 1;
-            nodes.convTotalNodes.innerHTML = total;
-            nodes.convProgressBar.value = progressVal;
-        },
-
-        convShowSuccessMsg: () => {
-            let dirpath = window.sessionStorage.getItem(ssURI.dirPath);
+            // filepath debe ser un String
+            if (dirpath.constructor != String)
+                return false;
             
-            // Bloqueamos el boton Cancelar de la pagina
-            nodes.convBtnCancel.disabled = true;
-
-            // Mostramos la carpeta de salida
-            process.exec('explorer.exe ' + dirpath);
-
-            // Mostramos el mensaje de exito
-            electron.dialog.showMessageBox({
-                type: 'info',
-                buttons: [],
-                title: 'Gedcom Converter',
-                message: 'Process Done',
-                detail: 'The convertion process has been done successfully. Out path:\n' + dirpath                    
-            }, () => { document.location.reload(); });
+            // Si todo esta en orden, procedemos a almacenar la referencia
+            window.sessionStorage.setItem(ssURI.dirPath, dirpath);
+            return true;
         },
 
-        convThrowFatalError: () => {
-            // Bloqueamos el boton Cancelar de la pagina
-            nodes.convBtnCancel.disabled = true;
+        showPage: (id) => {
+            let activePages = nodes.pagesContainer.querySelectorAll('.page.active');
+            let target = nodes.pagesContainer.querySelector('.page[role="' + id + '"]');
+
+            if(activePages) {
+                activePages.forEach((elem) => {
+                    elem.classList.remove('visible');
+                    elem.classList.add('hidden');
+                });
+            }
             
-            electron.dialog.showMessageBox({
-                type: 'error',
-                buttons: [],
-                title: 'Gedcom Converter',
-                message: 'Fatal Error',
-                detail: 'An unrecoverable while during file conversion error occurred, the process can not continue.'
-            }, () => { document.location.reload(); });
+            if (!target)
+                throw new ReferenceError('The page doesnt exists.');
+            
+            target.classList.remove('hidden');
+            target.classList.add('active');
+            target.classList.add('visible');
+
+            // Modificamos el tono de fondo
+            app.ui.setBackgroundTone(target.getAttribute('data-bg-tone'));
+        },
+
+        setBackgroundTone: (color) => {        
+            color = color || 0;
+            nodes.bgTone.setAttribute('data-color', color);        
+        },
+
+        // Utilerias
+        utils: {
+            // Shell
+            showAboutMsg: () => {
+                electron.dialog.showMessageBox({
+                    type: "info",
+                    buttons: [],
+                    title: "About...",
+                    message: "Gedcom Converter",
+                    detail: "Version 1.0\nDeveloper by Geekzolanos for Upwork.\nFor more information, please contact us sending a e-mail to\n\ngeekzolanos@gmail.com"
+                });
+            },
+
+            // Selector
+            openSelectorDialog: (e) => {
+                // No debemos permitir la apertura de mas de un cuadro de dialogo.
+                nodes.ddContainer.setAttribute('open-dialog-visible', true);
+
+                electron.dialog.showOpenDialog({
+                    properties: ['openFile'], 
+                    title: 'Select a GEDCOM File', 
+                    filters: [{name: 'GEDCOM Files', extensions: ['ged']}]
+                }, app.ui.utils.selectorSgfHandler);
+            },
+
+            selectorDDOver: (e) => {
+                e.preventDefault();      
+                e.dataTransfer.dropEffect = "move";
+                if(nodes.ddContainer.classList.contains('dropping') === false)
+                    nodes.ddContainer.classList.add('dropping');
+            },
+
+            selectorDDHandler: (e) => {
+                e.preventDefault();
+                nodes.ddContainer.classList.remove('dropping');
+                if((e.type == "drop") && (e.dataTransfer.files.length > 0)) {
+                    let filepath = e.dataTransfer.files[0].path;
+                    app.ui.utils.selectorSgfHandler(filepath);
+                }
+            },
+
+            // Sgf: SetGCFile
+            selectorSgfHandler: (filepath) => {
+                // No debemos permitir la apertura de mas de un cuadro de dialogo.
+                nodes.ddContainer.removeAttribute('open-dialog-visible');
+
+                // filepath puede no estar definido
+                if(!filepath)
+                    return false;
+
+                // filepath puede ser un array si proviene de un cuadro de dialogo
+                else if (Array.isArray(filepath) === true)
+                    filepath = filepath[0];
+            
+                if(app.ui.setGCFile(filepath) === false)
+                    electron.dialog.showErrorBox('Invalid File', 'The selected file is not a valid GEDCOM File. Please, try again.');
+                else 
+                    app.ui.showPage('destination');
+            },
+
+            // Destination   
+            destOpenDialog: () => {
+                // No debemos permitir la apertura de mas de un cuadro de dialogo.
+                nodes.destContainer.setAttribute('open-dialog-visible', true);
+
+                electron.dialog.showOpenDialog({
+                    properties: ['openDirectory'], 
+                    title: 'Select destination'
+                }, app.ui.utils.destSetDestinationHandler);
+            },
+
+            destSetDestinationHandler: (dirpath) => {            
+                // No debemos permitir la apertura de mas de un cuadro de dialogo.
+                nodes.destContainer.removeAttribute('open-dialog-visible');
+
+                if(!dirpath)
+                    return false;
+                else if (Array.isArray(dirpath) === true)
+                    dirpath = dirpath[0];
+
+                nodes.destContainer.dirpath = dirpath;
+                nodes.destPathSubtitle.innerHTML = dirpath;
+                nodes.destBtnAccept.disabled = false;
+            },
+
+            destGoFwd: () => {
+                let dirpath = nodes.destContainer.dirpath;
+                if(app.ui.setDestination(dirpath) === false)
+                    electron.dialog.showErrorBox('Invalid File', 'The selected destination is invalid. Please, try again.');
+                else 
+                    app.ui.showPage('preferences');
+            },
+
+            destGoBack: () => {
+                app.ui.showPage('selector');
+            },
+
+            // Preferences
+            prefsGoFwd: () => {
+                let adSnippet = nodes.prefsAdSnippet.value;
+                if(adSnippet)
+                    window.sessionStorage.setItem(ssURI.adSnippet, adSnippet);
+
+                app.ui.showPage('converting');
+                app.ui.utils.convStartProcess();
+            },
+
+            prefsGoBack: () => {
+                app.ui.showPage('destination');
+            },
+
+            // Converting
+            convStartProcess: () => {
+                // Damos tiempo a la aplicacion para finalizar la transicion entre paginas
+                // TODO: Migrar el generador a un Worker para otorgar multiprocesamiento.
+                window.addEventListener('unhandledrejection', app.ui.utils.convThrowFatalError);
+                window.addEventListener('error', app.ui.utils.convThrowFatalError);
+                setTimeout(app.generator.start, 1000);
+            },
+
+            convCancel: () => {
+                electron.dialog.showMessageBox({
+                    type: "question",
+                    buttons: ['Yes', 'No'],
+                    title: 'Gedcom Converter',
+                    message: 'Confirm. Do you want to cancel the current process?'
+                }, (e) => { if(e == 0) document.location.reload(); });
+            },
+
+            convUpdateProgress: (current) => {
+                let total = parseInt(window.sessionStorage.getItem(ssURI.totalNodes));
+                let progressVal = (current * 100) / (total - 1);
+
+                nodes.convCurrentNode.innerHTML = current + 1;
+                nodes.convTotalNodes.innerHTML = total;
+                nodes.convProgressBar.value = progressVal;
+            },
+
+            convShowSuccessMsg: () => {
+                let dirpath = window.sessionStorage.getItem(ssURI.dirPath);
+                
+                // Bloqueamos el boton Cancelar de la pagina
+                nodes.convBtnCancel.disabled = true;
+
+                // Mostramos la carpeta de salida
+                process.exec('explorer.exe ' + dirpath);
+
+                // Mostramos el mensaje de exito
+                electron.dialog.showMessageBox({
+                    type: 'info',
+                    buttons: [],
+                    title: 'Gedcom Converter',
+                    message: 'Process Done',
+                    detail: 'The convertion process has been done successfully. Out path:\n' + dirpath                    
+                }, () => { document.location.reload(); });
+            },
+
+            convThrowFatalError: () => {
+                // Bloqueamos el boton Cancelar de la pagina
+                nodes.convBtnCancel.disabled = true;
+                
+                electron.dialog.showMessageBox({
+                    type: 'error',
+                    buttons: [],
+                    title: 'Gedcom Converter',
+                    message: 'Fatal Error',
+                    detail: 'An unrecoverable while during file conversion error occurred, the process can not continue.'
+                }, () => { document.location.reload(); });
+            }
         }
-    };
-
-    // Inicializamos el modulo
-    this.initialize();
-}
+    }
+})();
