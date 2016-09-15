@@ -97,17 +97,17 @@
 
         HTMLTree.push([
             '<title>' + name + '</title>',
-            '<meta name="title" content="' + name + '">',
+            '<meta name="title" content="' + name + '\xa0' + birthYear + ' genealogy ' + currentTime + '">',
             '<meta name="birthyear" content="' + birthYear + '">',
             '<meta name="currentdate" content="' + currentTime + '">',
-            '<meta name="description" content="' + name + " - " + birthPlace + '">'
+            '<meta name="description" content="' + name + ' family history">'
         ].join(''));
 
         HTMLTree.push(HTMLHeadEnd);
         HTMLTree.push(HTMLBodyStart);
 
         // Title
-        HTMLTree.push('<h1 style="color: #00f;">' + name + ' (' + (birthYear || "Unknown") + ')' + '</h1>');
+        HTMLTree.push('<h1 style="color: #00f;">' + name + '\xa0\xa0' + birthYear  + '</h1>');
 
         // Adsense Snippet 
         if(adsenseSnippet) {
