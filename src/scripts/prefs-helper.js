@@ -3,7 +3,12 @@
 //  Helper para el manejo de preferencias en la app
 //
 (function() {
-    let preferencesURI = ssURI;
+    let preferencesURI = {
+        filePath: 'app://gviewer.gk.com/session/current/filepath',
+        dirPath: 'app://gviewer.gk.com/session/current/dirpath',
+        adSnippet: 'app://gviewer.gk.com/session/current/prefs/adSnippet',
+        totalNodes: 'app://gviewer.gk.com/session/progress/totalNodes'
+    };
 
     window.Preferences = {
         /* No Persistentes */
