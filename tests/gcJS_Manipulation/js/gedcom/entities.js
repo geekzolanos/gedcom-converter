@@ -20,6 +20,7 @@ Personne.prototype = {
 	type : GedcomConst.indicator.personne,
 	data : null,
 	id : null,
+	fixedID: null, /* David - 140916 | Agregada propiedad replace */
 	plugin : null,
 
 	pluginsLoaded : false,
@@ -39,6 +40,7 @@ Personne.prototype = {
 	initialize : function(data) {
 		this.plugin = {};
 		this.id = data.type;
+		this.fixedID = this.id.replace(/[\@]/g, ""); /* David - 140916 | Agregada propiedad replace */
 		this.data = data;
 		try {
 			this.loadPlugins(data, true);
@@ -139,6 +141,7 @@ var Famille = Class.create();
 Famille.prototype = {
 	type : GedcomConst.indicator.famille,
 	id : null,
+	fixedID : null,
 	husb : null,
 	wife : null,
 	marr : null,
@@ -149,6 +152,8 @@ Famille.prototype = {
 			// Extraction des données
 			{
 				this.id = data.type;
+
+				this.fixedID = this.id.replace(/[\@]/g, ""); /* David - 140916 | Agregada propiedad replace */
 
 				// Mari
 				this.husb = GedcomParser.getChild(data, "HUSB", true);
@@ -190,6 +195,7 @@ var Source = Class.create();
 Source.prototype = {
 	type : GedcomConst.indicator.source,
 	id : null,
+	fixedID : null,
 
 	title : null,
 	abbr : null,
@@ -203,6 +209,7 @@ Source.prototype = {
 			// Extraction des données
 			{
 				this.id = data.type;
+				this.fixedID = this.id.replace(/[\@]/g, ""); /* David - 140916 | Agregada propiedad replace */
 
 				this.title = GedcomParser.getChild(data, "TITL", true);
 				this.abbr = GedcomParser.getChild(data, "ABBR", true);
