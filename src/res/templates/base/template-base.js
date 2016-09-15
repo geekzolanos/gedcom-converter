@@ -68,7 +68,7 @@
         // Families
         HTMLTree.push("<h2>Families</h2>");
         data.families.forEach((family) => {
-            HTMLTree.push('<a href="' + family.id + '.html"><p>' + family.value + '</p></a>');
+            HTMLTree.push('<a href="' + family.fixedID + '.html"><p>' + family.value + '</p></a>');
         });
 
         HTMLTree.push('<br><hr><br>');
@@ -76,7 +76,7 @@
         // Persons
         HTMLTree.push("<h2>Persons</h2>");
         data.persons.forEach((person) => {
-            HTMLTree.push('<a href="' + person.id + '.html"><p>' + person.value + '</p></a>');
+            HTMLTree.push('<a href="' + person.fixedID + '.html"><p>' + person.value + '</p></a>');
         });
 
         HTMLTree.push(HTMLBodyEnd);
@@ -151,13 +151,13 @@
             if(fatherNode)
                 HTMLTree.push([
                     '<h4>Father</h4>',
-                    '<a href="' + fatherNode.id + '.html"><p>' + fatherNode.plugin.name.join('\xa0') + '</p></a>'
+                    '<a href="' + fatherNode.fixedID + '.html"><p>' + fatherNode.plugin.name.join('\xa0') + '</p></a>'
                 ].join(''));
 
             if(motherNode)
                 HTMLTree.push([                    
                     '<h4>Mother</h4>',
-                    '<a href="' + motherNode.id + '.html"><p>' + motherNode.plugin.name.join('\xa0') + '</p></a>'
+                    '<a href="' + motherNode.fixedID + '.html"><p>' + motherNode.plugin.name.join('\xa0') + '</p></a>'
                 ].join(''));
 
             HTMLTree.push('<br>');
@@ -189,7 +189,7 @@
                 let conyuge = (sex == "M") ? famille.wife : famille.husb;
                 if(conyuge) {
                     HTMLTree.push("<h4>Spouse</h4>");
-                    HTMLTree.push('<a href="' + conyuge.id + '.html"><p>' + conyuge.plugin.name.join('\xa0') + '</p></a>');
+                    HTMLTree.push('<a href="' + conyuge.fixedID + '.html"><p>' + conyuge.plugin.name.join('\xa0') + '</p></a>');
                     if(famille.marr) {
                         if(famille.marr.date)
                             HTMLTree.push('<p>Married on: ' + famille.marr.date + '</p>');
@@ -202,7 +202,7 @@
                 if (famille.childs) {
                     HTMLTree.push("<h4>Childrens</h4>");
                     famille.childs.forEach((child) => {
-                        HTMLTree.push('<a href="' + child.id + '.html"><p>' + child.plugin.name.join('\xa0') + '</p></a>');
+                        HTMLTree.push('<a href="' + child.fixedID + '.html"><p>' + child.plugin.name.join('\xa0') + '</p></a>');
                     });
                 }
 
@@ -216,7 +216,7 @@
         if(node.plugin.familleParent) {
             let father = node.plugin.familleParent.husb;
             let familleParentName = (father) ? father.plugin.name[father.plugin.name.length - 1] : "";
-            HTMLTree.push('<a href="' + node.plugin.familleParent.id + '.html"><p>Go to ' + familleParentName + ' Pedigree</p></a>');
+            HTMLTree.push('<a href="' + node.plugin.familleParent.fixedID + '.html"><p>Go to ' + familleParentName + ' Pedigree</p></a>');
         }
 
         HTMLTree.push(HTMLBodyEnd);
@@ -255,14 +255,14 @@
         // Husband
         if(node.husb) {
             HTMLTree.push('<h2>Husband</h2>');
-            HTMLTree.push('<a href="' + node.husb.id + '.html">' + node.husb.plugin.name.join('\xa0') + '</a>');
+            HTMLTree.push('<a href="' + node.husb.fixedID + '.html">' + node.husb.plugin.name.join('\xa0') + '</a>');
             HTMLTree.push('<br><br>');
         }
 
         // Wife
         if(node.wife) {
             HTMLTree.push('<h2>Wife</h2>');
-            HTMLTree.push('<a href="' + node.wife.id + '.html">' + node.wife.plugin.name.join('\xa0') + '</a>');
+            HTMLTree.push('<a href="' + node.wife.fixedID + '.html">' + node.wife.plugin.name.join('\xa0') + '</a>');
             HTMLTree.push('<br><hr><br>');
         }
 
@@ -279,7 +279,7 @@
         // Childrens
         HTMLTree.push("<h2>Childrens</h2>");
         node.childs.forEach((child) => {
-            HTMLTree.push('<a href="' + child.id + '.html"><p>' + child.plugin.name.join('\xa0') + '</p></a>');
+            HTMLTree.push('<a href="' + child.fixedID + '.html"><p>' + child.plugin.name.join('\xa0') + '</p></a>');
         });
 
         HTMLTree.push(HTMLBodyEnd);

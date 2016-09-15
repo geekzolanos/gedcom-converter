@@ -38,7 +38,7 @@ window.GenManager = function() {
         let content = this.generateContent(currentNode);
 
         // Escribimos los datos
-        fs.writeFile(dirpath + '/' + currentKey + '.html', content, generateNext);
+        fs.writeFile(dirpath + '/' + currentNode.fixedID + '.html', content, generateNext);
     }
 
     // Metodos Publicos
