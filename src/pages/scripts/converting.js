@@ -46,7 +46,7 @@
 
         this.methods = {
             convUpdateProgress: (current) => {
-                let total = parseInt(window.sessionStorage.getItem(ssURI.totalNodes));
+                let total = Preferences.session.progress.totalNodes;
                 let progressVal = (current * 100) / (total - 1);
 
                 nodes.convCurrentNode.innerHTML = current + 1;
@@ -55,7 +55,7 @@
             },
 
             convShowSuccessMsg: () => {
-                let dirpath = window.sessionStorage.getItem(ssURI.dirPath);
+                let dirpath = Preferences.session.dirPath;
                 
                 // Bloqueamos el boton Cancelar de la pagina
                 nodes.convBtnCancel.disabled = true;
@@ -82,6 +82,6 @@
             },
         }        
     }
-    
+
     app.ui.registerPage(new Handler(), document.currentScript.ownerDocument);
 })();
