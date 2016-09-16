@@ -245,22 +245,21 @@
         let HTMLTree = [];
         let adsenseSnippet = Preferences.session.options.adSnippet;
         let currentDate = new Date();
-        let familyName = (node.husb) ? node.husb.plugin.name[node.husb.plugin.name.length - 1] : "Unknown Family name";
 
         HTMLTree.push(HTMLHeadStart);
 
         HTMLTree.push([
-            '<title>' + familyName + ' Pedigree</title>',
-            '<meta name="title" content="' + familyName + '">',
+            '<title>' + node.name + ' Pedigree</title>',
+            '<meta name="title" content="' + node.name + '">',
             '<meta name="currentdate" content="' + currentDate + '">',
-            '<meta name="description" content="' + familyName + '">'
+            '<meta name="description" content="' + node.name + '">'
         ].join(''));
 
         HTMLTree.push(HTMLHeadEnd);
         HTMLTree.push(HTMLBodyStart);
 
         // Family name
-        HTMLTree.push('<h1 style="color: #00f;">' + familyName + ' Pedigree' + '</h1>');
+        HTMLTree.push('<h1 style="color: #00f;">' + node.name + ' Pedigree' + '</h1>');
 
         // Adsense Snippet 
         if(!adsenseSnippet.empty()) {
