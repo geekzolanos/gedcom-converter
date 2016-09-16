@@ -13,21 +13,21 @@ window.GenManager = function() {
 
     // Metodos Publicos
     let cleanPersonNode = (node) => {
-        // La fecha y lugar de nacimiento no puede ser "undefined"
+         // La fecha y lugar de nacimiento no puede ser "undefined"
         if(node.plugin.birt) {
-            let birthDate = node.plugin.birt.date;
-            let birthLoc = node.plugin.birt.place;
-            node.plugin.birt.date = (birthDate == "undefined") ? undefined : birthDate;
-            node.plugin.birt.place = (birthLoc == "undefined") ? undefined : birthLoc;
+let birthDate = node.plugin.birt.date;
+        let birthLoc = node.plugin.birt.place;
+        node.plugin.birt.date = (birthDate == "undefined") ? undefined : birthDate;
+        node.plugin.birt.place = (birthLoc == "undefined") ? undefined : birthLoc;
 
-            // Agregamos la propiedad year
-            if(birthDate) {
-                let by_start = birthDate.length;
-                let by_end = birthDate.length - 4;
-                let birthYear = parseInt(birthDate.substring(by_start, by_end));
-                if(isNaN(birthYear) === false)
-                    node.plugin.birt.year = birthYear.toString();
-            }
+        // Agregamos la propiedad year
+        if(birthDate) {
+            let by_start = birthDate.length;
+            let by_end = birthDate.length - 4;
+            let birthYear = parseInt(birthDate.substring(by_start, by_end));
+            if(isNaN(birthYear) === false)
+                node.plugin.birt.year = birthYear.toString();
+        }
         }
 
         // La fecha y lugar de mortalidad no puede ser "undefined"
@@ -91,14 +91,14 @@ window.GenManager = function() {
                 if(DEBUG)
                     console.log('Es una Familia!');
 
-                if(parseBool(Preferences.session.options.noFamily) === true) {
+                if(Preferences.session.options.noFamily === true) {
                     if(DEBUG)
                         console.log('No se permite generar paginas de familias.');
                     return false;
                 }
                 
                 // Colocamos una referencia en el directorio para el indice
-                directoryData.families.push({id: node.id, value: (node.husb) ? node.husb.plugin.name[node.husb.plugin.name.length - 1] : "Unknown Family name"});
+               directoryData.families.push({id: node.id, value: (node.husb) ? node.husb.plugin.name[node.husb.plugin.name.length - 1] : "Unknown Family name"});
 
                 return currentTemplate.generateFamily(node);
 
@@ -113,7 +113,7 @@ window.GenManager = function() {
     this.generateHome = () => {
         let dirpath, content;
 
-        if(parseBool(Preferences.session.options.noHome) === true) {
+        if(Preferences.session.options.noHome === true) {
             app.ui.convert.showSuccess();
             return true;
         }

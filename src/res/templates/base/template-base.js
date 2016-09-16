@@ -33,9 +33,9 @@
         tree.push('<footer>');
         tree.push(GoogleSearchWidget);
         tree.push('<a href="index.html">Home</a>');
-        if(parseBool(Preferences.session.options.prologe) === true)
+        if(Preferences.session.options.prologe === true)
             tree.push('<a href="prologe.html">Prologe</a>');
-        if(parseBool(Preferences.session.options.credits) === true)
+        if(Preferences.session.options.credits === true)
             tree.push('<a href="credits.html">Credits</a>');            
         tree.push('</footer>');
         tree.push('</html>');
@@ -76,7 +76,7 @@
         HTMLTree.push('<br><hr><br>');
 
         // Families
-        if(parseBool(Preferences.session.options.noFamily) === false) {
+        if(Preferences.session.options.noFamily === false) {
             HTMLTree.push("<h2>Families</h2>");
             data.families.forEach((family) => {
                 HTMLTree.push('<a href="' + family.fixedID + '.html"><p>' + family.value + '</p></a>');
@@ -230,7 +230,7 @@
         if(node.plugin.familleParent) {
             let father = node.plugin.familleParent.husb;
             let familleParentName = (father) ? father.plugin.name[father.plugin.name.length - 1] : "";
-            if(parseBool(Preferences.session.options.noFamily) === true)
+            if(Preferences.session.options.noFamily === true)
                 HTMLTree.push('<a href="' + node.plugin.familleParent.name + '.html"><p>Go to ' + familleParentName + ' Pedigree</p></a>');
             else
                 HTMLTree.push('<a href="' + node.plugin.familleParent.fixedID + '.html"><p>Go to ' + familleParentName + ' Pedigree</p></a>');

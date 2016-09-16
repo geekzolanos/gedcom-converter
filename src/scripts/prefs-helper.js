@@ -44,23 +44,23 @@
                 get adSnippet() { return window.sessionStorage.getItem(preferencesURI.adSnippet); },
                 set adSnippet(data) { window.sessionStorage.setItem(preferencesURI.adSnippet, data); },
                 
-                get noHome() { return window.sessionStorage.getItem(preferencesURI.noHome); },
+                get noHome() { return parseBool(window.sessionStorage.getItem(preferencesURI.noHome)); },
                 set noHome(data) { window.sessionStorage.setItem(preferencesURI.noHome, data); },
 
-                get noFamily() { return window.sessionStorage.getItem(preferencesURI.noFamily); },
+                get noFamily() { return parseBool(window.sessionStorage.getItem(preferencesURI.noFamily)); },
                 set noFamily(data) { window.sessionStorage.setItem(preferencesURI.noFamily, data); },
 
-                get prologe() { return window.sessionStorage.getItem(preferencesURI.prologe); },
+                get prologe() { return parseBool(window.sessionStorage.getItem(preferencesURI.prologe)); },
                 set prologe(data) { window.sessionStorage.setItem(preferencesURI.prologe, data); },
 
-                get credits() { return window.sessionStorage.getItem(preferencesURI.credits); },
+                get credits() { return parseBool(window.sessionStorage.getItem(preferencesURI.credits)); },
                 set credits(data) { window.sessionStorage.setItem(preferencesURI.credits, data); }
             }
         },
 
         /* Persistentes */
         persist: {
-            get enabled() { return window.localStorage.getItem(preferencesURI.p_enabled) || false; },
+            get enabled() { return parseBool(window.localStorage.getItem(preferencesURI.p_enabled)); },
             set enabled(data) { window.localStorage.setItem(preferencesURI.p_enabled, data); },
 
             /* Opciones de personalizacion */
@@ -68,16 +68,16 @@
                 get adSnippet() { return window.localStorage.getItem(preferencesURI.p_adSnippet); },
                 set adSnippet(data) { window.localStorage.setItem(preferencesURI.p_adSnippet, data); },
 
-                get noHome() { return window.localStorage.getItem(preferencesURI.p_noHome); },
+                get noHome() { return parseBool(window.localStorage.getItem(preferencesURI.p_noHome)); },
                 set noHome(data) { window.localStorage.setItem(preferencesURI.p_noHome, data); },
 
-                get noFamily() { return window.localStorage.getItem(preferencesURI.p_noFamily); },
+                get noFamily() { return parseBool(window.localStorage.getItem(preferencesURI.p_noFamily)); },
                 set noFamily(data) { window.localStorage.setItem(preferencesURI.p_noFamily, data); },
 
-                get prologe() { return window.localStorage.getItem(preferencesURI.p_prologe); },
+                get prologe() { return parseBool(window.localStorage.getItem(preferencesURI.p_prologe)); },
                 set prologe(data) { window.localStorage.setItem(preferencesURI.p_prologe, data); },
 
-                get credits() { return window.localStorage.getItem(preferencesURI.p_credits); },
+                get credits() { return parseBool(window.localStorage.getItem(preferencesURI.p_credits)); },
                 set credits(data) { window.localStorage.setItem(preferencesURI.p_credits, data); }
             }
         }

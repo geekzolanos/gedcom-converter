@@ -12,7 +12,7 @@
                 Preferences.session.options.credits = nodes.optsAddCredits.checked;
                 Preferences.persist.enabled = nodes.optsOverwritePersist.checked;
 
-                if(parseBool(Preferences.persist.enabled) === true) {
+                if(Preferences.persist.enabled === true) {
                     Preferences.persist.options.adSnippet = nodes.optsAdSnippet.content;
                     Preferences.persist.options.noHome = nodes.optsNoHome.checked;
                     Preferences.persist.options.noFamily = nodes.optsNoFamily.checked;
@@ -22,12 +22,12 @@
             },
 
             writePersistentOpts: () => {
-                if(parseBool(Preferences.persist.enabled) === true) {
-                    nodes.optsOverwritePersist.checked = parseBool(Preferences.persist.enabled);
-                    nodes.optsNoHome.checked = parseBool(Preferences.persist.options.noHome);
-                    nodes.optsNoFamily.checked = parseBool(Preferences.persist.options.noFamily);
-                    nodes.optsAddProloge.checked = parseBool(Preferences.persist.options.prologe);
-                    nodes.optsAddCredits.checked = parseBool(Preferences.persist.options.credits);
+                if(Preferences.persist.enabled === true) {
+                    nodes.optsOverwritePersist.checked = Preferences.persist.enabled;
+                    nodes.optsNoHome.checked = Preferences.persist.options.noHome;
+                    nodes.optsNoFamily.checked = Preferences.persist.options.noFamily;
+                    nodes.optsAddProloge.checked = Preferences.persist.options.prologe;
+                    nodes.optsAddCredits.checked = Preferences.persist.options.credits;
                     
                     if(!Preferences.persist.options.adSnippet.empty()) {
                         nodes.optsAdSnippetCheck.checked = true;
