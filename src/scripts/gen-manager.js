@@ -9,51 +9,10 @@ window.GenManager = function() {
     let idxCurrentNode = -1;
     let parsedData = {};
     let parsedKeys = [];
-    let directoryData = {persons: [], families: []};
-
-    // Metodos privados
-    let generateHome = () => {
-        let dirpath, content;
-
-        if(parseBool(Preferences.session.options.noHome) === false)
-            return true;
-
-        dirpath = Preferences.session.dirPath;
-        content = currentTemplate.generateHome(directoryData);            
-        fs.writeFile(dirpath + '/index.html', content, app.ui.convert.showSuccess);
-    };
-
-    let generateNext = () => {
-        let dirpath = Preferences.session.dirPath;
-
-        // Desplazamos el indice
-        idxCurrentNode++;
-
-        // Si el indice alcanzo el limite, generamos a Home y mostramos mensaje de exito.
-        if(idxCurrentNode > parsedKeys.length - 1) {
-            generateHome();
-            return true;
-        }
-        
-        // De lo contrario, continuamos
-        let currentKey = parsedKeys[idxCurrentNode];
-        let currentNode = parsedData[currentKey];
-        if(DEBUG) {
-            console.log('Nodo Actual: ' + idxCurrentNode);
-        }
-
-        // Actualizamos el progreso
-        app.ui.convert.updateProgress(idxCurrentNode);
-
-        // Generamos el contenido
-        let content = this.generateContent(currentNode);
-
-        // Escribimos los datos
-        fs.writeFile(dirpath + '/' + currentNode.fixedID + '.html', content, generateNext);
-    }
+    let directoryData = {persons: [], families: []};    
 
     // Metodos Publicos
-    this.cleanPersonNode = (node) => {
+    let cleanPersonNode = (node) => {
         // La fecha y lugar de nacimiento no puede ser "undefined"
         if(node.plugin.birt) {
             let birthDate = node.plugin.birt.date;
@@ -105,7 +64,7 @@ window.GenManager = function() {
         }      
     }
 
-    this.generateContent = (node) => {
+    let generateContent = (node) => {
         if(DEBUG) {
             console.log('Procesando Nodo');
             console.log(node);
@@ -121,7 +80,7 @@ window.GenManager = function() {
                     console.log('Es una Persona!');
 
                 // Limpiando datos de entrada del nodo
-                this.cleanPersonNode(node);
+                cleanPersonNode(node);
 
                 // Colocamos una referencia en el directorio para el indice
                 directoryData.persons.push({id: node.id, value: node.plugin.name.join('\xa0')});
@@ -144,6 +103,47 @@ window.GenManager = function() {
         }
     }
 
+    // Metodos privados
+    this.generateHome = () => {
+        let dirpath, content;
+
+        if(parseBool(Preferences.session.options.noHome) === false)
+            return true;
+
+        dirpath = Preferences.session.dirPath;
+        content = currentTemplate.generateHome(directoryData);            
+        fs.writeFile(dirpath + '/index.html', content, app.ui.convert.showSuccess);
+    }
+
+    this.generateNext = () => {
+        let dirpath = Preferences.session.dirPath;
+
+        // Desplazamos el indice
+        idxCurrentNode++;
+
+        // Si el indice alcanzo el limite, generamos a Home y mostramos mensaje de exito.
+        if(idxCurrentNode > parsedKeys.length - 1) {
+            this.generateHome();
+            return true;
+        }
+        
+        // De lo contrario, continuamos
+        let currentKey = parsedKeys[idxCurrentNode];
+        let currentNode = parsedData[currentKey];
+        if(DEBUG) {
+            console.log('Nodo Actual: ' + idxCurrentNode);
+        }
+
+        // Actualizamos el progreso
+        app.ui.convert.updateProgress(idxCurrentNode);
+
+        // Generamos el contenido
+        let content = generateContent(currentNode);
+
+        // Escribimos los datos
+        fs.writeFile(dirpath + '/' + currentNode.fixedID + '.html', content, this.generateNext);
+    }
+
     this.setup = (data) => {
         parsedData = data._object;
         parsedKeys = Object.keys(parsedData);        
@@ -156,7 +156,7 @@ window.GenManager = function() {
         }
         
         Preferences.session.progress.totalNodes = parsedKeys.length;
-        generateNext();
+        this.generateNext();
     }
 
     this.start = () => {
