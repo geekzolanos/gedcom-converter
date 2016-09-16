@@ -107,8 +107,10 @@ window.GenManager = function() {
     this.generateHome = () => {
         let dirpath, content;
 
-        if(parseBool(Preferences.session.options.noHome) === false)
+        if(parseBool(Preferences.session.options.noHome) === true) {
+            app.ui.convert.showSuccess();
             return true;
+        }
 
         dirpath = Preferences.session.dirPath;
         content = currentTemplate.generateHome(directoryData);            
