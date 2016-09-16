@@ -79,6 +79,8 @@
             HTMLTree.push('<a href="' + person.fixedID + '.html"><p>' + person.value + '</p></a>');
         });
 
+        HTMLTree.push('<br><hr><br>');
+
         HTMLTree.push(HTMLBodyEnd);
 
         return HTMLTree.join('');
@@ -255,16 +257,16 @@
         // Husband
         if(node.husb) {
             HTMLTree.push('<h2>Husband</h2>');
-            HTMLTree.push('<a href="' + node.husb.fixedID + '.html">' + node.husb.plugin.name.join('\xa0') + '</a>');
-            HTMLTree.push('<br><br>');
+            HTMLTree.push('<a href="' + node.husb.fixedID + '.html"><p>' + node.husb.plugin.name.join('\xa0') + '</p></a>');
         }
 
         // Wife
         if(node.wife) {
             HTMLTree.push('<h2>Wife</h2>');
-            HTMLTree.push('<a href="' + node.wife.fixedID + '.html">' + node.wife.plugin.name.join('\xa0') + '</a>');
-            HTMLTree.push('<br><hr><br>');
+            HTMLTree.push('<a href="' + node.wife.fixedID + '.html"><p>' + node.wife.plugin.name.join('\xa0') + '</p></a>');
         }
+
+        HTMLTree.push('<br><hr><br>');
 
         // Marriage Data
         if(node.marr) {
@@ -272,9 +274,8 @@
                 HTMLTree.push('<h4>Married on: ' + node.marr.date + '</h4>');
             if(node.marr.place)
                 HTMLTree.push('<h4>Location: ' + node.marr.place + '</h4>');
-        }
-
-        HTMLTree.push('<br><hr><br>');
+            HTMLTree.push('<br><hr><br>');
+        }        
 
         // Childrens
         HTMLTree.push("<h2>Childrens</h2>");
@@ -282,6 +283,7 @@
             HTMLTree.push('<a href="' + child.fixedID + '.html"><p>' + child.plugin.name.join('\xa0') + '</p></a>');
         });
 
+	HTMLTree.push('<br><hr><br>');
         HTMLTree.push(HTMLBodyEnd);
 
         return HTMLTree.join('');
