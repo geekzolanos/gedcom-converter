@@ -55,13 +55,14 @@
             
             // Boton Acerca de...
             let btnAbout = document.querySelector('header .btn-about');
-             btnAbout.addEventListener('click', () => {
+            let version = electron.getGlobal('_VERSION');
+            btnAbout.addEventListener('click', () => {
                 electron.dialog.showMessageBox({
                     type: "info",
                     buttons: [],
                     title: "About...",
                     message: "Gedcom Converter",
-                    detail: "Version 1.0\nDeveloper by Geekzolanos for Upwork.\nFor more information, please contact us sending a e-mail to\n\ngeekzolanos@gmail.com"
+                    detail: "Version " + version + "\nDeveloper by Geekzolanos for Upwork.\nFor more information, please contact us sending a e-mail to\n\ngeekzolanos@gmail.com"
                 });
             });
         },
