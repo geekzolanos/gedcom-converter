@@ -6,17 +6,47 @@
         </header>
         <form class="prefs-container">
             <fieldset>
-                <label for="template"></label>
-                <select id="template"></select>
+                <div class="input-combo">
+                    <input type="checkbox" id="ad-snippet-enabled">
+                    <div class="text">
+                        <p class="title">Enable Google Adsense Ads</p>
+                        <p class="description">
+                            <textarea id="ad-snippet" placeholder="Place your Google Adsense snippet here." disabled></textarea>
+                        </p>
+                    </div>
+                </div>                
             </fieldset>
             <fieldset>
-                <label for="ad-snippet">Google Adsense Snippet</label>
-                <textarea id="ad-snippet"></textarea>
+                <div class="input-combo">
+                    <input type="checkbox" id="no-home">
+                    <div class="text">
+                        <p class="title">Exclude Home Page generation.</p>
+                        <p class="description">When this option is enabled, the app will no generate a home page automatically. The 'Home' button it will stay on footer but you must create a custom home page and save as index.html on out folder.</p>
+                    </div>
+                </div>
+                <div class="input-combo">
+                    <input type="checkbox" id="prologe">
+                    <div class="text">
+                        <p class="title">Add Prologe link on footer.</p>
+                        <p class="description">Select this option to add and 'Prologe' link on every footer's generated page. Remember to copy a custom 'Prologe' web page on the out folder named 'prologe.html'</p>
+                    </div>
+                </div>
+                <div class="input-combo">
+                    <input type="checkbox" id="credits">
+                    <div class="text">
+                        <p class="title">Add credits link on footer</p>
+                        <p class="description">Select this option to add and 'Credits' link on every footer's generated page. Remember to copy a custom 'Credits' web page on the out folder named 'credits.html'</p>
+                    </div>
+                </div>
             </fieldset>
             <fieldset>
-                <input type="checkbox" id="home">
-                <input type="checkbox" id="prologe">
-                <input type="checkbox" id="credits">
+                <div class="input-combo">
+                    <input type="checkbox" id="overwrite-persist">
+                    <div class="text">
+                        <p class="title">Remember this settings</p>
+                        <p class="description">Select this option to remember this preferences on future sessions.</p>
+                    </div>
+                </div>
             </fieldset>
         </form>
         <footer>

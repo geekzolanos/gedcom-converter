@@ -10,6 +10,13 @@
 
     .prefs-container {
         margin: 2rem 0;
+        overflow-y: scroll;
+        height: 15rem;
+
+        fieldset {
+            border: none;
+            &:last-child { margin-top: 2.5rem; }
+        }
         
         label {
             font-size: 1.2rem;
@@ -18,6 +25,35 @@
         #ad-snippet {
             width: 100%;
             height: 6rem;
+        }
+
+        .input-combo {
+            width: 90%;
+            margin: 1.8rem 0;
+            clear: both;
+
+            &:first-child { margin-top: 0; }
+            &:last-child { margin-bottom: 0; }
+
+            input {
+                margin: 0;
+                height: 1.8rem;
+                float: left;
+            }
+                        
+            .text {
+                margin-left: 1.8rem;
+                text-align: justify;
+
+                p {
+                    margin: 0;
+
+                    &.title { 
+                        font-weight: bolder;
+                        font-size: 1.2rem;
+                    }
+                }
+            }
         }
     }
 
