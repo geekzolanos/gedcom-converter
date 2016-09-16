@@ -292,13 +292,16 @@
         }        
 
         // Childrens
-        HTMLTree.push("<h2>Childrens</h2>");
-        node.childs.forEach((child) => {
-            HTMLTree.push('<a href="' + child.fixedID + '.html"><p>' + child.plugin.name.join('\xa0') + '</p></a>');
-        });
+        if(node.childs) {            
+            HTMLTree.push("<h2>Childrens</h2>");
+            node.childs.forEach((child) => {
+                HTMLTree.push('<a href="' + child.fixedID + '.html"><p>' + child.plugin.name.join('\xa0') + '</p></a>');
+            });
 
-	HTMLTree.push('<br><hr><br>');
-        HTMLTree.push(HTMLBodyEnd);
+            HTMLTree.push('<br><hr><br>');
+        }
+
+        HTMLTree.push(HTMLBodyEnd());
 
         return HTMLTree.join('');
     }
