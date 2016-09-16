@@ -12,6 +12,17 @@ window.GenManager = function() {
     let directoryData = {persons: [], families: []};
 
     // Metodos privados
+    let generateHome = () => {
+        let dirpath, content;
+        
+        if(parseBool(Preferences.session.options.noHome) === false)
+            return true;
+
+        dirpath = Preferences.session.dirPath;
+        content = currentTemplate.generateHome(directoryData);            
+        fs.writeFile(dirpath + '/index.html', content, app.ui.convert.showSuccess);
+    };
+
     let generateNext = () => {
         let dirpath = Preferences.session.dirPath;
 
@@ -20,11 +31,11 @@ window.GenManager = function() {
 
         // Si el indice alcanzo el limite, generamos a Home y mostramos mensaje de exito.
         if(idxCurrentNode > parsedKeys.length - 1) {
-            let content = currentTemplate.generateHome(directoryData);            
-            fs.writeFile(dirpath + '/index.html', content, app.ui.convert.showSuccess);
-            return false;
+            generateHome();
+            return true;
         }
         
+        // De lo contrario, continuamos
         let currentKey = parsedKeys[idxCurrentNode];
         let currentNode = parsedData[currentKey];
         if(DEBUG) {
