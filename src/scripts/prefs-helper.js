@@ -6,18 +6,18 @@
     let firstRun = null;
 
     let preferencesURI = {
-        filePath: 'app://gviewer.gk.com/session/filepath',
-        dirPath: 'app://gviewer.gk.com/session/dirpath',
-        adSnippet: 'app://gviewer.gk.com/session/options/adSnippet',
-        noHome: 'app://gviewer.gk.com/session/options/noHome',
-        prologe: 'app://gviewer.gk.com/session/options/prologe',
-        credits: 'app://gviewer.gk.com/session/options/credits',
-        totalNodes: 'app://gviewer.gk.com/session/progress/totalNodes',
-        p_enabled: 'app://gviewer.gk.com/persist/enabled',
-        p_adSnippet: 'app://gviewer.gk.com/persist/options/adSnippet',
-        p_noHome: 'app://gviewer.gk.com/persist/options/noHome',
-        p_prologe: 'app://gviewer.gk.com/persist/options/prologe',
-        p_credits: 'app://gviewer.gk.com/persist/options/credits'
+        filePath: 'app://gconv.gk.com/session/filepath',
+        dirPath: 'app://gconv.gk.com/session/dirpath',
+        adSnippet: 'app://gconv.gk.com/session/options/adSnippet',
+        noHome: 'app://gconv.gk.com/session/options/noHome',
+        prologe: 'app://gconv.gk.com/session/options/prologe',
+        credits: 'app://gconv.gk.com/session/options/credits',
+        totalNodes: 'app://gconv.gk.com/session/progress/totalNodes',
+        p_enabled: 'app://gconv.gk.com/persist/enabled',
+        p_adSnippet: 'app://gconv.gk.com/persist/options/adSnippet',
+        p_noHome: 'app://gconv.gk.com/persist/options/noHome',
+        p_prologe: 'app://gconv.gk.com/persist/options/prologe',
+        p_credits: 'app://gconv.gk.com/persist/options/credits'
     };
 
     window.Preferences = {        
