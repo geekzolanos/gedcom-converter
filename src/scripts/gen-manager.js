@@ -149,7 +149,11 @@ window.GenManager = function() {
         let content = generateContent(currentNode);
 
         // Escribimos los datos
-        fs.writeFile(dirpath + '/' + currentNode.fixedID + '.html', content, this.generateNext);
+        // Hay circunstancias en donde el contenido no es generado. Si este es el caso solo pasamos al siguiente nodo.
+        if(content)
+            fs.writeFile(dirpath + '/' + currentNode.fixedID + '.html', content, this.generateNext);
+        else
+            this.generateNext();
     }
 
     this.setup = (data) => {
