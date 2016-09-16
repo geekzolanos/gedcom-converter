@@ -14,7 +14,7 @@ window.GenManager = function() {
     // Metodos privados
     let generateHome = () => {
         let dirpath, content;
-        
+
         if(parseBool(Preferences.session.options.noHome) === false)
             return true;
 
@@ -124,7 +124,7 @@ window.GenManager = function() {
                 this.cleanPersonNode(node);
 
                 // Colocamos una referencia en el directorio para el indice
-                directoryData.persons.push({id: node.id, value: node.plugin.name.join('')});
+                directoryData.persons.push({id: node.id, value: node.plugin.name.join('\xa0')});
 
                 return currentTemplate.generatePerson(node);
 
