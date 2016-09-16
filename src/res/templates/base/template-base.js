@@ -39,14 +39,14 @@
     let generateHTMLAsHome = (data) => {
         let HTMLTree = [];
         let adsenseSnippet = window.sessionStorage.getItem(ssURI.adSnippet);
-        let currentTime = new Date().getTime();
+        let currentDate = new Date();
 
         HTMLTree.push(HTMLHeadStart);
 
         HTMLTree.push([
             '<title>Main Page</title>',
             '<meta name="title" content="Main Page">',
-            '<meta name="currentdate" content="' + currentTime + '">',
+            '<meta name="currentdate" content="' + currentDate + '">',
             '<meta name="description" content="Main Page">'
         ].join(''));
 
@@ -87,7 +87,7 @@
     let generateHTMLAsPerson = (node) => {
         let HTMLTree = [];
         let adsenseSnippet = window.sessionStorage.getItem(ssURI.adSnippet);
-        let currentTime = new Date().getTime();
+        let currentDate = new Date();
         let name = node.plugin.name.join("\xa0");
         let birthYear = (node.plugin.birt) ? node.plugin.birt.year : null;
         let birthPlace = (node.plugin.birt) ? node.plugin.birt.place : null;
@@ -99,7 +99,7 @@
             '<title>' + name + '</title>',
             '<meta name="title" content="' + name + '\xa0' + birthYear + ' genealogy ' + currentTime + '">',
             '<meta name="birthyear" content="' + birthYear + '">',
-            '<meta name="currentdate" content="' + currentTime + '">',
+            '<meta name="currentdate" content="' + currentDate + '">',
             '<meta name="description" content="' + name + ' family history">'
         ].join(''));
 
@@ -227,7 +227,7 @@
     let generateHTMLAsFamily = (node) => {
         let HTMLTree = [];
         let adsenseSnippet = window.sessionStorage.getItem(ssURI.adSnippet);
-        let currentTime = new Date().getTime();
+        let currentDate = new Date();
         let familyName = (node.husb) ? node.husb.plugin.name[node.husb.plugin.name.length - 1] : "Unknown Family name";
 
         HTMLTree.push(HTMLHeadStart);
@@ -235,7 +235,7 @@
         HTMLTree.push([
             '<title>' + familyName + ' Pedigree</title>',
             '<meta name="title" content="' + familyName + '">',
-            '<meta name="currentdate" content="' + currentTime + '">',
+            '<meta name="currentdate" content="' + currentDate + '">',
             '<meta name="description" content="' + familyName + '">'
         ].join(''));
 
