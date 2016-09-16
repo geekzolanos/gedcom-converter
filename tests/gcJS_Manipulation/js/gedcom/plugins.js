@@ -275,6 +275,20 @@ new Plugin({
 			}
 		});
 
+// David - 150916 | Nuevo plugin PedigreeName
+new Plugin({
+			order : 1050,
+			key : "pedigreeName",
+			doParser : function(me, data) {
+				/* David - 140916 | Reforzando la eliminacion de barras diagonales en nombre */
+				let prop = GedcomParser.getChilds(data, "NAME", true);
+				let lastNames = prop[prop.length - 1].split(/\s+/g);
+				let p_name = lastNames[0].replace(/[\/\\]/g, "");
+
+				this.plugin[me.key] = p_name;
+			}
+		});
+
 new Plugin({
 			order : 1100,
 			key : "prenom",
@@ -337,8 +351,8 @@ new Plugin({
 
 new Plugin({
 			order : 1500,
-			key : "burri",
-			doParser : GedcomPlugins.doParserDateAndPlaceHelper.curry("BURRI")
+			key : "buri",
+			doParser : GedcomPlugins.doParserDateAndPlaceHelper.curry("BURI")
 		});
 
 new Plugin({

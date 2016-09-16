@@ -7,10 +7,12 @@ GedcomPlugins.setRequired("deat");
 GedcomPlugins.setRequired("privacy");
 GedcomPlugins.setRequired("sexe");
 GedcomPlugins.setRequired("name");
+GedcomPlugins.setRequired("pedigreeName");
 GedcomPlugins.setRequired("birt");
 GedcomPlugins.setRequired("familles");
 GedcomPlugins.setRequired("familleParent");
 GedcomPlugins.setRequired("sexe");
+GedcomPlugins.setRequired("buri");
 
 // ///////////
 // PERSONNE //
@@ -40,7 +42,7 @@ Personne.prototype = {
 	initialize : function(data) {
 		this.plugin = {};
 		this.id = data.type;
-		this.fixedID = this.id.replace(/[\@]/g, ""); /* David - 140916 | Agregada propiedad replace */
+		this.fixedID = this.id.replace(/[\@]/g, ""); /* David - 140916 | Agregada propiedad fixedID */
 		this.data = data;
 		try {
 			this.loadPlugins(data, true);
@@ -185,11 +187,13 @@ Famille.prototype = {
 			return parser.getData(child);
 		}, this);
 
-		// David - 10916 | Establecemos el nombre de la familia
-		if(this.husb)			
-			this.name = this.husb.plugin.name[this.husb.plugin.name.length - 1];
-		else if(this.wife)
-			this.name = this.wife.plugin.name[this.wife.plugin.name.length - 1];
+		// David - 150916 | Establecemos el nombre de la familia
+		if(this.husb) {		
+			this.name = this.husb.plugin.pedigreeName;
+		}
+		else if(this.wife) {
+			this.name = this.wife.plugin.pedigreeName;
+		}
 	}
 
 };
