@@ -35,8 +35,8 @@
             
             /* Progreso total */
             progress: {
-                get totalNodes() { return parseInt(window.sessionStorage.getItem(preferencesURI.adSnippet)); },
-                set totalNodes(data) { window.sessionStorage.setItem(preferencesURI.adSnippet, data); } 
+                get totalNodes() { return parseInt(window.sessionStorage.getItem(preferencesURI.totalNodes)); },
+                set totalNodes(data) { window.sessionStorage.setItem(preferencesURI.totalNodes, data); } 
             },
 
             /* Opciones de personalizacion */
