@@ -15,23 +15,33 @@
 
     /*
         Snippets
-    */
+    */    
+    let HTMLBodyStart = '<body style="background-color: #f7f7f7; text-align: center;">';
+    let HTMLHeadEnd = '</head>';
     let HTMLHeadStart = [
         '<html>',
         '<head>',
-        '<meta charset="UTF-8">'
+        '<meta charset="UTF-8">',
+        '<style>',
+        'footer a {margin: 0 5px;}',
+        '</style>'
     ].join('');
 
-    let HTMLHeadEnd = '</head>';
-
-    let HTMLBodyEnd = [
-        GoogleSearchWidget,        
-        '<a href="index.html">Home</a>',
-        '</body>',
-        '</html>'
-    ].join('');  
-
-    let HTMLBodyStart = '<body style="background-color: #f7f7f7; text-align: center;">';
+    let HTMLBodyEnd = () => {
+        let tree = [];        
+        tree.push('</body>');        
+        tree.push('<footer>');
+        tree.push(GoogleSearchWidget);
+        tree.push('<a href="index.html">Home</a>');
+        if(parseBool(Preferences.session.options.prologe) === true)
+            tree.push('<a href="prologe.html">Prologe</a>');
+        if(parseBool(Preferences.session.options.credits) === true)
+            tree.push('<a href="credits.html">Credits</a>');            
+        tree.push('</footer>');
+        tree.push('</html>');
+        
+        return tree.join('');
+    }    
     
     /*
         Template methods
@@ -81,7 +91,7 @@
 
         HTMLTree.push('<br><hr><br>');
 
-        HTMLTree.push(HTMLBodyEnd);
+        HTMLTree.push(HTMLBodyEnd());
 
         return HTMLTree.join('');
     }
@@ -99,7 +109,7 @@
 
         HTMLTree.push([
             '<title>' + name + '</title>',
-            '<meta name="title" content="' + name + '\xa0' + birthYear + ' genealogy ' + currentTime + '">',
+            '<meta name="title" content="' + name + '\xa0' + birthYear + ' genealogy ' + currentDate + '">',
             '<meta name="birthyear" content="' + birthYear + '">',
             '<meta name="currentdate" content="' + currentDate + '">',
             '<meta name="description" content="' + name + ' family history">'
@@ -221,7 +231,7 @@
             HTMLTree.push('<a href="' + node.plugin.familleParent.fixedID + '.html"><p>Go to ' + familleParentName + ' Pedigree</p></a>');
         }
 
-        HTMLTree.push(HTMLBodyEnd);
+        HTMLTree.push(HTMLBodyEnd());
 
         return HTMLTree.join('');
     }
