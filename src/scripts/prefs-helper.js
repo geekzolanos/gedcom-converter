@@ -74,4 +74,7 @@
             }
         }
     }
+
+    // Limpiamos la sessionStorage (Por precaucion)
+    window.sessionStorage.clear();
 })();

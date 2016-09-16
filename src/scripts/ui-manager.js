@@ -34,13 +34,9 @@
             let content = doc.querySelector('template').content;
             container.appendChild(content.cloneNode(true));
         },
-
-
     
        // Metodos publicos
         initialize: () => {
-            // Limpiamos la sessionStorage (Por precaucion)
-            window.sessionStorage.clear();
             // ContextMenu
             ctxMenu.use(inputCtxMenu);
             ctxMenu.activate();
@@ -59,7 +55,7 @@
             
             // Boton Acerca de...
             let btnAbout = document.querySelector('header .btn-about');
-            btnAbout.addEventListener('click', () => {
+             btnAbout.addEventListener('click', () => {
                 electron.dialog.showMessageBox({
                     type: "info",
                     buttons: [],
