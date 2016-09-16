@@ -285,7 +285,7 @@ new Plugin({
 				let lastNames = prop[prop.length - 1].split(/\s+/g);
 				let p_name = lastNames[0].replace(/[\/\\]/g, "");
 
-				this.plugin[me.key] = p_name;
+				this.plugin[me.key] = p_name.capitalize();
 			}
 		});
 
