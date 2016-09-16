@@ -48,7 +48,7 @@
     */
     let generateHTMLAsHome = (data) => {
         let HTMLTree = [];
-        let adsenseSnippet = window.sessionStorage.getItem(ssURI.adSnippet);
+        let adsenseSnippet = Preferences.session.options.adSnippet;
         let currentDate = new Date();
 
         HTMLTree.push(HTMLHeadStart);
@@ -67,7 +67,7 @@
         HTMLTree.push('<h1 style="color: #00f;">Main Page</h1>');
 
         // Adsense Snippet
-        if(adsenseSnippet) {
+        if(!adsenseSnippet.empty()) {
             HTMLTree.push('<p>Our advertiser</p>');
             HTMLTree.push(adsenseSnippet);
             HTMLTree.push('<br>');
@@ -98,7 +98,7 @@
 
     let generateHTMLAsPerson = (node) => {
         let HTMLTree = [];
-        let adsenseSnippet = window.sessionStorage.getItem(ssURI.adSnippet);
+        let adsenseSnippet = Preferences.session.options.adSnippet;
         let currentDate = new Date();
         let name = node.plugin.name.join("\xa0");
         let birthYear = (node.plugin.birt) ? node.plugin.birt.year : null;
@@ -122,7 +122,7 @@
         HTMLTree.push('<h1 style="color: #00f;">' + name + '\xa0\xa0' + birthYear  + '</h1>');
 
         // Adsense Snippet 
-        if(adsenseSnippet) {
+        if(adsenseSnippet.empty() === false) {
             HTMLTree.push('<p>Our advertiser</p>');
             HTMLTree.push(adsenseSnippet);
             HTMLTree.push('<br>');
@@ -238,7 +238,7 @@
 
     let generateHTMLAsFamily = (node) => {
         let HTMLTree = [];
-        let adsenseSnippet = window.sessionStorage.getItem(ssURI.adSnippet);
+        let adsenseSnippet = Preferences.session.options.adSnippet;
         let currentDate = new Date();
         let familyName = (node.husb) ? node.husb.plugin.name[node.husb.plugin.name.length - 1] : "Unknown Family name";
 
@@ -258,7 +258,7 @@
         HTMLTree.push('<h1 style="color: #00f;">' + familyName + ' Pedigree' + '</h1>');
 
         // Adsense Snippet 
-        if(adsenseSnippet) {
+        if(!adsenseSnippet.empty()) {
             HTMLTree.push('<p>Our advertiser</p>');
             HTMLTree.push(adsenseSnippet);
             HTMLTree.push('<br>');
