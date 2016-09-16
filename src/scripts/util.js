@@ -14,3 +14,7 @@ let Tones = {
     ALPHA_DARK: 2,
     ALPHA_LIGHT: 3
 }
+
+parseBool = (r) => {
+    return ((r == "true") ? true : false);
+}

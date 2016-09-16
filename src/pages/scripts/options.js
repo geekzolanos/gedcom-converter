@@ -4,11 +4,38 @@
         let nodes = {}
 
         let methods = {
-            optsGoFwd: () => {
-                let adSnippet = nodes.optsAdSnippet.value;
-                if(adSnippet)
-                    Preferences.session.options.adSnippet =  adSnippet;
+            updateOptions: () => {
+                Preferences.session.options.adSnippet = nodes.optsAdSnippet.value;
+                Preferences.session.options.noHome = nodes.optsNoHome.checked;
+                Preferences.session.options.prologe = nodes.optsAddProloge.checked;
+                Preferences.session.options.credits = nodes.optsAddCredits.checked;
+                Preferences.persist.enabled = nodes.optsOverwritePersist.checked;
 
+                if(parseBool(Preferences.persist.enabled) === true) {
+                    Preferences.persist.options.adSnippet = nodes.optsAdSnippet.value;
+                    Preferences.persist.options.noHome = nodes.optsNoHome.checked;
+                    Preferences.persist.options.prologe = nodes.optsAddProloge.checked;
+                    Preferences.persist.options.credits = nodes.optsAddCredits.checked;
+                }
+            },
+
+            writePersistentOpts: () => {
+                if(parseBool(Preferences.persist.enabled) === true) {
+                    nodes.optsOverwritePersist.checked = parseBool(Preferences.persist.enabled);
+                    nodes.optsNoHome.checked = parseBool(Preferences.persist.options.noHome);
+                    nodes.optsAddProloge.checked = parseBool(Preferences.persist.options.prologe);
+                    nodes.optsAddCredits.checked = parseBool(Preferences.persist.options.credits);
+                    
+                    if(!Preferences.persist.options.adSnippet.empty()) {
+                        nodes.optsAdSnippetCheck.checked = true;
+                        nodes.optsAdSnippet.disabled = false;
+                        nodes.optsAdSnippet.value = Preferences.persist.options.adSnippet;
+                    }
+                }
+            },
+
+            optsGoFwd: () => {
+                methods.updateOptions();
                 app.ui.showPage('converting');
                 app.ui.convert.start();
             },
@@ -28,12 +55,21 @@
         this.getNodes = () => {
             nodes.optsBtnAccept = document.querySelector('.page[role="options"] button.accept');
             nodes.optsBtnCancel = document.querySelector('.page[role="options"] button.cancel');
+            nodes.optsAdSnippetCheck = document.querySelector('.page[role="options"] #ad-snippet-enabled');
             nodes.optsAdSnippet = document.querySelector('.page[role="options"] #ad-snippet');
+            nodes.optsNoHome = document.querySelector('.page[role="options"] #no-home');
+            nodes.optsAddProloge = document.querySelector('.page[role="options"] #prologe');
+            nodes.optsAddCredits = document.querySelector('.page[role="options"] #credits');
+            nodes.optsOverwritePersist = document.querySelector('.page[role="options"] #overwrite-persist');
         }
 
         this.setEventListeners = () => {
             nodes.optsBtnAccept.addEventListener('click', evtHandlers._optsAcceptClick);
             nodes.optsBtnCancel.addEventListener('click', evtHandlers._optsCancelClick);
+            nodes.optsAdSnippetCheck.addEventListener('change', (e) => { nodes.optsAdSnippet.disabled = !(e.target.checked); });
+
+            // Tomamos ventaja de este metodo para escribir la informacion de persistencia
+            methods.writePersistentOpts();
         }
     }
     
