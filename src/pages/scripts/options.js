@@ -5,7 +5,7 @@
 
         let methods = {
             updateOptions: () => {
-                Preferences.session.options.adSnippet = nodes.optsAdSnippet.value;
+                Preferences.session.options.adSnippet = nodes.optsAdSnippet.content;
                 Preferences.session.options.noHome = nodes.optsNoHome.checked;
                 Preferences.session.options.noFamily = nodes.optsNoFamily.checked;
                 Preferences.session.options.prologe = nodes.optsAddProloge.checked;
@@ -13,7 +13,7 @@
                 Preferences.persist.enabled = nodes.optsOverwritePersist.checked;
 
                 if(parseBool(Preferences.persist.enabled) === true) {
-                    Preferences.persist.options.adSnippet = nodes.optsAdSnippet.value;
+                    Preferences.persist.options.adSnippet = nodes.optsAdSnippet.content;
                     Preferences.persist.options.noHome = nodes.optsNoHome.checked;
                     Preferences.persist.options.noFamily = nodes.optsNoFamily.checked;
                     Preferences.persist.options.prologe = nodes.optsAddProloge.checked;
@@ -32,7 +32,7 @@
                     if(!Preferences.persist.options.adSnippet.empty()) {
                         nodes.optsAdSnippetCheck.checked = true;
                         nodes.optsAdSnippet.disabled = false;
-                        nodes.optsAdSnippet.value = Preferences.persist.options.adSnippet;
+                        nodes.optsAdSnippet.content = Preferences.persist.options.adSnippet;
                     }
                 }
             },
