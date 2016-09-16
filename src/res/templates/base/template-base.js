@@ -76,12 +76,14 @@
         HTMLTree.push('<br><hr><br>');
 
         // Families
-        HTMLTree.push("<h2>Families</h2>");
-        data.families.forEach((family) => {
-            HTMLTree.push('<a href="' + family.fixedID + '.html"><p>' + family.value + '</p></a>');
-        });
+        if(parseBool(Preferences.session.options.noFamily) === false) {
+            HTMLTree.push("<h2>Families</h2>");
+            data.families.forEach((family) => {
+                HTMLTree.push('<a href="' + family.fixedID + '.html"><p>' + family.value + '</p></a>');
+            });
 
-        HTMLTree.push('<br><hr><br>');
+            HTMLTree.push('<br><hr><br>');
+        }
 
         // Persons
         HTMLTree.push("<h2>Persons</h2>");
@@ -228,7 +230,10 @@
         if(node.plugin.familleParent) {
             let father = node.plugin.familleParent.husb;
             let familleParentName = (father) ? father.plugin.name[father.plugin.name.length - 1] : "";
-            HTMLTree.push('<a href="' + node.plugin.familleParent.fixedID + '.html"><p>Go to ' + familleParentName + ' Pedigree</p></a>');
+            if(parseBool(Preferences.session.options.noFamily) === true)
+                HTMLTree.push('<a href="' + node.plugin.familleParent.name + '.html"><p>Go to ' + familleParentName + ' Pedigree</p></a>');
+            else
+                HTMLTree.push('<a href="' + node.plugin.familleParent.fixedID + '.html"><p>Go to ' + familleParentName + ' Pedigree</p></a>');
         }
 
         HTMLTree.push(HTMLBodyEnd());
