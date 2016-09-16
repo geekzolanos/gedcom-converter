@@ -13,9 +13,11 @@ window.GenManager = function() {
 
     // Metodos Publicos
     let cleanPersonNode = (node) => {
-        // La fecha y lugar de nacimiento no puede ser "undefined"
-        if(node.plugin.birt) {
-            let birthDate = node.plugin.birt.date;
+        // Los datos de nacimiento no pueden ser "undefined"
+        node.plugin.birt = node.plugin.birt ? node.plugin.birt : {};
+
+        // Existen casos donde las propiedades tienen el valor de 'undefined'
+        let birthDate = node.plugin.birt.date;
         let birthLoc = node.plugin.birt.place;
         node.plugin.birt.date = (birthDate == "undefined") ? undefined : birthDate;
         node.plugin.birt.place = (birthLoc == "undefined") ? undefined : birthLoc;
@@ -27,7 +29,6 @@ window.GenManager = function() {
             let birthYear = parseInt(birthDate.substring(by_start, by_end));
             if(isNaN(birthYear) === false)
                 node.plugin.birt.year = birthYear.toString();
-        }
         }
 
         // La fecha y lugar de mortalidad no puede ser "undefined"

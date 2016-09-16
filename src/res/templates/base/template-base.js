@@ -103,16 +103,15 @@
         let adsenseSnippet = Preferences.session.options.adSnippet;
         let currentDate = new Date();
         let name = node.plugin.name.join("\xa0");
-        let birthYear = (node.plugin.birt) ? node.plugin.birt.year : null;
-        let birthPlace = (node.plugin.birt) ? node.plugin.birt.place : null;
+        let birth = node.plugin.birt;
         let sex = node.plugin.sexe;
 
         HTMLTree.push(HTMLHeadStart);
 
         HTMLTree.push([
             '<title>' + name + '</title>',
-            '<meta name="title" content="' + name + '\xa0' + birthYear + ' genealogy ' + currentDate + '">',
-            '<meta name="birthyear" content="' + birthYear + '">',
+            '<meta name="title" content="' + name + '\xa0' + (birth.year || "") + ' genealogy ' + currentDate + '">',
+            '<meta name="birthyear" content="' + (birth.year || "Unknown") + '">',
             '<meta name="currentdate" content="' + currentDate + '">',
             '<meta name="description" content="' + name + ' family history">'
         ].join(''));
@@ -121,7 +120,7 @@
         HTMLTree.push(HTMLBodyStart);
 
         // Title
-        HTMLTree.push('<h1 style="color: #00f;">' + name + '\xa0\xa0' + birthYear  + '</h1>');
+        HTMLTree.push('<h1 style="color: #00f;">' + name + '\xa0\xa0' + (birth.year || "")  + '</h1>');
 
         // Adsense Snippet 
         if(adsenseSnippet.empty() === false) {
@@ -148,10 +147,10 @@
         // Birth data
         HTMLTree.push([
             '<h2>Birth data</h2>',
-            '<h4>Year</h4>',
-            '<p>' + (birthYear || "Unknown") + '</p>',
+            '<h4>Date</h4>',
+            '<p>' + (birth.date || "Unknown") + '</p>',
             '<h4>Location</h4>',
-            '<p>' + (birthPlace || "Unknown Location") + '</p>'
+            '<p>' + (birth.place || "Unknown Location") + '</p>'
         ].join(''));
         HTMLTree.push('<br>');
 
