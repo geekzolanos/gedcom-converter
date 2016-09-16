@@ -79,7 +79,7 @@
         if(Preferences.session.options.noFamily === false) {
             HTMLTree.push("<h2>Families</h2>");
             data.families.forEach((family) => {
-                HTMLTree.push('<a href="' + family.fixedID + '.html"><p>' + family.value + '</p></a>');
+                HTMLTree.push('<a href="' + family.id + '.html"><p>' + family.value + '</p></a>');
             });
 
             HTMLTree.push('<br><hr><br>');
@@ -88,7 +88,7 @@
         // Persons
         HTMLTree.push("<h2>Persons</h2>");
         data.persons.forEach((person) => {
-            HTMLTree.push('<a href="' + person.fixedID + '.html"><p>' + person.value + '</p></a>');
+            HTMLTree.push('<a href="' + person.id + '.html"><p>' + person.value + '</p></a>');
         });
 
         HTMLTree.push('<br><hr><br>');

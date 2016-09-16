@@ -13,9 +13,9 @@ window.GenManager = function() {
 
     // Metodos Publicos
     let cleanPersonNode = (node) => {
-         // La fecha y lugar de nacimiento no puede ser "undefined"
+        // La fecha y lugar de nacimiento no puede ser "undefined"
         if(node.plugin.birt) {
-let birthDate = node.plugin.birt.date;
+            let birthDate = node.plugin.birt.date;
         let birthLoc = node.plugin.birt.place;
         node.plugin.birt.date = (birthDate == "undefined") ? undefined : birthDate;
         node.plugin.birt.place = (birthLoc == "undefined") ? undefined : birthLoc;
@@ -83,7 +83,7 @@ let birthDate = node.plugin.birt.date;
                 cleanPersonNode(node);
 
                 // Colocamos una referencia en el directorio para el indice
-                directoryData.persons.push({id: node.id, value: node.plugin.name.join('\xa0')});
+                directoryData.persons.push({id: node.fixedID, value: node.plugin.name.join('\xa0')});
 
                 return currentTemplate.generatePerson(node);
 
@@ -98,7 +98,7 @@ let birthDate = node.plugin.birt.date;
                 }
                 
                 // Colocamos una referencia en el directorio para el indice
-               directoryData.families.push({id: node.id, value: (node.husb) ? node.husb.plugin.name[node.husb.plugin.name.length - 1] : "Unknown Family name"});
+                directoryData.families.push({id: node.fixedID, value: (node.husb) ? node.husb.plugin.name[node.husb.plugin.name.length - 1] : "Unknown Family name"});
 
                 return currentTemplate.generateFamily(node);
 
