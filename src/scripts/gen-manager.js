@@ -90,6 +90,12 @@ window.GenManager = function() {
             case GedcomConst.indicator.famille:
                 if(DEBUG)
                     console.log('Es una Familia!');
+
+                if(parseBool(Preferences.session.options.noFamily) === true) {
+                    if(DEBUG)
+                        console.log('No se permite generar paginas de familias.');
+                    return false;
+                }
                 
                 // Colocamos una referencia en el directorio para el indice
                 directoryData.families.push({id: node.id, value: (node.husb) ? node.husb.plugin.name[node.husb.plugin.name.length - 1] : "Unknown Family name"});

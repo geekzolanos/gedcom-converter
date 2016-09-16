@@ -10,12 +10,14 @@
         dirPath: 'app://gconv.gk.com/session/dirpath',
         adSnippet: 'app://gconv.gk.com/session/options/adSnippet',
         noHome: 'app://gconv.gk.com/session/options/noHome',
+        noFamily: 'app://gconv.gk.com/session/options/noFamily',
         prologe: 'app://gconv.gk.com/session/options/prologe',
         credits: 'app://gconv.gk.com/session/options/credits',
         totalNodes: 'app://gconv.gk.com/session/progress/totalNodes',
         p_enabled: 'app://gconv.gk.com/persist/enabled',
         p_adSnippet: 'app://gconv.gk.com/persist/options/adSnippet',
         p_noHome: 'app://gconv.gk.com/persist/options/noHome',
+        p_noFamily: 'app://gconv.gk.com/persist/options/noFamily',
         p_prologe: 'app://gconv.gk.com/persist/options/prologe',
         p_credits: 'app://gconv.gk.com/persist/options/credits'
     };
@@ -45,6 +47,9 @@
                 get noHome() { return window.sessionStorage.getItem(preferencesURI.noHome); },
                 set noHome(data) { window.sessionStorage.setItem(preferencesURI.noHome, data); },
 
+                get noFamily() { return window.sessionStorage.getItem(preferencesURI.noFamily); },
+                set noFamily(data) { window.sessionStorage.setItem(preferencesURI.noFamily, data); },
+
                 get prologe() { return window.sessionStorage.getItem(preferencesURI.prologe); },
                 set prologe(data) { window.sessionStorage.setItem(preferencesURI.prologe, data); },
 
@@ -65,6 +70,9 @@
 
                 get noHome() { return window.localStorage.getItem(preferencesURI.p_noHome); },
                 set noHome(data) { window.localStorage.setItem(preferencesURI.p_noHome, data); },
+
+                get noFamily() { return window.localStorage.getItem(preferencesURI.p_noFamily); },
+                set noFamily(data) { window.localStorage.setItem(preferencesURI.p_noFamily, data); },
 
                 get prologe() { return window.localStorage.getItem(preferencesURI.p_prologe); },
                 set prologe(data) { window.localStorage.setItem(preferencesURI.p_prologe, data); },
