@@ -140,6 +140,7 @@ Personne.prototype = {
 var Famille = Class.create();
 Famille.prototype = {
 	type : GedcomConst.indicator.famille,
+	name : null,
 	id : null,
 	fixedID : null,
 	husb : null,
@@ -166,7 +167,6 @@ Famille.prototype = {
 
 				// Enfants
 				this.childs = GedcomParser.getChilds(data, "CHIL", true);
-
 			}
 
 		} catch (e) {
@@ -182,8 +182,14 @@ Famille.prototype = {
 			this.wife = parser.getData(this.wife);
 		}
 		this.childs = this.childs.collect(function(child) {
-					return parser.getData(child);
-				}, this);
+			return parser.getData(child);
+		}, this);
+
+		// David - 10916 | Establecemos el nombre de la familia
+		if(this.husb)			
+			this.name = this.husb.plugin.name[this.husb.plugin.name.length - 1];
+		else if(this.wife)
+			this.name = this.wife.plugin.name[this.wife.plugin.name.length - 1];
 	}
 
 };
