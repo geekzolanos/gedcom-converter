@@ -55,8 +55,10 @@
         right: $shell-padding-common;
 
         .logo-container {
-            img {
-                width: 4.8rem;
+            z-index: 10;
+
+            a {
+                img {width: 4.8rem;}                
 
                 &:first-child {
                     float: left;
