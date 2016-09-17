@@ -23,7 +23,7 @@
                     buttons: [],
                     title: 'Gedcom Converter',
                     message: 'Fatal Error',
-                    detail: 'An unrecoverable while during file conversion error occurred, the process can not continue.'
+                    detail: 'An unrecoverable error has been occurred on file conversion, the process can not continue.'
                 });
             },
 
@@ -161,8 +161,8 @@
                     type: 'info',
                     buttons: [],
                     title: 'Gedcom Converter',
-                    message: 'Process Done',
-                    detail: 'The convertion process has been done successfully'                    
+                    message: 'All files converted',
+                    detail: 'The conversion process has been done successfully!'                    
                 });
             },
 

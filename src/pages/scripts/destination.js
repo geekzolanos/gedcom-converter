@@ -10,7 +10,7 @@
 
                 electron.dialog.showOpenDialog({
                     properties: ['openDirectory'], 
-                    title: 'Select destination'
+                    title: 'Select destination folder'
                 }, methods.destSetDestinationHandler);
             },
 
@@ -31,7 +31,7 @@
             destGoFwd: () => {
                 let dirpath = nodes.destContainer.dirpath;
                 if(app.ui.setDestination(dirpath) === false)
-                    electron.dialog.showErrorBox('Invalid File', 'The selected destination is invalid. Please, try again.');
+                    electron.dialog.showErrorBox('Invalid Path', 'The selected path is invalid. Please, try again.');
                 else 
                     app.ui.showPage('options');
             },
