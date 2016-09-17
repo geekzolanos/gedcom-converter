@@ -2,7 +2,7 @@
     function Handler() {
         let _self = this;
         let r_animInterval = null;
-        let CONV_UI = {Default: 0, Error: 1, Success: 2, Cancel: 3};
+        let CONV_UI = {Default: 0, Error: 1, Paused: 2, Success: 3, Cancel: 4};
 
         let nodes = {}
 
@@ -33,6 +33,12 @@
                         methods.convSetShellAnimate(false);
                         app.ui.setBackgroundTone(Tones.light.POMEGRANATE);
                         nodes.convRootPath.classList.add('error');
+                    break;
+
+                    case CONV_UI.Paused:
+                        methods.convSetShellAnimate(false);
+                        app.ui.setBackgroundTone(Tones.light.YELLOW);
+                        nodes.convRootPath.classList.add('paused');
                     break;
 
                     case CONV_UI.Success:
@@ -72,7 +78,27 @@
                     document.body.classList.remove('converting');
                 }
             },
-            
+
+            convTogglePause: () => {
+                let btnIcon = nodes.convBtnPause.querySelector('i');
+
+                if(Preferences.session.progress.isPaused === true) {
+                    methods.convSetUI(CONV_UI.Default);
+                    btnIcon.classList.remove('fa-play');
+                    btnIcon.classList.add('fa-pause');
+
+                    Preferences.session.progress.isPaused = false;
+                    app.generator.generateNext();
+                }
+
+                else {                    
+                    methods.convSetUI(CONV_UI.Paused);
+                    btnIcon.classList.remove('fa-pause');
+                    btnIcon.classList.add('fa-play');
+
+                    Preferences.session.progress.isPaused = true;
+                }
+            },
             convRetry: () => { convStartProcess(); },
             convNewProcess: () => { document.location.reload(); },
 
@@ -86,7 +112,8 @@
             _convCancelClick: (e) => { methods.convCancel.call(_self, e); },
             _convRetryClick: (e) => { methods.convRetry.call(_self, e); },
             _convProcessClick: (e) => { methods.convNewProcess.call(_self, e); },            
-            _convOutputClick: (e) => { methods.convShowOutput.call(_self, e); }
+            _convOutputClick: (e) => { methods.convShowOutput.call(_self, e); },
+            _convPauseClick: (e) => { methods.convTogglePause.call(_self, e); }
         }
 
         this.id = "converting";
@@ -99,7 +126,8 @@
             nodes.convTotalNodes = nodes.convRootPath.querySelector('span.total');
             nodes.convBtnRetry = nodes.convRootPath.querySelector('button.retry');
             nodes.convBtnProcess = nodes.convRootPath.querySelector('button.process');
-            nodes.convBtnOutput = nodes.convRootPath.querySelector('button.show-output');
+            nodes.convBtnOutput = nodes.convRootPath.querySelector('button.show-output');            
+            nodes.convBtnPause = nodes.convRootPath.querySelector('.progress[role="wrapper"] .set');
         }
 
         this.setEventListeners = () => {
@@ -107,6 +135,7 @@
             nodes.convBtnRetry.addEventListener('click', evtHandlers._convRetryClick);            
             nodes.convBtnProcess.addEventListener('click', evtHandlers._convProcessClick);
             nodes.convBtnOutput.addEventListener('click', evtHandlers._convOutputClick);
+            nodes.convBtnPause.addEventListener('click', evtHandlers._convPauseClick);
         }
 
         this.methods = {
