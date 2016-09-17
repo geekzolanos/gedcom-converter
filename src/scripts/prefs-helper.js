@@ -3,8 +3,6 @@
 //  Helper para el manejo de preferencias en la app
 //
 (function() {
-    let firstRun = null;
-
     let preferencesURI = {
         filePath: 'app://gconv.gk.com/session/filepath',
         dirPath: 'app://gconv.gk.com/session/dirpath',
