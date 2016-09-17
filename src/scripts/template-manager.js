@@ -9,7 +9,7 @@ window.Template = function(name, gHome, gPerson, gFamily, gSource) {
     this.generatePerson = gPerson;
     this.generateFamily = gFamily;
     this.generateSource = gSource;
-}
+};
 
 window.Templates = {
     catalog: {},
@@ -26,4 +26,4 @@ window.Templates = {
             throw new ReferenceError('La plantilla no existe.');
         return template;
     }
-}
+};

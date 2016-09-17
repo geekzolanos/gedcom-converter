@@ -20,4 +20,4 @@ window.ViewerWrapper = function() {
             });
         });
     }
-}
+};

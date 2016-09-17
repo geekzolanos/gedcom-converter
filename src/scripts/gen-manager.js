@@ -185,4 +185,4 @@ window.GenManager = function() {
         let parseNode = app.vWrapper.readFile(filepath);
         parseNode.then(this.setup);
     }
-}
+};

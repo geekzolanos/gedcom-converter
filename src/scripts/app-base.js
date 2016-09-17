@@ -16,4 +16,4 @@ const GK_URL = 'http://geekzolanos.wordpress.com';
 //
 // Namespace APP
 //
-window.app = {}
+window.app = {};
