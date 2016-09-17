@@ -63,15 +63,15 @@
                 };
             },
 
-            convSetShellAnimate: (status) => {
-                let loop = () => {                    
-                    let tonesKeys = Object.keys(Tones.light);
-                    let idx = Math.floor(Math.random() * tonesKeys.length);
-                    app.ui.setBackgroundTone(Tones.light[tonesKeys[idx]]);
-                }
+            convSetShellAnimate: (status) => {                
                 if(status === true) {
                     document.body.classList.add('converting');
-                    r_animInterval = setInterval(loop, 5000);
+                    // Establecemos el Loop
+                    r_animInterval = setInterval(() => {
+                        let tonesKeys = Object.keys(Tones.light);
+                        let idx = Math.floor(Math.random() * tonesKeys.length);
+                        app.ui.setBackgroundTone(Tones.light[tonesKeys[idx]]);
+                    }, 5000);
                 }
                 else {                    
                     clearInterval(r_animInterval);                
