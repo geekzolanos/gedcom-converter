@@ -11,44 +11,69 @@
                     buttons: ['Yes', 'No'],
                     title: 'Gedcom Converter',
                     message: 'Confirm. Do you want to cancel the current process?'
-                }, (e) => { if(e == 0) document.location.reload(); });
+                }, (e) => { if(e == 0) methods.convSetUIStop(true); });
             },
 
             convThrowFatalError: () => {
-                // Bloqueamos el boton Cancelar de la pagina
-                nodes.convBtnCancel.disabled = true;
-                
+                methods.convSetUIStop(true);
                 electron.dialog.showMessageBox({
                     type: 'error',
                     buttons: [],
                     title: 'Gedcom Converter',
                     message: 'Fatal Error',
                     detail: 'An unrecoverable while during file conversion error occurred, the process can not continue.'
-                }, () => { document.location.reload(); });
+                });
+            },
+
+            convSetUIStop: (asError) => {
+                // Detenemos la animacion de fondo
+                clearInterval(r_animInterval);                
+                document.body.classList.remove('converting');
+                app.ui.setBackgroundTone((asError === true) ? Tones.light.POMEGRANATE : Tones.light.LIGHT_GREEN);
+                // Configuramos el footer
+                nodes.convRootPath.classList.add((asError === true) ? 'error' : 'success');
             },
 
             convShellAnimate: () => {
                 let tonesKeys = Object.keys(Tones.light);
                 let idx = Math.floor(Math.random() * tonesKeys.length);
                 app.ui.setBackgroundTone(Tones.light[tonesKeys[idx]]);
+            },
+
+            convRetry: () => { convStartProcess(); },
+            convNewProcess: () => { document.location.reload(); },
+
+            convShowOutput: () => {
+                let dirpath = Preferences.session.dirPath;
+                process.exec('explorer.exe ' + dirpath);
             }
         }            
 
         let evtHandlers = {
-            _convCancelClick: (e) => { methods.convCancel.call(_self, e); }          
+            _convCancelClick: (e) => { methods.convCancel.call(_self, e); },
+            _convRetryClick: (e) => { methods.convRetry.call(_self, e); },
+            _convProcessClick: (e) => { methods.convNewProcess.call(_self, e); },            
+            _convOutputClick: (e) => { methods.convShowOutput.call(_self, e); }
         }
 
         this.id = "converting";
 
         this.getNodes = () => {
-            nodes.convBtnCancel = document.querySelector('.page[role="converting"] button.cancel');
-            nodes.convProgressBar = document.querySelector('.page[role="converting"] progress');
-            nodes.convCurrentNode = document.querySelector('.page[role="converting"] span.current');
-            nodes.convTotalNodes = document.querySelector('.page[role="converting"] span.total');
+            nodes.convRootPath = document.querySelector('.page[role="converting"]');
+            nodes.convBtnCancel = nodes.convRootPath.querySelector('button.cancel');
+            nodes.convProgressBar = nodes.convRootPath.querySelector('progress');
+            nodes.convCurrentNode = nodes.convRootPath.querySelector('span.current');
+            nodes.convTotalNodes = nodes.convRootPath.querySelector('span.total');
+            nodes.convBtnRetry = nodes.convRootPath.querySelector('button.retry');
+            nodes.convBtnProcess = nodes.convRootPath.querySelector('button.process');
+            nodes.convBtnOutput = nodes.convRootPath.querySelector('button.show-output');
         }
 
         this.setEventListeners = () => {
-            nodes.convBtnCancel.addEventListener('click', evtHandlers._convCancelClick);
+            nodes.convBtnCancel.addEventListener('click', evtHandlers._convCancelClick);            
+            nodes.convBtnRetry.addEventListener('click', evtHandlers._convRetryClick);            
+            nodes.convBtnProcess.addEventListener('click', evtHandlers._convProcessClick);
+            nodes.convBtnOutput.addEventListener('click', evtHandlers._convOutputClick);
         }
 
         this.methods = {
@@ -62,35 +87,27 @@
             },
 
             convShowSuccessMsg: () => {
-                let dirpath = Preferences.session.dirPath;
-                
-                // Bloqueamos el boton Cancelar de la pagina
-                nodes.convBtnCancel.disabled = true;
-
-                // Mostramos la carpeta de salida
-                process.exec('explorer.exe ' + dirpath);
-
+                // Hacemos cambios en la UI
+                methods.convSetUIStop(false);
                 // Mostramos el mensaje de exito
                 electron.dialog.showMessageBox({
                     type: 'info',
                     buttons: [],
                     title: 'Gedcom Converter',
                     message: 'Process Done',
-                    detail: 'The convertion process has been done successfully. Out path:\n' + dirpath                    
-                }, () => { document.location.reload(); });
+                    detail: 'The convertion process has been done successfully'                    
+                });
             },
 
             convStartProcess: () => {
-                // Damos tiempo a la aplicacion para finalizar la transicion entre paginas
                 // TODO: Migrar el generador a un Worker para otorgar multiprocesamiento.
-                window.addEventListener('unhandledrejection', methods.convThrowFatalError);
-                window.addEventListener('error', methods.convThrowFatalError);
+                window.onerror = window.onunhandledrejection = methods.convThrowFatalError;
 
                 // Animamos el Shell durante el proceso
                 document.body.classList.add('converting');
                 r_animInterval = setInterval(methods.convShellAnimate, 5000);
 
-                // Comenzamos
+                // Damos tiempo a la aplicacion para finalizar la transicion entre paginas
                 setTimeout(app.generator.start, 1000);
             },
         }        

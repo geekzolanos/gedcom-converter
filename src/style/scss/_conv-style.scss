@@ -26,12 +26,36 @@ body.converting .bg-tone {
             height: 1rem;
         }        
     }
-
+    
     footer {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
         text-align: center;
+
+        button {
+            margin: 0 1rem;
+            display: none;
+
+            &.cancel {display: inline-block;}
+        }
+    }
+
+    /* Estado de botones de footer */
+    &.error {
+        footer {
+            .cancel { display: none; }
+            .retry { display: inline-block; }
+            .process { display: inline-block; }
+        }
+    }
+
+    &.success {        
+        footer {
+            .cancel { display: none; }
+            .process { display: inline-block; }
+            .show-output { display: inline-block; }
+        }
     }
 }
