@@ -56,14 +56,21 @@
             // Boton Acerca de...
             let btnAbout = document.querySelector('header .btn-about');
             let version = electron.getGlobal('_VERSION');
+            let aboutAttr = 'about-dialog-visible';
             btnAbout.addEventListener('click', () => {
+                // No debemos permitir la apertura de mas de una instancia de este cuadro de dialogo 
+                if(document.body.hasAttribute(aboutAttr) === true)
+                    return false;
+                
+                document.body.setAttribute(aboutAttr, true);
+
                 electron.dialog.showMessageBox({
                     type: "info",
                     buttons: [],
                     title: "About...",
                     message: "Gedcom Converter",
                     detail: "Version " + version + "\nDeveloper by Geekzolanos for Upwork.\nFor more information, please contact us sending a e-mail to\n\ngeekzolanos@gmail.com"
-                });
+                }, () => {document.body.removeAttribute(aboutAttr);});
             });
 
             // Logos
