@@ -10,9 +10,21 @@ let ErrCode = {
 } 
 
 let Tones = {
-    BLUE: 1,
-    ALPHA_DARK: 2,
-    ALPHA_LIGHT: 3
+    light: {
+        BLUE: 1,
+        ALPHA_LIGHT: 3,
+        YELLOW: 4,
+        LIGHT_GREEN: 5,
+        LIGHT_BLUE: 6,
+        DEEP_ORANGE: 7,
+        SILVER: 8,
+        POMEGRANATE: 9,
+        VIOLET: 10
+    },
+
+    dark: {
+        ALPHA_DARK: 2
+    }
 }
 
 parseBool = (r) => {
