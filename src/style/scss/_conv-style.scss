@@ -1,3 +1,8 @@
+/* Requerido para transicion suave de colores en proceso de conversion */
+body.converting .bg-tone {    
+    transition: background-color 4s ease;
+}
+
 .page[role="converting"] {
     @include full-absolute;
 

@@ -1,6 +1,7 @@
 (function() {
     function Handler() {
         let _self = this;
+        let r_animInterval = null;
         let nodes = {}
 
         let methods = { 
@@ -24,6 +25,12 @@
                     message: 'Fatal Error',
                     detail: 'An unrecoverable while during file conversion error occurred, the process can not continue.'
                 }, () => { document.location.reload(); });
+            },
+
+            convShellAnimate: () => {
+                let tonesKeys = Object.keys(Tones.light);
+                let idx = Math.floor(Math.random() * tonesKeys.length);
+                app.ui.setBackgroundTone(Tones.light[tonesKeys[idx]]);
             }
         }            
 
@@ -78,6 +85,12 @@
                 // TODO: Migrar el generador a un Worker para otorgar multiprocesamiento.
                 window.addEventListener('unhandledrejection', methods.convThrowFatalError);
                 window.addEventListener('error', methods.convThrowFatalError);
+
+                // Animamos el Shell durante el proceso
+                document.body.classList.add('converting');
+                r_animInterval = setInterval(methods.convShellAnimate, 5000);
+
+                // Comenzamos
                 setTimeout(app.generator.start, 1000);
             },
         }        
