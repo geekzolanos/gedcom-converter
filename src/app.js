@@ -3,7 +3,7 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
 // App version
-global._VERSION = "1.0.1";
+global._VERSION = "1.1.0";
 
 // BrowserWindow Nodes
 let mainWindow = null;
@@ -17,7 +17,7 @@ function load() {
         resizable: false,
         show: false
     });    
-    mainWindow.setMenu(null);
+    //mainWindow.setMenu(null);
 
     // BrowserWindow Path
     mainWindow.loadURL('file://' + __dirname + '/main.html');
