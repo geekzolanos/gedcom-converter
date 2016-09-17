@@ -189,14 +189,20 @@
         if(node.plugin.deat) {
             let deatDate = node.plugin.deat.date;
             let deatPlace = node.plugin.deat.place;
+            let buriDate = (node.plugin.buri) ? node.plugin.buri.date : null;
+            let buriPlace = (node.plugin.buri) ? node.plugin.buri.place : null;
 
-            if(deatDate || deatPlace) {
+            if(deatDate || deatPlace || buriDate || buriPlace) {
                 HTMLTree.push([
                     '<h2>Death data</h2>',
-                    '<h4>Year</h4>',
+                    '<h4>Date</h4>',
                     '<p>' + (deatDate || "Unknown") + '</p>',
                     '<h4>Location</h4>',
-                    '<p>' + (deatPlace || "Unknown location") + '</p>'
+                    '<p>' + (deatPlace || "Unknown location") + '</p>',
+                    '<h4>Burial Date</h4>',
+                    '<p>' + (buriDate || "Unknown") + '</p>',
+                    '<h4>Burial Site</h4>',
+                    '<p>' + (buriPlace || "Unknown location") + '</p>'
                 ].join(''));
                 HTMLTree.push('<br><hr><br>');
             }
