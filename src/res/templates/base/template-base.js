@@ -41,7 +41,14 @@
         tree.push('</html>');
         
         return tree.join('');
-    }    
+    }
+
+    let GenerateChildren = (node) => {
+        let name = node.plugin.name.join("\xa0");
+        let birthDate = (node.plugin.birt) ? node.plugin.birt.date : null;
+        let startPhrase = (node.plugin.sexe == "F") ? "A daughter" : "A son";
+        return '<li><p>' + startPhrase + ', <a href="' + node.fixedID + '.html">' + name + '</a> was born ' + (birthDate || '- no date of birth or death') + '.</li></p>';     
+    }
     
     /*
         Template methods
@@ -214,9 +221,11 @@
                 // Hijos
                 if (famille.childs) {
                     HTMLTree.push("<h4>Childrens</h4>");
+                    HTMLTree.push("<ul>");
                     famille.childs.forEach((child) => {
-                        HTMLTree.push('<a href="' + child.fixedID + '.html"><p>' + child.plugin.name.join('\xa0') + '</p></a>');
+                        HTMLTree.push(GenerateChildren(child));
                     });
+                    HTMLTree.push("</ul>");
                 }
 
                 HTMLTree.push('<br><br>');
@@ -292,10 +301,12 @@
 
         // Childrens
         if(node.childs) {            
-            HTMLTree.push("<h2>Childrens</h2>");
+            HTMLTree.push("<h2>Childrens</h2>");       
+            HTMLTree.push("<ul>");
             node.childs.forEach((child) => {
-                HTMLTree.push('<a href="' + child.fixedID + '.html"><p>' + child.plugin.name.join('\xa0') + '</p></a>');
+                HTMLTree.push(GenerateChildren(child));
             });
+            HTMLTree.push("</ul>");
 
             HTMLTree.push('<br><hr><br>');
         }
