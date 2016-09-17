@@ -6,7 +6,7 @@ body.converting .bg-tone {
 .page[role="converting"] {
     @include full-absolute;
 
-    section.progress {
+    main {
         @include center-absolute;
         width: 60%;
         text-align: center;
@@ -20,11 +20,33 @@ body.converting .bg-tone {
         h1 { font-size: 2.4rem; }
         h2 { font-size: 1.4rem; }
 
-        progress {
-            margin-top: 1.8rem;
+        .title[role="wrapper"] {
+            div {display: none;}
+            div.default {display: block;}
+        }
+
+        .progress[role="wrapper"] {
             width: 100%;
-            height: 1rem;
-        }        
+
+            progress {
+                width: 85%;
+                height: 1rem;
+            }
+
+            .set {
+                margin-left: -0.3rem;
+                padding: 1.4rem 1.6rem;
+                vertical-align: -10%;
+                font-size: 1.2rem;
+                background-color: transparent;
+                border: 1px solid #888;
+                border-radius: 10rem;
+                color: #555;
+
+                &:hover { background-color: #aaa; }
+                &:active { background-color: #888; color: #ddd}
+            }
+        }     
     }
     
     footer {
@@ -42,8 +64,18 @@ body.converting .bg-tone {
         }
     }
 
-    /* Estado de botones de footer */
-    &.error {
+    /* UI en cambios de estado */
+    &.cancel {
+        .progress[role="wrapper"] {display: none;}
+
+        .title[role="wrapper"] {
+            // Si estamos en pausa, aun podemos cancelar.
+            // En este caso se mostraran ambos titulos que no es lo deseado.
+            // Asi que recurrimos a important para forzar a paused para no ser mostrado.
+            .default, .paused {display: none !important;} 
+            .cancel {display: block;}        
+        }
+
         footer {
             .cancel { display: none; }
             .retry { display: inline-block; }
@@ -51,7 +83,36 @@ body.converting .bg-tone {
         }
     }
 
-    &.success {        
+    &.paused {
+        .title[role="wrapper"] {
+            .default {display: none;}
+            .paused {display: block;}
+        }
+    }
+
+    &.error {
+        .progress[role="wrapper"] {display: none;}
+
+        .title[role="wrapper"] {
+            .default {display: none;}
+            .error {display: block;}        
+        }
+
+        footer {
+            .cancel { display: none; }
+            .retry { display: inline-block; }
+            .process { display: inline-block; }
+        }
+    }
+
+    &.success {
+        .progress[role="wrapper"] {display: none;}
+
+        .title[role="wrapper"] {
+            .default {display: none;}
+            .success {display: block;}
+        }
+
         footer {
             .cancel { display: none; }
             .process { display: inline-block; }
