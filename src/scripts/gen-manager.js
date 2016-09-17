@@ -127,6 +127,13 @@ window.GenManager = function() {
     this.generateNext = () => {
         let dirpath = Preferences.session.dirPath;
 
+        // Si el proceso esta en pausa no podemos continuar
+        if(Preferences.session.progress.isPaused === true) {
+            if(DEBUG) 
+                console.log('Proceso en pausa. Deteniendo.');
+            return false;
+        }
+
         // Desplazamos el indice
         idxCurrentNode++;
 

@@ -14,6 +14,7 @@
         prologe: 'app://gconv.gk.com/session/options/prologe',
         credits: 'app://gconv.gk.com/session/options/credits',
         totalNodes: 'app://gconv.gk.com/session/progress/totalNodes',
+        isPaused: 'app://gconv.gk.com/session/progress/paused',
         p_enabled: 'app://gconv.gk.com/persist/enabled',
         p_adSnippet: 'app://gconv.gk.com/persist/options/adSnippet',
         p_noHome: 'app://gconv.gk.com/persist/options/noHome',
@@ -36,7 +37,10 @@
             /* Progreso total */
             progress: {
                 get totalNodes() { return parseInt(window.sessionStorage.getItem(preferencesURI.totalNodes)); },
-                set totalNodes(data) { window.sessionStorage.setItem(preferencesURI.totalNodes, data); } 
+                set totalNodes(data) { window.sessionStorage.setItem(preferencesURI.totalNodes, data); },
+
+                get isPaused() { return parseBool(window.sessionStorage.getItem(preferencesURI.isPaused)); },
+                set isPaused(data) { window.sessionStorage.setItem(preferencesURI.isPaused, data); },
             },
 
             /* Opciones de personalizacion */
