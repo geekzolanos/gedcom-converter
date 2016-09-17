@@ -1,12 +1,36 @@
 <template>
     <article class="page" role="converting" data-bg-tone="1">
-        <section class="progress">
+        <main>
             <img src="res/loader.svg" alt="Working...">
-            <h1>Converting data</h1>
-            <h2>This process could take a few minutes. Please wait...</h2>
-            <progress value="0" min="0" max="100"></progress>
-            <p><span class="current">Reading GEDCOM file</span>/<span class="total">-</span></p>
-        </section>
+            <section class="title" role="wrapper">
+                <div class="cancel">
+                    <h1>The process has been canceled</h1>
+                    <h2>Please select an option.</h2>
+                </div>
+                <div class="default">
+                    <h1>Converting data</h1>
+                    <h2>This process could take a few minutes. Please wait...</h2>
+                </div>
+                <div class="error">
+                    <h1>An error has been ocurred</h1>
+                    <h2>Please select an option.</h2>
+                </div>
+                <div class="paused">
+                    <h1>Process is paused</h1>
+                    <h2>Press Play button to resume it.</h2>
+                </div>
+                <div class="success">
+                    <h1>Conversion Complete</h1>
+                    <h2>Please select an option.</h2>
+                </div>
+            </section>
+
+            <section class="progress" role="wrapper">
+                <progress value="0" min="0" max="100"></progress>
+                <button class="set" type="button"><i class="fa fa-pause"></i></button>                
+                <p class="default"><span class="current">Reading GEDCOM file</span>/<span class="total">-</span></p>
+            </section>
+        </main>
         <footer>
             <button class="cancel" type="button">Cancel</button>
             <button class="retry" type="button">Retry</button>
