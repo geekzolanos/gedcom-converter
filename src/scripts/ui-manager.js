@@ -65,6 +65,13 @@
                     detail: "Version " + version + "\nDeveloper by Geekzolanos for Upwork.\nFor more information, please contact us sending a e-mail to\n\ngeekzolanos@gmail.com"
                 });
             });
+
+            // Logos
+            let uwLogo = document.querySelector('.uw-logo');
+            let gkLogo = document.querySelector('.gk-logo');
+
+            uwLogo.addEventListener('click', () => {shell.openExternal(UW_URL)});
+            gkLogo.addEventListener('click', () => {shell.openExternal(GK_URL)});
         },
 
         setGCFile: (filepath) => {
