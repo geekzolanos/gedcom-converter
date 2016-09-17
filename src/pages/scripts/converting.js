@@ -2,6 +2,8 @@
     function Handler() {
         let _self = this;
         let r_animInterval = null;
+        let CONV_UI = {Default: 0, Error: 1, Success: 2, Cancel: 3};
+
         let nodes = {}
 
         let methods = { 
@@ -11,11 +13,11 @@
                     buttons: ['Yes', 'No'],
                     title: 'Gedcom Converter',
                     message: 'Confirm. Do you want to cancel the current process?'
-                }, (e) => { if(e == 0) methods.convSetUIStop(true); });
+                }, (e) => { if(e == 0) methods.convSetUI(CONV_UI.Cancel); });
             },
 
             convThrowFatalError: () => {
-                methods.convSetUIStop(true);
+                methods.convSetUI(CONV_UI.Error);
                 electron.dialog.showMessageBox({
                     type: 'error',
                     buttons: [],
@@ -25,21 +27,52 @@
                 });
             },
 
-            convSetUIStop: (asError) => {
-                // Detenemos la animacion de fondo
-                clearInterval(r_animInterval);                
-                document.body.classList.remove('converting');
-                app.ui.setBackgroundTone((asError === true) ? Tones.light.POMEGRANATE : Tones.light.LIGHT_GREEN);
-                // Configuramos el footer
-                nodes.convRootPath.classList.add((asError === true) ? 'error' : 'success');
+            convSetUI: (type) => {
+                switch(type) {
+                    case CONV_UI.Error:
+                        methods.convSetShellAnimate(false);
+                        app.ui.setBackgroundTone(Tones.light.POMEGRANATE);
+                        nodes.convRootPath.classList.add('error');
+                    break;
+
+                    case CONV_UI.Success:
+                        methods.convSetShellAnimate(false);
+                        app.ui.setBackgroundTone(Tones.light.LIGHT_GREEN);
+                        nodes.convRootPath.classList.add('success');
+                    break;
+
+                    case CONV_UI.Cancel:
+                        methods.convSetShellAnimate(false);
+                        app.ui.setBackgroundTone(Tones.light.POMEGRANATE);
+                        nodes.convRootPath.classList.add('cancel');
+                    break;
+
+                    default:                        
+                        methods.convSetShellAnimate(true);
+                        nodes.convRootPath.classList.remove('cancel');
+                        nodes.convRootPath.classList.remove('error');
+                        nodes.convRootPath.classList.remove('paused');
+                        nodes.convRootPath.classList.remove('success');
+                    break;
+                };
             },
 
-            convShellAnimate: () => {
-                let tonesKeys = Object.keys(Tones.light);
-                let idx = Math.floor(Math.random() * tonesKeys.length);
-                app.ui.setBackgroundTone(Tones.light[tonesKeys[idx]]);
+            convSetShellAnimate: (status) => {
+                let loop = () => {                    
+                    let tonesKeys = Object.keys(Tones.light);
+                    let idx = Math.floor(Math.random() * tonesKeys.length);
+                    app.ui.setBackgroundTone(Tones.light[tonesKeys[idx]]);
+                }
+                if(status === true) {
+                    document.body.classList.add('converting');
+                    r_animInterval = setInterval(loop, 5000);
+                }
+                else {                    
+                    clearInterval(r_animInterval);                
+                    document.body.classList.remove('converting');
+                }
             },
-
+            
             convRetry: () => { convStartProcess(); },
             convNewProcess: () => { document.location.reload(); },
 
@@ -88,7 +121,7 @@
 
             convShowSuccessMsg: () => {
                 // Hacemos cambios en la UI
-                methods.convSetUIStop(false);
+                methods.convSetUI(CONV_UI.Success);
                 // Mostramos el mensaje de exito
                 electron.dialog.showMessageBox({
                     type: 'info',
@@ -104,8 +137,7 @@
                 window.onerror = window.onunhandledrejection = methods.convThrowFatalError;
 
                 // Animamos el Shell durante el proceso
-                document.body.classList.add('converting');
-                r_animInterval = setInterval(methods.convShellAnimate, 5000);
+                methods.convSetUI(CONV_UI.Default);
 
                 // Damos tiempo a la aplicacion para finalizar la transicion entre paginas
                 setTimeout(app.generator.start, 1000);
