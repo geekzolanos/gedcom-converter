@@ -99,7 +99,12 @@
                     Preferences.session.progress.isPaused = true;
                 }
             },
-            convRetry: () => { convStartProcess(); },
+            
+            convRetry: () => {
+                nodes.convRootPath.classList.remove('error');
+                this.methods.convStartProcess();
+            },
+
             convNewProcess: () => { document.location.reload(); },
 
             convShowOutput: () => {
