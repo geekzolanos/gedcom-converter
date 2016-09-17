@@ -17,7 +17,7 @@ function load() {
         resizable: false,
         show: false
     });    
-    //mainWindow.setMenu(null);
+    mainWindow.setMenu(null);
 
     // BrowserWindow Path
     mainWindow.loadURL('file://' + __dirname + '/main.html');
