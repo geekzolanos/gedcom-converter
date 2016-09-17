@@ -14,6 +14,9 @@
     <script src="scripts/template-manager.js"></script>
     <script src="scripts/ui-manager.js"></script>
     <script src="scripts/viewer-wrapper.js"></script>
+    
+    <!-- Templates -->
+    <script src="res/templates/base/template-base.js"></script>
 
     <link rel="stylesheet" href="style/app.min.css">
     <link rel="stylesheet" href="style/font-awesome.min.css">
@@ -41,12 +44,6 @@
 
     <script>
 	    window.addEventListener('load', () => {
-            // Base template load
-            let tbase = document.createElement('script');
-            tbase.src = 'file://' + __dirname + '/../templates/template-base.js';
-            document.head.appendChild(tbase);
-
-            // App initialization
 	    	app.vWrapper = new ViewerWrapper();
 			app.generator = new GenManager();
             app.ui.initialize();
