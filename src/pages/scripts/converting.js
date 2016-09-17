@@ -13,11 +13,11 @@
                     buttons: ['Yes', 'No'],
                     title: 'Gedcom Converter',
                     message: 'Confirm. Do you want to cancel the current process?'
-                }, (e) => { if(e == 0) methods.convSetUI(CONV_UI.Cancel); });
+                }, (e) => { if(e == 0) methods.convSetStatus(CONV_UI.Cancel); });
             },
 
             convThrowFatalError: () => {
-                methods.convSetUI(CONV_UI.Error);
+                methods.convSetStatus(CONV_UI.Error);
                 electron.dialog.showMessageBox({
                     type: 'error',
                     buttons: [],
@@ -27,15 +27,17 @@
                 });
             },
 
-            convSetUI: (type) => {
+            convSetStatus: (type) => {
                 switch(type) {
                     case CONV_UI.Error:
+                        methods.convSetPause(true);
                         methods.convSetShellAnimate(false);
                         app.ui.setBackgroundTone(Tones.light.POMEGRANATE);
                         nodes.convRootPath.classList.add('error');
                     break;
 
                     case CONV_UI.Paused:
+                        methods.convSetPause(true);
                         methods.convSetShellAnimate(false);
                         app.ui.setBackgroundTone(Tones.light.YELLOW);
                         nodes.convRootPath.classList.add('paused');
@@ -48,12 +50,14 @@
                     break;
 
                     case CONV_UI.Cancel:
+                        methods.convSetPause(true);
                         methods.convSetShellAnimate(false);
                         app.ui.setBackgroundTone(Tones.light.POMEGRANATE);
                         nodes.convRootPath.classList.add('cancel');
                     break;
 
-                    default:                        
+                    default:
+                        methods.convSetPause(false);                     
                         methods.convSetShellAnimate(true);
                         nodes.convRootPath.classList.remove('cancel');
                         nodes.convRootPath.classList.remove('error');
@@ -79,29 +83,32 @@
                 }
             },
 
-            convTogglePause: () => {
-                let btnIcon = nodes.convBtnPause.querySelector('i');
+            convSetPause: (status) => {
+                if(status === true) {
+                    Preferences.session.progress.isPaused = true;
+                }
 
-                if(Preferences.session.progress.isPaused === true) {
-                    methods.convSetUI(CONV_UI.Default);
-                    btnIcon.classList.remove('fa-play');
-                    btnIcon.classList.add('fa-pause');
-
+                else {
                     Preferences.session.progress.isPaused = false;
                     app.generator.generateNext();
                 }
-
-                else {                    
-                    methods.convSetUI(CONV_UI.Paused);
-                    btnIcon.classList.remove('fa-pause');
-                    btnIcon.classList.add('fa-play');
-
-                    Preferences.session.progress.isPaused = true;
-                }
             },
             
+            convTogglePause: () => {              
+                let btnIcon = nodes.convBtnPause.querySelector('i');
+                if(Preferences.session.progress.isPaused === true) {                    
+                    btnIcon.classList.remove('fa-pause');
+                    btnIcon.classList.add('fa-play');
+                    methods.convSetStatus(CONV_UI.Paused);
+                }
+                else {                    
+                    btnIcon.classList.remove('fa-play');
+                    btnIcon.classList.add('fa-pause');
+                    methods.convSetStatus(CONV_UI.Default);
+                }
+            },
+
             convRetry: () => {
-                nodes.convRootPath.classList.remove('error');
                 this.methods.convStartProcess();
             },
 
@@ -155,7 +162,7 @@
 
             convShowSuccessMsg: () => {
                 // Hacemos cambios en la UI
-                methods.convSetUI(CONV_UI.Success);
+                methods.convSetStatus(CONV_UI.Success);
                 // Mostramos el mensaje de exito
                 electron.dialog.showMessageBox({
                     type: 'info',
@@ -171,7 +178,7 @@
                 window.onerror = window.onunhandledrejection = methods.convThrowFatalError;
 
                 // Animamos el Shell durante el proceso
-                methods.convSetUI(CONV_UI.Default);
+                methods.convSetStatus(CONV_UI.Default);
 
                 // Damos tiempo a la aplicacion para finalizar la transicion entre paginas
                 setTimeout(app.generator.start, 1000);
