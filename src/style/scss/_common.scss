@@ -50,6 +50,10 @@ footer button {
         background-color: #aaa;
     }
 
+    &:active {
+        background-color: #888;
+    }
+
     &.accept {
         &:active {
             background-color: #337;
