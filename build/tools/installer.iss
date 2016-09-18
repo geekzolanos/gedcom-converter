@@ -2,10 +2,11 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Gedcom Converter"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.1.0"
 #define MyAppPublisher "Geekzolanos"
 #define MyAppURL "http://geekzolanos.wordpress.com/"
 #define MyAppExeName "gconv.exe"
+#define AppSourceRoot "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\1.1.0\files\Gedcom Converter-win32-ia32"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -21,7 +22,7 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DisableProgramGroupPage=yes
-OutputBaseFilename=gconv_setup-win32
+OutputBaseFilename=gconv_setup_{#MyAppVersion}-win32
 SetupIconFile=C:\Users\David Romero\Documents\Upwork\Gedcom\src\res\icon.ico
 Compression=lzma
 SolidCompression=yes
@@ -34,26 +35,26 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\gconv.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\blink_image_resources_200_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\content_resources_200_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\content_shell.pak"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\d3dcompiler_47.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\ffmpeg.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\icudtl.dat"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\libEGL.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\libGLESv2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\LICENSES.chromium.html"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\natives_blob.bin"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\node.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\snapshot_blob.bin"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\ui_resources_200_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\version"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\views_resources_200_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\xinput1_3.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\locales\*"; DestDir: "{app}\locales\"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\David Romero\Documents\Upwork\Gedcom\dist\out\Gedcom Converter-win32-ia32\resources\*"; DestDir: "{app}\resources\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#AppSourceRoot}\gconv.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\blink_image_resources_200_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\content_resources_200_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\content_shell.pak"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\d3dcompiler_47.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\ffmpeg.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\icudtl.dat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\libEGL.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\libGLESv2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\LICENSES.chromium.html"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\natives_blob.bin"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\node.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\snapshot_blob.bin"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\ui_resources_200_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\version"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\views_resources_200_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\xinput1_3.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppSourceRoot}\locales\*"; DestDir: "{app}\locales\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#AppSourceRoot}\resources\*"; DestDir: "{app}\resources\"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
