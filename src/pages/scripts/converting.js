@@ -2,7 +2,7 @@
     function Handler() {
         let _self = this;
         let r_animInterval = null;
-        let CONV_UI = {Default: 0, Error: 1, Paused: 2, Success: 3, Cancel: 4};
+        let CONV_UI = {Default: 0, Error: 1, Paused: 2, Success: 3, Cancel: 4, Retry: 5};
 
         let nodes = {}
 
@@ -56,8 +56,16 @@
                         nodes.convRootPath.classList.add('cancel');
                     break;
 
-                    default:
-                        methods.convSetPause(false);                     
+                    case CONV_UI.Retry:
+                        methods.convSetPause(false);                   
+                        methods.convSetShellAnimate(true);
+                        nodes.convRootPath.classList.remove('cancel');
+                        nodes.convRootPath.classList.remove('error');
+                        nodes.convRootPath.classList.remove('paused');
+                        nodes.convRootPath.classList.remove('success');
+                    break;
+
+                    default:                   
                         methods.convSetShellAnimate(true);
                         nodes.convRootPath.classList.remove('cancel');
                         nodes.convRootPath.classList.remove('error');
@@ -82,34 +90,31 @@
                     document.body.classList.remove('converting');
                 }
             },
-
-            convSetPause: (status) => {
-                if(status === true) {
-                    Preferences.session.progress.isPaused = true;
-                }
-
-                else {
-                    Preferences.session.progress.isPaused = false;
-                    app.generator.generateNext();
-                }
-            },
             
-            convTogglePause: () => {              
+            convSetPause: (status) => {              
                 let btnIcon = nodes.convBtnPause.querySelector('i');
-                if(Preferences.session.progress.isPaused === true) {                    
+                if(status === true) {
                     btnIcon.classList.remove('fa-pause');
                     btnIcon.classList.add('fa-play');
-                    methods.convSetStatus(CONV_UI.Paused);
+                    Preferences.session.progress.isPaused = true;
                 }
                 else {                    
                     btnIcon.classList.remove('fa-play');
                     btnIcon.classList.add('fa-pause');
-                    methods.convSetStatus(CONV_UI.Default);
+                    Preferences.session.progress.isPaused = false;
+                    app.generator.generateNext();
                 }
             },
 
+            convTogglePause: () => {
+                if (Preferences.session.progress.isPaused === true)
+                    methods.convSetStatus(CONV_UI.Retry);
+                else
+                    methods.convSetStatus(CONV_UI.Paused);
+            },
+
             convRetry: () => {
-                this.methods.convStartProcess();
+                methods.convSetStatus(CONV_UI.Retry);
             },
 
             convNewProcess: () => { document.location.reload(); },
