@@ -1,0 +1,3 @@
+[submodule "src/vendor/gedcom-js-viewer"]
+	path = src/vendor/gedcom-js-viewer
+	url = https://github.com/jswale/gedcom-js-viewer
