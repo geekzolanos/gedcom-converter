@@ -1,14 +1,16 @@
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Loading</title>
     <style>
-        html, body {
+        html,
+        body {
             margin: 0;
             padding: 0;
             font-size: 10px;
         }
-
+        
         section[role="content"] {
             position: absolute;
             display: flex;
@@ -21,29 +23,30 @@
             padding: 0 2rem;
             height: 8rem;
         }
-
+        
         img {
             flex: 1;
             width: 6.4rem;
             height: 6.4rem;
         }
-
+        
         .title {
             flex: 3;
             margin-left: 2rem;
         }
-
+        
         .title h1 {
             font-family: 'Segoe UI';
             font-weight: lighter;
             font-size: 2.2rem;
         }
-
-        h1, p {
+        
+        h1,
+        p {
             margin: 0;
             padding: 0;
         }
-
+        
         footer {
             position: absolute;
             bottom: 2rem;
@@ -52,6 +55,7 @@
         }
     </style>
 </head>
+
 <body>
     <section role="content">
         <img src="res/logo/app-logo.png" alt="Gedcom Converter">
@@ -61,12 +65,13 @@
         </div>
     </section>
     <footer>
-        <p>Version <span class="version">1.0.0</span>. Developed for Upwork by Geekzolanos.</p>
+        <p>Version <span class="version"></span>.</p>
     </footer>
 
     <script>
         const remote = require('electron').remote;
-        document.querySelector('.version').innerHTML = remote.getGlobal('_VERSION');
+        document.querySelector('.version').innerHTML = remote.app.getVersion();
     </script>
 </body>
+
 </html>
