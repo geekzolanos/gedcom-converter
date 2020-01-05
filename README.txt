@@ -1,4 +1,4 @@
-Proyecto GEDCOM
+GEDCOM Converter
 ---------------------------------------------------------------
 Descripcion: Un convertidor de archivos GEDCOM a HTML.
-Autor: David Romero para Upwork
+Autor: David Romero (@Geekzolanos)

@@ -2,9 +2,6 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
-// App version
-global._VERSION = "1.1.0";
-
 // BrowserWindow Nodes
 let mainWindow = null;
 let splashScreen = null;
@@ -16,7 +13,7 @@ function load() {
         height: 450,
         resizable: false,
         show: false
-    });    
+    });
     mainWindow.setMenu(null);
 
     // BrowserWindow Path
@@ -26,6 +23,7 @@ function load() {
     mainWindow.on('ready-to-show', () => {
         mainWindow.show();
         splashScreen.hide();
+        //mainWindow.openDevTools();
     });
 
     mainWindow.on('closed', () => {
