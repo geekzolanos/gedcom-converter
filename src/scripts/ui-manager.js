@@ -16,12 +16,12 @@
         },
 
         registerPage: (obj, doc) => {
-            if(!obj)
+            if (!obj)
                 throw new TypeError('El parametro no es un objeto.');
             let id = obj.id;
             let container = document.querySelector('section[role="pages"]');
 
-            if(app.ui.pages.includes(id))
+            if (app.ui.pages.includes(id))
                 throw new Error('La pagina ya esta registrada');
 
             // Registramos el ID de la pagina
@@ -29,13 +29,13 @@
 
             // Registramos el objeto
             _pages[id] = obj;
-            
+
             // Registramos el documento
             let content = doc.querySelector('template').content;
             container.appendChild(content.cloneNode(true));
         },
-    
-       // Metodos publicos
+
+        // Metodos publicos
         initialize: () => {
             // ContextMenu
             ctxMenu.use(inputCtxMenu);
@@ -48,20 +48,20 @@
             app.ui.showPage(APP_START_PAGE);
         },
 
-        setShell: () => {            
+        setShell: () => {
             // Anulado el comportamiento predeterminado de Drag and Drop
             window.addEventListener('drop', (e) => { e.preventDefault(); }, false);
             window.addEventListener('dragover', (e) => { e.preventDefault(); }, false);
-            
+
             // Boton Acerca de...
             let btnAbout = document.querySelector('header .btn-about');
-            let version = electron.getGlobal('_VERSION');
+            let version = electron.app.getVersion();
             let aboutAttr = 'about-dialog-visible';
             btnAbout.addEventListener('click', () => {
                 // No debemos permitir la apertura de mas de una instancia de este cuadro de dialogo 
-                if(document.body.hasAttribute(aboutAttr) === true)
+                if (document.body.hasAttribute(aboutAttr) === true)
                     return false;
-                
+
                 document.body.setAttribute(aboutAttr, true);
 
                 electron.dialog.showMessageBox({
@@ -69,21 +69,18 @@
                     buttons: [],
                     title: "About...",
                     message: "Gedcom Converter",
-                    detail: "Version " + version + "\nDeveloper by Geekzolanos for Upwork.\nFor more information, please contact us sending a e-mail to\n\ngeekzolanos@gmail.com"
-                }, () => {document.body.removeAttribute(aboutAttr);});
+                    detail: "Version " + version + ". Developed by David Romero."
+                }, () => { document.body.removeAttribute(aboutAttr); });
             });
 
             // Logos
-            let uwLogo = document.querySelector('.uw-logo');
-            let gkLogo = document.querySelector('.gk-logo');
-
-            uwLogo.addEventListener('click', () => {shell.openExternal(UW_URL)});
-            gkLogo.addEventListener('click', () => {shell.openExternal(GK_URL)});
+            let ghLogo = document.querySelector('.gh-logo');
+            ghLogo.addEventListener('click', () => { shell.openExternal(GH_URL) });
         },
 
         setGCFile: (filepath) => {
             // Por precaucion
-            if(!filepath)
+            if (!filepath)
                 return false;
 
             // filepath debe ser un String
@@ -93,7 +90,7 @@
             // filepath debe indicar la ruta a un archivo de extension GED
             else if (path.extname(filepath) != '.ged')
                 return false;
-            
+
             // Si todo esta en orden, procedemos a almacenar la referencia
             Preferences.session.filePath = filepath;
             return true;
@@ -101,13 +98,13 @@
 
         setDestination: (dirpath) => {
             // Por precaucion
-            if(!dirpath)
+            if (!dirpath)
                 return false;
 
             // filepath debe ser un String
             if (dirpath.constructor != String)
                 return false;
-            
+
             // Si todo esta en orden, procedemos a almacenar la referencia
             Preferences.session.dirPath = dirpath;
             return true;
@@ -118,16 +115,16 @@
             let activePages = pagesContainer.querySelectorAll('.page.active');
             let target = pagesContainer.querySelector('.page[role="' + id + '"]');
 
-            if(activePages) {
+            if (activePages) {
                 activePages.forEach((elem) => {
                     elem.classList.remove('visible');
                     elem.classList.add('hidden');
                 });
             }
-            
+
             if (!target)
                 throw new ReferenceError('The page doesnt exists.');
-            
+
             target.classList.remove('hidden');
             target.classList.add('active');
             target.classList.add('visible');
@@ -136,29 +133,29 @@
             app.ui.setBackgroundTone(target.getAttribute('data-bg-tone'));
         },
 
-        setBackgroundTone: (color) => {        
+        setBackgroundTone: (color) => {
             let bgTone = document.querySelector('.bg-tone');
             color = color || 0;
-            bgTone.setAttribute('data-color', color);        
+            bgTone.setAttribute('data-color', color);
         },
-        
+
         convert: {
             updateProgress: (current) => {
-                if(_pages.converting)
+                if (_pages.converting)
                     _pages.converting.methods.convUpdateProgress(current);
             },
 
             showSuccess: () => {
-                if(_pages.converting)
+                if (_pages.converting)
                     _pages.converting.methods.convShowSuccessMsg();
             },
 
             start: () => {
-                if(_pages.converting)
+                if (_pages.converting)
                     _pages.converting.methods.convStartProcess();
             },
         }
     }
-    
+
     app.ui = UIManager;
 })();
