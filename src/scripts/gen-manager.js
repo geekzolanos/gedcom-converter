@@ -2,7 +2,7 @@
 //  Generator Manager
 //  Administrador del proceso de conversion
 //
-DEBUG = true;
+
 window.GenManager = function() {
     // Propiedades privadas
     let currentTemplate = Templates.get('Base');
@@ -77,7 +77,7 @@ window.GenManager = function() {
 
         // Fixed ID
         node.fixedID = node.id.replace(/[\@]/g, "");
-        
+
         switch (node.type) {
             case GedcomConst.indicator.personne:
                 if (!!DEBUG)
